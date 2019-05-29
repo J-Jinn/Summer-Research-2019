@@ -13,7 +13,7 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 "notes" directory - Word document files containing notes on background concepts and materials for SLO Topic Modeling.
 
-"datasets" directory - contain Twitter datasets (currently empty).
+"datasets" directory - contain Twitter datasets.
 
 &nbsp;
 
