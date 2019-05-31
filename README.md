@@ -11,17 +11,23 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 ## Directories:
 
-"notes" directory - Word document files containing notes on background concepts and materials for SLO Topic Modeling.
+"notes-word-documents" directory - Word document files containing notes on background concepts and materials for SLO Topic Modeling.
 
-"datasets" directory - contain Twitter datasets.
+"datasets" directory - contains Twitter datasets.
+
+"jupyter-notebooks" directory - contains Jupyter Notebook files and images.
 
 &nbsp;
 
 ## Files in root Directory:
 
+This README.md file.
+
 "research-journal.ipynb" - Jupyter notebook file for keeping research notes.
 
 "scikit-learn-lda-example.py" - Example of Scikit-Learn implementation of LDA.
+
+"slo-lda-topic-extraction-v0.5beta.ipynb" - initial implementation of LDA topic extraction on training set for SLO TBL topic classification dataset(s).
 
 &nbsp;
 
@@ -44,5 +50,11 @@ https://github.com/Calvin-CS/slo-classifiers.git
 ## Twitter Account:
 
 https://twitter.com/JosephJinn
+
+&nbsp;
+
+## Notes:
+
+All of this is just preliminary research.  We're still unsure of what we will pursue this summer.
 
 &nbsp;
