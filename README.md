@@ -19,6 +19,8 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 "json" directory - contains original raw JSON file used in SLO Stance Classification.
 
+"deprecated" - files that are no longer relevant.
+
 &nbsp;
 
 ## "datasets" directory:
@@ -51,7 +53,11 @@ This README.md file.
 
 "scikit-learn-lda-example.py" - Example of Scikit-Learn implementation of LDA.
 
-"slo-lda-topic-extraction-v0.6beta.ipynb" - initial implementation of LDA topic extraction on "LDA_PROCESSED" datasets.
+"slo_lda_topic_extraction_utility_functions.py" - utility functions for LDA topic extraction.
+
+"slo-lda-topic-extraction-v0.7beta.ipynb" - initial implementation of LDA topic extraction on "LDA_PROCESSED" dataset.
+
+"slo-analysis-personal.py" - codebase for "slo-analysis-personal.ipynb"
 
 &nbsp;
 

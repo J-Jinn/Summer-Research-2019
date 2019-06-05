@@ -84,14 +84,13 @@ sns.set()
 from pathlib import Path
 from urllib.parse import urlparse
 import emoji
-
 from nltk.corpus import stopwords
 
 #############################################################
 
 # Note: Need to set level AND turn on debug variables in order to see all debug output.
-log.basicConfig(level=log.DEBUG)
-tf.logging.set_verbosity(tf.logging.ERROR)
+log.basicConfig(level=log.INFO)
+tf.logging.set_verbosity(tf.logging.INFO)
 
 # Miscellaneous parameter adjustments for pandas and python.
 # pd.options.display.max_rows = 10
@@ -385,7 +384,13 @@ def hashtags():
     #            .value_counts(normalize=True)
     #            .head())
 
+
 # Call the function.
 # hashtags()
+
+################################################################################################################
+
+def emojis():
+    print()
 
 ################################################################################################################

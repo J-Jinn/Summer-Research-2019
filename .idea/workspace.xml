@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo-lda-topic-extraction-v0.6beta.py" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated/slo-lda-topic-extraction-v0.6beta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/research-journal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/research-journal.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo-analysis-personal.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo-analysis-personal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,17 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/slo-analysis-personal.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="314" column="37" lean-forward="true" selection-start-line="314" selection-start-column="37" selection-end-line="314" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,13 +56,13 @@
         <option value="$PROJECT_DIR$/slo-lda-topic-extraction.py" />
         <option value="$PROJECT_DIR$/slo-lda-topic-extraction-v0.5beta.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/slo-analysis-personal.ipynb" />
-        <option value="$PROJECT_DIR$/slo-analysis-personal.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/slo-lda-topic-extraction-v0.6beta.py" />
         <option value="$PROJECT_DIR$/slo-lda-topic-extraction-utility-functions.py" />
         <option value="$PROJECT_DIR$/slo-lda-topic-extraction-v0.7beta.py" />
         <option value="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" />
+        <option value="$PROJECT_DIR$/slo-analysis-personal.py" />
         <option value="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -299,23 +289,22 @@
       <workItem from="1559651642706" duration="49000" />
       <workItem from="1559651722145" duration="8921000" />
       <workItem from="1559664375474" duration="31549000" />
-      <workItem from="1559747672525" duration="9006000" />
+      <workItem from="1559747672525" duration="13527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72002000" />
+    <option name="totallyTimeSpent" value="76523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="35" width="1911" height="2094" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26364127" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294893" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32789394" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32789394" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -324,7 +313,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Jupyter" order="11" weight="0.3064763" />
+      <window_info anchor="bottom" id="Jupyter" order="11" visible="true" weight="0.3064763" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32967034" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.32967034" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -416,16 +405,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="360">
-            <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
@@ -444,28 +423,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
-          <folding>
-            <element signature="e#891#912#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2958">
+          <caret line="179" lean-forward="true" selection-start-line="179" selection-end-line="179" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1090">
-          <caret line="222" column="60" lean-forward="true" selection-start-line="222" selection-start-column="60" selection-end-line="222" selection-end-column="60" />
-          <folding>
-            <element signature="e#912#933#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="451">
+          <caret line="177" column="34" lean-forward="true" selection-start-line="177" selection-start-column="34" selection-end-line="177" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="289">
+            <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/slo-analysis-personal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="314" column="37" lean-forward="true" selection-start-line="314" selection-start-column="37" selection-end-line="314" selection-end-column="37" />
+        <state relative-caret-position="5202">
+          <caret line="306" column="22" lean-forward="true" selection-start-line="306" selection-start-column="22" selection-end-line="306" selection-end-column="22" />
+          <folding>
+            <element signature="e#3026#3037#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
