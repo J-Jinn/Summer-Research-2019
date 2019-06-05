@@ -26,6 +26,8 @@ https://medium.com/mlreview/topic-modeling-with-scikit-learn-e80d33668730
 ################################################################################################################
 
 import logging as log
+import re
+import string
 import warnings
 import tensorflow as tf
 import time
@@ -57,7 +59,7 @@ Turn debug log statements for various sections of code on/off.
 # Debug the GridSearch functions for each Classifier.
 debug_pipeline = True
 # Debug the initial dataset import and feature/target set creation.
-debug_preprocess_tweets = False
+debug_preprocess_tweets = True
 # Debug create_training_and_test_set() function.
 debug_train_test_set_creation = False
 
@@ -66,10 +68,13 @@ debug_train_test_set_creation = False
 
 # Import the datasets.
 tweet_dataset_processed1 = \
-    pd.read_csv("datasets/tbl_kvlinden_PROCESSED.csv", sep=",")
+    pd.read_csv("datasets/tbl_kvlinden_LDA_PROCESSED.csv", sep=",")
 
 tweet_dataset_processed2 = \
-    pd.read_csv("datasets/tbl_training_set_PROCESSED.csv", sep=",")
+    pd.read_csv("datasets/tbl_training_set_LDA_PROCESSED.csv", sep=",")
+
+tweet_dataset_processed3 = \
+    pd.read_csv("datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv", sep=",")
 
 # Reindex and shuffle the data randomly.
 tweet_dataset_processed1 = tweet_dataset_processed1.reindex(
@@ -78,9 +83,13 @@ tweet_dataset_processed1 = tweet_dataset_processed1.reindex(
 tweet_dataset_processed2 = tweet_dataset_processed2.reindex(
     pd.np.random.permutation(tweet_dataset_processed2.index))
 
+tweet_dataset_processed3 = tweet_dataset_processed3.reindex(
+    pd.np.random.permutation(tweet_dataset_processed3.index))
+
 # Generate a Pandas dataframe.
 tweet_dataframe_processed1 = pd.DataFrame(tweet_dataset_processed1)
 tweet_dataframe_processed2 = pd.DataFrame(tweet_dataset_processed2)
+tweet_dataframe_processed3 = pd.DataFrame(tweet_dataset_processed3)
 
 if debug_preprocess_tweets:
     # Print shape and column names.
@@ -99,17 +108,41 @@ if debug_preprocess_tweets:
     log.debug("The columns of our SLO dataframe 2:")
     log.debug(tweet_dataframe_processed2.head)
     log.debug("\n")
+    # Print shape and column names.
+    log.debug("\n")
+    log.debug("The shape of our SLO dataframe 3:")
+    log.debug(tweet_dataframe_processed3.shape)
+    log.debug("\n")
+    log.debug("The columns of our SLO dataframe 3:")
+    log.debug(tweet_dataframe_processed3.head)
+    log.debug("\n")
+
+# Rename column in 3rd dataframe for concatenation purposes.
+tweet_dataframe_processed3.columns = ['Tweet']
+
+# Drop any NaN or empty Tweet rows in 3rd dataframe (or else CountVectorizer will blow up).
+tweet_dataframe_processed3 = tweet_dataframe_processed3.dropna()
 
 # Concatenate the individual datasets together.
-frames = [tweet_dataframe_processed1, tweet_dataframe_processed2]
+frames = [tweet_dataframe_processed1, tweet_dataframe_processed2, tweet_dataframe_processed3]
 slo_dataframe_combined = pd.concat(frames, ignore_index=True)
+
+if debug_preprocess_tweets:
+    # Print shape and column names.
+    log.debug("\n")
+    log.debug("The shape of our SLO dataframe combined:")
+    log.debug(slo_dataframe_combined.shape)
+    log.debug("\n")
+    log.debug("The columns of our SLO dataframe combined:")
+    log.debug(slo_dataframe_combined.head)
+    log.debug("\n")
 
 # Reindex everything.
 slo_dataframe_combined.index = pd.RangeIndex(len(slo_dataframe_combined.index))
 # slo_dataframe_combined.index = range(len(slo_dataframe_combined.index))
 
 # Assign column names.
-tweet_dataframe_processed_column_names = ['Tweet', 'SLO']
+tweet_dataframe_processed_column_names = ['Tweet']
 
 # Create input features.
 selected_features = slo_dataframe_combined[tweet_dataframe_processed_column_names]
@@ -121,75 +154,9 @@ if debug_preprocess_tweets:
     log.debug("The Tweets in our input feature:")
     log.debug(processed_features['Tweet'])
     log.debug("\n")
-    log.debug("SLO TBL topic classification label for each Tweet:")
-    log.debug(processed_features['SLO'])
-    log.debug("\n")
 
-# Create feature set and target sets.
+# Create feature set.
 slo_feature_set = processed_features['Tweet']
-slo_target_set = processed_features['SLO']
-
-
-#######################################################
-
-def create_training_and_test_set():
-    """
-    This functions splits the feature and target set into training and test sets for each set.
-
-    Note: We use this to generate a randomized training and target set in order to average our results over
-    n iterations.
-
-    random_state = rng (where rng = random number seed generator)
-
-    :return: Nothing.  Global variables are established.
-    """
-    global tweet_train, tweet_test, target_train, target_test, target_train_encoded, target_test_encoded
-
-    from sklearn.model_selection import train_test_split
-
-    import random
-    rng = random.randint(1, 1000000)
-    # Split feature and target set into training and test sets for each set.
-    tweet_train, tweet_test, target_train, target_test = train_test_split(slo_feature_set, slo_target_set,
-                                                                          test_size=0.33,
-                                                                          random_state=rng)
-
-    if debug_train_test_set_creation:
-        log.debug("Shape of tweet training set:")
-        log.debug(tweet_train.data.shape)
-        log.debug("Shape of tweet test set:")
-        log.debug(tweet_test.data.shape)
-        log.debug("Shape of target training set:")
-        log.debug(target_train.data.shape)
-        log.debug("Shape of target test set:")
-        log.debug(target_test.data.shape)
-        log.debug("\n")
-
-    #######################################################
-
-    # Use Sci-kit learn to encode labels into integer values - one assigned integer value per class.
-    from sklearn import preprocessing
-
-    target_label_encoder = preprocessing.LabelEncoder()
-    target_train_encoded = target_label_encoder.fit_transform(target_train)
-    target_test_encoded = target_label_encoder.fit_transform(target_test)
-
-    target_train_decoded = target_label_encoder.inverse_transform(target_train_encoded)
-    target_test_decoded = target_label_encoder.inverse_transform(target_test_encoded)
-
-    if debug_train_test_set_creation:
-        log.debug("Encoded target training labels:")
-        log.debug(target_train_encoded)
-        log.debug("Decoded target training labels:")
-        log.debug(target_train_decoded)
-        log.debug("\n")
-        log.debug("Encoded target test labels:")
-        log.debug(target_test_encoded)
-        log.debug("Decoded target test labels:")
-        log.debug(target_test_decoded)
-        log.debug("\n")
-
-    # return [tweet_train, tweet_test, target_train, target_test, target_train_encoded, target_test_encoded]
 
 
 ################################################################################################################
@@ -201,9 +168,6 @@ def latent_dirichlet_allocation_grid_search():
     :return: None.
     """
     from sklearn.decomposition import LatentDirichletAllocation
-
-    # Create randomized training and test set using our dataset.
-    create_training_and_test_set()
 
     # Construct the pipeline.
     latent_dirichlet_allocation_clf = Pipeline([
@@ -237,7 +201,7 @@ def latent_dirichlet_allocation_grid_search():
     # Perform the grid search.
     latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, parameters, cv=5, iid=False,
                                                    n_jobs=-1)
-    latent_dirichlet_allocation_clf.fit(tweet_train)
+    latent_dirichlet_allocation_clf.fit(slo_feature_set)
 
     if debug_pipeline:
         # View all the information stored in the model after training it.
@@ -265,12 +229,9 @@ def latent_dirichlet_allocation_topic_extraction():
     """
     from sklearn.decomposition import LatentDirichletAllocation
 
-    # Create randomized training and test set using our dataset.
-    create_training_and_test_set()
-
     # LDA can only use raw term counts for LDA because it is a probabilistic graphical model.
     tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')
-    tf = tf_vectorizer.fit_transform(tweet_train)
+    tf = tf_vectorizer.fit_transform(slo_feature_set)
     tf_feature_names = tf_vectorizer.get_feature_names()
 
     # Run LDA.
@@ -293,12 +254,154 @@ def display_topics(model, feature_names, num_top_words):
     :return: none.
     """
     for topic_idx, topic in enumerate(model.components_):
-        print("Topic %d:" % (topic_idx))
-        print(" ".join([feature_names[i]
-                        for i in topic.argsort()[:-num_top_words - 1:-1]]))
+        log.debug("Topic %d:" % (topic_idx))
+        log.debug(" ".join([feature_names[i]
+                            for i in topic.argsort()[:-num_top_words - 1:-1]]))
 
 
 ################################################################################################################
+
+def preprocess_tweet_text(tweet_text):
+    """
+    Helper function performs text pre-processing using regular expressions and other Python functions.
+
+    Notes:
+
+    TODO - shrink character elongations
+    TODO - remove non-english tweets
+    TODO - remove non-company associated tweets
+    TODO - remove year and time.
+    TODO - remove cash items?
+
+    Resources Used:
+
+    https://thispointer.com/python-how-to-convert-a-list-to-string/
+    http://jonathansoma.com/lede/foundations/classes/pandas%20columns%20and%20functions/apply-a-function-to-every-row-in-a-pandas-dataframe/
+
+    :return: the processed Tweet.
+    """
+
+    # # Remove "RT" tags.
+    # preprocessed_tweet_text = re.sub("rt", "", tweet_text)
+    #
+    # # Remove URL's.
+    # preprocessed_tweet_text = re.sub("http[s]?://\S+", "slo_url", preprocessed_tweet_text)
+    #
+    # # Remove Tweet mentions.
+    # preprocessed_tweet_text = re.sub("@\S+", "slo_mention", preprocessed_tweet_text)
+    #
+    # # Remove Tweet hashtags.
+    # preprocessed_tweet_text = re.sub("#\S+", "slo_hashtag", preprocessed_tweet_text)
+    #
+    # # Remove all punctuation.
+    # preprocessed_tweet_text = preprocessed_tweet_text.translate(str.maketrans('', '', string.punctuation))
+
+    # Remove irrelevant words from Tweets.
+    delete_list = ["slo_url", "slo_mention", "word_n", "slo_year", "slo_cash", "woodside", "auspol", "adani",
+                   "stopadani",
+                   "ausbiz", "santos", "whitehaven", "tinto", "fortescue", "bhp", "adelaide", "billiton", "csg",
+                   "nswpol",
+                   "nsw", "lng", "don", "rio", "pilliga", "australia", "asx", "just", "today", "great", "says", "like",
+                   "big", "better", "rite", "would", "SCREEN_NAME", "mining", "former", "qldpod", "qldpol", "qld", "wr",
+                   "melbourne", "andrew", "fuck", "spadani", "greg", "th", "australians", "http", "https", "rt",
+                   "goadani",
+                   "co", "amp", "riotinto", "carmichael", "abbot", "bill shorten",
+                   "slourl", "slomention", "slohashtag", "sloyear", "slocash"]
+
+    # Convert series to string.
+    tweet_string = str(tweet_text)
+
+    if debug_preprocess_tweets:
+        log.debug("Tweet text as string:")
+        log.debug(tweet_string)
+        log.debug('\n')
+
+    # Split Tweet into individual words.
+    words = tweet_string.split()
+
+    if debug_preprocess_tweets:
+        log.debug("Tweet text as list:")
+        log.debug(words)
+        log.debug('\n')
+
+    # Check to see if a word is irrelevant or not.
+    words_relevant = []
+    for w in words:
+        if w not in delete_list:
+            words_relevant.append(w)
+        else:
+            if debug_preprocess_tweets:
+                log.debug("Irrelevant word found: ")
+                log.debug(w)
+                log.debug('\n')
+
+    if debug_preprocess_tweets:
+        log.debug("List of relevant words in Tweet: ")
+        log.debug(words_relevant)
+        log.debug('\n')
+
+    # Convert list back into original Tweet text minus irrelevant words.
+    tweet_string = ' '.join(words_relevant)
+    # Convert back to a series object.
+    tweet_series = pd.Series(tweet_string)
+
+    if debug_preprocess_tweets:
+        log.debug("Tweet text with irrelevant words removed: ")
+        log.debug(tweet_series)
+        log.debug('\n')
+
+    return tweet_series
+
+
+################################################################################################################
+
+def tweet_dataset_preprocessor(input_file_path, output_file_path, column_name):
+    """
+     Function pre-processes specified dataset in preparation for LDA topic extraction.
+
+    :param input_file_path: relative filepath from project root directory for location of dataset to process.
+    :param output_file_path: relative filepath from project root directory for location to save .csv file.
+    :param column_name: name of the column in the dataset that we are pre-processing.
+    :return: Nothing. Saves to CSV file.
+    """
+
+    # Import the dataset.
+    slo_dataset_cmu = \
+        pd.read_csv(str(input_file_path), sep=",")
+
+    # Shuffle the data randomly.
+    slo_dataset_cmu = slo_dataset_cmu.reindex(
+        pd.np.random.permutation(slo_dataset_cmu.index))
+
+    # Generate a Pandas dataframe.
+    slo_dataframe_cmu = pd.DataFrame(slo_dataset_cmu[str(column_name)])
+
+    if debug_preprocess_tweets:
+        # Print shape and column names.
+        log.debug("\n")
+        log.debug("The shape of our SLO CMU dataframe:")
+        log.debug(slo_dataframe_cmu.shape)
+        log.debug("\n")
+        log.debug("The columns of our SLO CMU dataframe:")
+        log.debug(slo_dataframe_cmu.head)
+        log.debug("\n")
+
+    #######################################################
+
+    # # Down-case all text.
+    # slo_dataframe_cmu['tweet_t'] = slo_dataframe_cmu['tweet_t'].str.lower()
+
+    # Pre-process each tweet individually.
+    slo_dataframe_cmu[str(column_name)] = slo_dataframe_cmu[str(column_name)].apply(preprocess_tweet_text)
+
+    # Reindex everything.
+    slo_dataframe_cmu.index = pd.RangeIndex(len(slo_dataframe_cmu.index))
+    # slo_dataframe_combined.index = range(len(slo_dataframe_combined.index))
+
+    # Save to CSV file.
+    slo_dataframe_cmu.to_csv(str(output_file_path), sep=',',
+                             encoding='utf-8', index=False)
+
 
 ############################################################################################
 
@@ -309,6 +412,15 @@ if __name__ == '__main__':
 
     start_time = time.time()
     ################################################
+    """
+    Perform the Tweet preprocessing.
+    """
+    # tweet_dataset_preprocessor("datasets/dataset_20100101-20180510_tok_PROCESSED.csv",
+    #                            "datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv", "tweet_t")
+    # tweet_dataset_preprocessor("datasets/tbl_kvlinden_PROCESSED.csv",
+    #                            "datasets/tbl_kvlinden_LDA_PROCESSED.csv", "Tweet")
+    # tweet_dataset_preprocessor("datasets/tbl_training_set_PROCESSED.csv",
+    #                            "datasets/tbl_training_set_LDA_PROCESSED.csv", "Tweet")
     """
     Perform exhaustive grid search.
     """
@@ -321,7 +433,7 @@ if __name__ == '__main__':
     end_time = time.time()
 
     if debug_pipeline:
-        log.debug("The time taken to perform LDA is: ")
+        log.debug("The time taken to perform the operation is: ")
         total_time = end_time - start_time
         log.debug(str(total_time))
         log.debug("\n")

@@ -105,3 +105,5 @@ venv.bak/
 datasets/dataset_20100101-20180510_tok_PROCESSED.csv
 datasets/dataset_20100101-20180510_tok.csv
 datasets/dataset_20100101-20180510.csv
+json/
+datasets/

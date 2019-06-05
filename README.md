@@ -17,6 +17,30 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 "jupyter-notebooks" directory - contains Jupyter Notebook files and images.
 
+"json" directory - contains original raw JSON file used in SLO Stance Classification.
+
+&nbsp;
+
+## "datasets" directory:
+
+anything with "LDA_PROCESSED" - used in SLO LDA topic extraction.
+
+anything with "PROCESSED" only - used in SLO TBL topic classification.
+
+other .csv files are original files obtained from the Borg supercomputer.
+
+&nbsp;
+
+## "jupyter-notebooks" directory:
+
+"lda-presentation.ipynb" - LDA basics and SLO LDA topic extraction.
+
+"SLO analysis.ipynb" - from the Calvin College SLO-Classifier repository.
+
+"slo-analysis-personal.ipynb" - adapted from SLO analysis.ipynb.
+
+.png images for use in "lda-presentation.ipynb"
+
 &nbsp;
 
 ## Files in root Directory:
@@ -27,7 +51,7 @@ This README.md file.
 
 "scikit-learn-lda-example.py" - Example of Scikit-Learn implementation of LDA.
 
-"slo-lda-topic-extraction-v0.5beta.ipynb" - initial implementation of LDA topic extraction on training set for SLO TBL topic classification dataset(s).
+"slo-lda-topic-extraction-v0.6beta.ipynb" - initial implementation of LDA topic extraction on "LDA_PROCESSED" datasets.
 
 &nbsp;
 
