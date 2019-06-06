@@ -211,7 +211,7 @@ if __name__ == '__main__':
     """
     Perform the topic extraction.
     """
-    latent_dirichlet_allocation_topic_extraction()
+    # latent_dirichlet_allocation_topic_extraction()
     ################################################
     end_time = time.time()
 
@@ -219,5 +219,8 @@ if __name__ == '__main__':
     total_time = end_time - start_time
     log.info(str(total_time))
     log.info("\n")
+
+    # For debugging purposes for Jupyter notebook.
+    lda_util.test_function()
 
 ############################################################################################

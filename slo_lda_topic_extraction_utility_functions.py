@@ -188,4 +188,8 @@ def display_topics(model, feature_names, num_top_words):
         print(" ".join([feature_names[i]
                         for i in topic.argsort()[:-num_top_words - 1:-1]]))
 
+
 ################################################################################################################
+
+def test_function():
+    print("This is a test function")
