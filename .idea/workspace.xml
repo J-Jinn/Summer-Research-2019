@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/summer-research-2019.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/summer-research-2019.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/research-journal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/research-journal.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,23 +15,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="160" column="65" selection-start-line="160" selection-start-column="65" selection-end-line="160" selection-end-column="65" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1168">
-              <caret line="224" selection-start-line="224" selection-end-line="224" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -86,11 +78,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="70" />
     <option name="y" value="35" />
     <option name="width" value="1911" />
-    <option name="height" value="2094" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -311,16 +303,17 @@
       <workItem from="1559664375474" duration="31549000" />
       <workItem from="1559747672525" duration="13527000" />
       <workItem from="1559782671318" duration="2739000" />
+      <workItem from="1559825654554" duration="741000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79262000" />
+    <option name="totallyTimeSpent" value="80003000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="35" width="1911" height="2094" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26634252" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26545843" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -330,11 +323,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50135064" side_tool="true" visible="true" weight="0.3064763" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" visible="true" weight="0.30549452" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.4986494" visible="true" weight="0.3064763" />
+      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.4978678" visible="true" weight="0.30549452" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32967034" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.32967034" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -428,16 +421,7 @@
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/deprecated/slo-lda-topic-extraction-v0.6beta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3626">
-          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
-          <folding>
-            <element signature="e#878#899#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/deprecated/slo-lda-topic-extraction-v0.6beta.py" />
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-analysis-personal.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
@@ -461,29 +445,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/random-lda-example.py" />
     <entry file="file://$PROJECT_DIR$/research-journal.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1168">
-          <caret line="224" selection-start-line="224" selection-end-line="224" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/random-lda-example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="73" selection-start-line="12" selection-start-column="73" selection-end-line="12" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="160" column="65" selection-start-line="160" selection-start-column="65" selection-end-line="160" selection-end-column="65" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_v0.7beta.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
