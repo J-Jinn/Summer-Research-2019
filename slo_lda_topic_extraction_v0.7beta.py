@@ -29,6 +29,7 @@ import warnings
 import tensorflow as tf
 import time
 import pandas as pd
+import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 
@@ -124,7 +125,7 @@ def latent_dirichlet_allocation_topic_extraction():
     tf_feature_names = tf_vectorizer.get_feature_names()
 
     # Run LDA.
-    lda = LatentDirichletAllocation(n_topics=20, max_iter=5, learning_method='online', learning_offset=50.,
+    lda = LatentDirichletAllocation(n_topics=12, max_iter=5, learning_method='online', learning_offset=50.,
                                     random_state=0).fit(tf)
 
     # Display the top words for each topic.
@@ -150,7 +151,7 @@ def latent_dirichlet_allocation_grid_search():
 
     # What parameters do we search for?
     parameters = {
-        'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4)],
+        # 'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4)],
         'clf__n_components': [1, 5, 10, 15],
         'clf__doc_topic_prior': [None],
         'clf__topic_word_prior': [None],
@@ -191,6 +192,35 @@ def latent_dirichlet_allocation_grid_search():
 
 ################################################################################################################
 
+def latent_dirichlet_allocation_collapsed_gibbs_sampling():
+    """
+    Functions performs LDA topic extraction using collapsed Gibbs Sampling.
+
+    https://pypi.org/project/lda/
+
+    :return: None.
+    """
+    import lda
+
+    # LDA can only use raw term counts for LDA because it is a probabilistic graphical model.
+    tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')
+    tf = tf_vectorizer.fit_transform(slo_feature_set)
+    tf_feature_names = tf_vectorizer.get_feature_names()
+
+    # Train and fit the LDA model.
+    model = lda.LDA(n_topics=12, n_iter=1000, random_state=1)
+    model.fit(tf)  # model.fit_transform(X) is also available
+    topic_word = model.topic_word_  # model.components_ also works
+    n_top_words = 10
+
+    # Display the topics and the top words associated with.
+    for i, topic_dist in enumerate(topic_word):
+        topic_words = np.array(tf_feature_names)[np.argsort(topic_dist)][:-(n_top_words + 1):-1]
+        print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+
+
+################################################################################################################
+
 ############################################################################################
 
 """
@@ -212,6 +242,10 @@ if __name__ == '__main__':
     Perform the topic extraction.
     """
     # latent_dirichlet_allocation_topic_extraction()
+    """
+    Perform the topic extraction using collapsed Gibbs Sampling.
+    """
+    latent_dirichlet_allocation_collapsed_gibbs_sampling()
     ################################################
     end_time = time.time()
 
@@ -221,6 +255,6 @@ if __name__ == '__main__':
     log.info("\n")
 
     # For debugging purposes for Jupyter notebook.
-    lda_util.test_function()
+    # lda_util.test_function()
 
 ############################################################################################
