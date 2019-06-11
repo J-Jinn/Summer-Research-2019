@@ -55,7 +55,7 @@ This README.md file.
 
 "slo_lda_topic_extraction_utility_functions.py" - utility functions for LDA topic extraction.
 
-"slo-lda-topic-extraction-v0.7beta.ipynb" - initial implementation of LDA topic extraction on "LDA_PROCESSED" dataset.
+"slo-lda-topic-extraction.py" - initial implementation of LDA topic extraction on "LDA_PROCESSED" dataset.
 
 "slo-analysis-personal.py" - codebase for "slo-analysis-personal.ipynb"
 

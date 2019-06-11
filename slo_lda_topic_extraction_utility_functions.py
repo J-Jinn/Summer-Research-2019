@@ -28,8 +28,10 @@ import logging as log
 import re
 import string
 import warnings
-import tensorflow as tf
 import pandas as pd
+import tensorflow as tf
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.pipeline import Pipeline
 
 #############################################################
 
@@ -44,8 +46,7 @@ Turn debug log statements for various sections of code on/off.
 (adjust log level as necessary)
 """
 log.basicConfig(level=log.INFO)
-tf.logging.set_verbosity(tf.logging.INFO)
-
+tf.logging.set_verbosity("INFO")
 
 ################################################################################################################
 ################################################################################################################
@@ -171,6 +172,9 @@ def tweet_dataset_preprocessor(input_file_path, output_file_path, column_name):
     slo_dataframe_cmu.to_csv(str(output_file_path), sep=',',
                              encoding='utf-8', index=False)
 
+    print("Dataset preprocessing finished.")
+    print("Saved to: " + output_file_path)
+
 
 ################################################################################################################
 
@@ -191,5 +195,87 @@ def display_topics(model, feature_names, num_top_words):
 
 ################################################################################################################
 
+def latent_dirichlet_allocation_grid_search(dataframe, search_parameters):
+    """
+    Function performs exhaustive grid search for Scikit-Learn LDA model.
+
+    :return: None.
+    """
+    from sklearn.decomposition import LatentDirichletAllocation
+    from sklearn.model_selection import GridSearchCV
+
+    # Construct the pipeline.
+    latent_dirichlet_allocation_clf = Pipeline([
+        ('vect', CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')),
+        ('clf', LatentDirichletAllocation()),
+    ])
+
+    # Perform the grid search.
+    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, search_parameters, cv=5, iid=False)
+    latent_dirichlet_allocation_clf.fit(dataframe)
+
+    # View all the information stored in the model after training it.
+    classifier_results = pd.DataFrame(latent_dirichlet_allocation_clf.cv_results_)
+    log.debug("The shape of the Latent Dirichlet Allocation model's result data structure is:")
+    log.debug(classifier_results.shape)
+    log.debug(
+        "The contents of the Latent Dirichlet Allocation model's result data structure is:")
+    log.debug(classifier_results.head())
+
+    # Display the optimal parameters.
+    log.info("The optimal parameters found for the Latent Dirichlet Allocation is:")
+    for param_name in sorted(search_parameters.keys()):
+        log.info("%s: %r" % (param_name, latent_dirichlet_allocation_clf.best_params_[param_name]))
+    log.info("\n")
+
+
+################################################################################################################
+
+def dataframe_subset(tweet_dataset, sample_size):
+    """
+    Function slices the Twitter dataset into a smaller dataset for the purposes of saving compute time on using
+    exhaustive grid search to find initial optimal hyper parameters for LDA topic modeling and extraction.
+
+    :param tweet_dataset: the dataset to generate a subset from.
+    :param sample_size: size of the subset to construct.
+    :return: feature set to use for GridSearchCV.
+    """
+
+    # Check that user passed in dataset from which we can generate a dataframe.
+    try:
+        tweet_dataframe_processed = pd.DataFrame(tweet_dataset)
+    except Exception:
+        print("Failed to generate Dataframe for subsetting operation:")
+        return
+
+    # Drop any NaN or empty Tweet rows in dataframe (or else CountVectorizer will blow up).
+    tweet_dataframe_processed = tweet_dataframe_processed.dropna()
+
+    # Reindex everything.
+    tweet_dataframe_processed.index = pd.RangeIndex(len(tweet_dataframe_processed.index))
+
+    # Subset of the dataframe.
+    tweet_dataframe_processed.sample(n=sample_size)
+
+    # Assign column names.
+    tweet_dataframe_processed_column_names = ['Tweet']
+
+    # Rename column in dataframe.
+    tweet_dataframe_processed.columns = tweet_dataframe_processed_column_names
+
+    # Create input feature.
+    selected_features = tweet_dataframe_processed[tweet_dataframe_processed_column_names]
+    processed_features = selected_features.copy()
+
+    # Create feature set.
+    slo_feature_set = processed_features['Tweet']
+
+    return slo_feature_set
+
+
+################################################################################################################
+
 def test_function():
     print("This is a test function")
+
+################################################################################################################

@@ -17,6 +17,7 @@ Resources Used:
 https://scikit-learn.org/stable/modules/decomposition.html#latentdirichletallocation
 https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html#sklearn.decomposition.LatentDirichletAllocation
 https://medium.com/mlreview/topic-modeling-with-scikit-learn-e80d33668730
+https://pypi.org/project/lda/
 
 """
 
@@ -26,12 +27,10 @@ https://medium.com/mlreview/topic-modeling-with-scikit-learn-e80d33668730
 # Import libraries.
 import logging as log
 import warnings
-import tensorflow as tf
 import time
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.pipeline import Pipeline
 
 # Import custom utility functions.
 import slo_lda_topic_extraction_utility_functions as lda_util
@@ -40,7 +39,8 @@ import slo_lda_topic_extraction_utility_functions as lda_util
 
 # Miscellaneous parameter adjustments for pandas and python.
 pd.options.display.max_rows = 10
-pd.options.display.float_format = '{:.1f}'.format
+# pd.options.display.float_format = '{:.1f}'.format
+pd.set_option('precision', 7)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
 
@@ -49,7 +49,7 @@ Turn debug log statements for various sections of code on/off.
 (adjust log level as necessary)
 """
 log.basicConfig(level=log.INFO)
-tf.logging.set_verbosity(tf.logging.INFO)
+# tf.logging.set_verbosity(tf.logging.INFO)
 
 ################################################################################################################
 ################################################################################################################
@@ -57,6 +57,10 @@ tf.logging.set_verbosity(tf.logging.INFO)
 # Import the dataset.
 tweet_dataset_processed = \
     pd.read_csv("datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv", sep=",")
+
+# Import the dataset.
+# tweet_dataset_processed = \
+#     pd.read_csv("D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv", sep=",")
 
 # Reindex and shuffle the data randomly.
 tweet_dataset_processed = tweet_dataset_processed.reindex(
@@ -134,64 +138,6 @@ def latent_dirichlet_allocation_topic_extraction():
 
 ################################################################################################################
 
-def latent_dirichlet_allocation_grid_search():
-    """
-    Function performs exhaustive grid search for Scikit-Learn LDA model.
-
-    :return: None.
-    """
-    from sklearn.decomposition import LatentDirichletAllocation
-    from sklearn.model_selection import GridSearchCV
-
-    # Construct the pipeline.
-    latent_dirichlet_allocation_clf = Pipeline([
-        ('vect', CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')),
-        ('clf', LatentDirichletAllocation()),
-    ])
-
-    # What parameters do we search for?
-    parameters = {
-        # 'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4)],
-        'clf__n_components': [1, 5, 10, 15],
-        'clf__doc_topic_prior': [None],
-        'clf__topic_word_prior': [None],
-        'clf__learning_method': ['batch', 'online'],
-        'clf__learning_decay': [0.5, 0.7, 0.9],
-        'clf__learning_offset': [5, 10, 15],
-        'clf__max_iter': [5, 10, 15],
-        'clf__batch_size': [64, 128, 256],
-        'clf__evaluate_every': [0],
-        'clf__total_samples': [1e4, 1e6, 1e8],
-        'clf__perp_tol': [1e-1, 1e-2, 1e-3],
-        'clf__mean_change_tol': [1e-1, 1e-3, 1e-5],
-        'clf__max_doc_update_iter': [50, 100, 150],
-        'clf__n_jobs': [-1],
-        'clf__verbose': [0],
-        'clf__random_state': [None],
-    }
-
-    # Perform the grid search.
-    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, parameters, cv=5, iid=False,
-                                                   n_jobs=-1)
-    latent_dirichlet_allocation_clf.fit(slo_feature_set)
-
-    # View all the information stored in the model after training it.
-    classifier_results = pd.DataFrame(latent_dirichlet_allocation_clf.cv_results_)
-    log.debug("The shape of the Latent Dirichlet Allocation model's result data structure is:")
-    log.debug(classifier_results.shape)
-    log.debug(
-        "The contents of the Latent Dirichlet Allocation model's result data structure is:")
-    log.debug(classifier_results.head())
-
-    # Display the optimal parameters.
-    log.info("The optimal parameters found for the Latent Dirichlet Allocation is:")
-    for param_name in sorted(parameters.keys()):
-        log.info("%s: %r" % (param_name, latent_dirichlet_allocation_clf.best_params_[param_name]))
-    log.info("\n")
-
-
-################################################################################################################
-
 def latent_dirichlet_allocation_collapsed_gibbs_sampling():
     """
     Functions performs LDA topic extraction using collapsed Gibbs Sampling.
@@ -234,10 +180,40 @@ if __name__ == '__main__':
     """
     # lda_util.tweet_dataset_preprocessor("datasets/dataset_20100101-20180510_tok_PROCESSED.csv",
     #                                     "datasets/dataset_20100101-20180510_tok_LDA_PROCESSED2.csv", "tweet_t")
+
+    # lda_util.tweet_dataset_preprocessor("D:/Dropbox/summer-research-2019/datasets/dataset_20100101
+    # -20180510_tok_PROCESSED.csv",
+    # "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510_tok_LDA_PROCESSED2.csv", "tweet_t")
     """
     Perform exhaustive grid search.
     """
-    # latent_dirichlet_allocation_grid_search()
+    # What parameters do we search for?
+    lda_search_parameters = {
+        # 'vect__ngram_range': [(1, 1), (1, 2), (1, 3), (1, 4)],
+        'clf__n_components': [10],
+        'clf__doc_topic_prior': [None],
+        'clf__topic_word_prior': [None],
+        'clf__learning_method': ['batch', 'online'],
+        'clf__learning_decay': [0.5, 0.7, 0.9],
+        'clf__learning_offset': [5, 10, 15],
+        'clf__max_iter': [1],
+        'clf__batch_size': [64, 128, 256],
+        'clf__evaluate_every': [0],
+        'clf__total_samples': [1e4, 1e6, 1e8],
+        'clf__perp_tol': [1e-1, 1e-2, 1e-3],
+        'clf__mean_change_tol': [1e-1, 1e-3, 1e-5],
+        'clf__max_doc_update_iter': [50, 100, 150],
+        'clf__n_jobs': [-1],
+        'clf__verbose': [0],
+        'clf__random_state': [None],
+    }
+    # lda_util.latent_dirichlet_allocation_grid_search(slo_feature_set, lda_search_parameters)
+    """
+    Perform exhaustive grid search on data subset.
+    """
+    data_subset = lda_util.dataframe_subset(tweet_dataset_processed, 10000)
+    lda_util.latent_dirichlet_allocation_grid_search(data_subset, lda_search_parameters)
+
     """
     Perform the topic extraction.
     """
@@ -245,7 +221,7 @@ if __name__ == '__main__':
     """
     Perform the topic extraction using collapsed Gibbs Sampling.
     """
-    latent_dirichlet_allocation_collapsed_gibbs_sampling()
+    # latent_dirichlet_allocation_collapsed_gibbs_sampling()
     ################################################
     end_time = time.time()
 
