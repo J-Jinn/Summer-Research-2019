@@ -29,7 +29,7 @@ import re
 import string
 import warnings
 import pandas as pd
-import tensorflow as tf
+# import tensorflow as tf
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 
@@ -46,7 +46,8 @@ Turn debug log statements for various sections of code on/off.
 (adjust log level as necessary)
 """
 log.basicConfig(level=log.INFO)
-tf.logging.set_verbosity("INFO")
+# tf.logging.set_verbosity("INFO")
+
 
 ################################################################################################################
 ################################################################################################################
@@ -206,12 +207,13 @@ def latent_dirichlet_allocation_grid_search(dataframe, search_parameters):
 
     # Construct the pipeline.
     latent_dirichlet_allocation_clf = Pipeline([
-        ('vect', CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')),
+        ('vect', CountVectorizer()),
         ('clf', LatentDirichletAllocation()),
     ])
 
     # Perform the grid search.
-    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, search_parameters, cv=5, iid=False)
+    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, search_parameters, cv=5, iid=False
+                                                   , n_jobs=-1)
     latent_dirichlet_allocation_clf.fit(dataframe)
 
     # View all the information stored in the model after training it.

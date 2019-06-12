@@ -67,42 +67,31 @@ dataset_20100101-20180510.csv
 
 ################################################################################################################
 ################################################################################################################
-import json
+
 import logging as log
-import re
-import string
 import warnings
 import tensorflow as tf
 import time
-from tensorflow import keras
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 
 sns.set()
-from pathlib import Path
-from urllib.parse import urlparse
-import emoji
-from nltk.corpus import stopwords
-
 #############################################################
 
-# Note: Need to set level AND turn on debug variables in order to see all debug output.
-log.basicConfig(level=log.INFO)
-tf.logging.set_verbosity(tf.logging.INFO)
-
-# Miscellaneous parameter adjustments for pandas and python.
-# pd.options.display.max_rows = 10
+pd.options.display.max_rows = 10
 # pd.options.display.float_format = '{:.1f}'.format
+pd.set_option('precision', 7)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
 
 """
 Turn debug log statements for various sections of code on/off.
+(adjust log level as necessary)
 """
-# Debug the initial dataset import and feature/target set creation.
-debug_preprocess_tweets = True
+log.basicConfig(level=log.DEBUG)
+# tf.logging.set_verbosity(tf.logging.INFO)
 
 ################################################################################################################
 ################################################################################################################
@@ -129,18 +118,17 @@ for data in twitter_data:
     if counter >= 2:
         break
 
-if debug_preprocess_tweets:
-    # Print shape and column names.
-    log.debug("\n")
-    log.debug("The shape of the twitter dataframe:")
-    log.debug(twitter_dataframe.shape)
-    log.debug("\n")
-    log.debug("The columns of the twitter dataframe:")
-    log.debug(twitter_dataframe.columns)
-    log.debug("\n")
-    log.debug("A sample of the twitter dataframe:")
-    log.debug(twitter_dataframe.sample(1))
-    log.debug("\n")
+# Print shape and column names.
+log.debug("\n")
+log.debug("The shape of the twitter dataframe:")
+log.debug(twitter_dataframe.shape)
+log.debug("\n")
+log.debug("The columns of the twitter dataframe:")
+log.debug(twitter_dataframe.columns)
+log.debug("\n")
+log.debug("A sample of the twitter dataframe:")
+log.debug(twitter_dataframe.sample(1))
+log.debug("\n")
 
 ################################################################################################################
 
@@ -158,21 +146,54 @@ tweet_dataset_processed = tweet_dataset_processed.reindex(
 # Generate a Pandas dataframe.
 tweet_dataframe_processed = pd.DataFrame(tweet_dataset_processed)
 
-if debug_preprocess_tweets:
-    # Print shape and column names.
-    log.debug("\n")
-    log.debug("The shape of our SLO tweet dataframe:")
-    log.debug(tweet_dataframe_processed.shape)
-    log.debug("\n")
-    log.debug("The columns of our SLO tweet dataframe:")
-    log.debug(tweet_dataframe_processed.columns)
-    log.debug("\n")
-    log.debug("A sample from the tweet dataframe:")
-    log.debug(tweet_dataframe_processed.sample(10))
-    log.debug("\n")
+# Print shape and column names.
+log.debug("\n")
+log.debug("The shape of our SLO tweet dataframe:")
+log.debug(tweet_dataframe_processed.shape)
+log.debug("\n")
+log.debug("The columns of our SLO tweet dataframe:")
+log.debug(tweet_dataframe_processed.columns)
+log.debug("\n")
+log.debug("A sample from the tweet dataframe:")
+log.debug(tweet_dataframe_processed.sample(10))
+log.debug("\n")
 
-    # So log.debug messages do not intersperse in between print messages.
-    time.sleep(2)
+# So log.debug messages do not intersperse in between print messages.
+time.sleep(2)
+
+
+################################################################################################################
+
+def bar_plot(col, **kwargs):
+    """
+    Helper function to visualize the data.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    height = data[col].value_counts(normalize=True)
+    height.sort_index(inplace=True)
+    ax.bar(height.index, height)
+
+
+################################################################################################################
+
+
+def bar_plot_zipf(col, **kwargs):
+    """
+    Helper function to visualize the data.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    height = data[col].value_counts().value_counts(normalize=True)
+    ax.bar(height.index, height)
 
 
 ################################################################################################################
@@ -198,7 +219,9 @@ def time_series():
 
 def retweeted():
     """
-    Re-tweet related statistics.
+    Re-tweet statistics and visualizations.
+
+    Note: The raw JSON file does not have associated "company" information.
 
     :return: None.
     """
@@ -210,20 +233,6 @@ def retweeted():
     print("Re-Tweet Statistics for CSV dataset:")
     print(tweet_dataframe_processed['retweeted'].value_counts())
     print()
-
-    def bar_plot(col, **kwargs):
-        """
-        Helper function to visualize the data.
-
-        :param col: the columns of the graph.
-        :param kwargs:
-        :return: None.
-        """
-        ax = plt.gca()
-        data = kwargs.pop('data')
-        height = data[col].value_counts(normalize=True)
-        height.sort_index(inplace=True)
-        ax.bar(height.index, height)
 
     print("Re-Tweet Statistics for CSV dataset by Company:")
     print("Number of Tweets that are or aren't re-tweets by associated company: ")
@@ -245,28 +254,17 @@ def retweeted():
 
 ################################################################################################################
 
-def users():
+def most_tweets_by_users():
     """
-    User related statistics.
+    User related statistics and visualizations.
+
+    Note: The raw JSON file does not have associated "company" information.
 
     :return: None.
     """
 
-    def bar_plot_zipf(col, **kwargs):
-        """
-        Helper function to visualize the data.
-
-        :param col: the columns of the graph.
-        :param kwargs:
-        :return: None.
-        """
-        ax = plt.gca()
-        data = kwargs.pop('data')
-        height = data[col].value_counts().value_counts(normalize=True)
-        ax.bar(height.index, height)
-
     # Graph the User Statistics.
-    print("Proportion of Tweets for top unique users by associated company: ")
+    print("Proportion of most Tweets for unique users by associated company: ")
     plt.figure()
     grid = sns.FacetGrid(tweet_dataframe_processed[['user_screen_name', 'company']], col='company', col_wrap=6,
                          ylim=(0, 1),
@@ -274,9 +272,12 @@ def users():
     grid.map_dataframe(bar_plot_zipf, 'user_screen_name').set_titles('{col_name}').set_xlabels('appearance count')
     plt.show()
 
+    # Adjusted parameters to allow statistics for all companies to show in output.
     pd.set_option("display.precision", 12)
+    pd.options.display.max_rows = 100
+
     print("User Statistics for CSV dataset by Company: ")
-    print("Top unique user Tweet count by associated company.")
+    print("Top Tweet counts for unique user by associated company.")
     print(
         tweet_dataframe_processed[['company', 'user_screen_name']].groupby('company')
             .apply(lambda x: x['user_screen_name'].value_counts(normalize=True).head())
@@ -287,14 +288,16 @@ def users():
 
 
 # Call the function.
-users()
+most_tweets_by_users()
 
 
 ################################################################################################################
 
 def character_counts():
     """
-    Character related statistics.
+    Character related statistics and visualizations.
+
+    Note: The raw JSON file does not have associated "company" information.
 
     :return: None.
     """
@@ -304,7 +307,7 @@ def character_counts():
         Helper function to visualize the data.
 
         :param col: the columns of the graph.
-        :param kwargs:
+        :param kwargs: variable number of arguments.
         :return: None.
         """
         ax = plt.gca()
@@ -333,7 +336,7 @@ def character_counts():
 
 
 # Call the function.
-character_counts()
+# character_counts()
 
 
 ################################################################################################################
@@ -347,20 +350,6 @@ def hashtags():
 
     :return: None.
     """
-
-    def bar_plot(col, **kwargs):
-        """
-        Helper function to visualize the data.
-
-        :param col: the columns of the graph.
-        :param kwargs:
-        :return: None.
-        """
-        ax = plt.gca()
-        data = kwargs.pop('data')
-        height = data[col].value_counts(normalize=True)
-        height.sort_index(inplace=True)
-        ax.bar(height.index, height)
 
     # Count the # of hashtags for each Tweet.
     # FIXME - not working at the moment.
@@ -391,6 +380,11 @@ def hashtags():
 ################################################################################################################
 
 def emojis():
+    """
+    TODO - implement.
+
+    :return: None.
+    """
     print()
 
 ################################################################################################################

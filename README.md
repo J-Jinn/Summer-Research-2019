@@ -21,6 +21,8 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 "deprecated" - files that are no longer relevant.
 
+Note: some directories not listed here as not included in GitHub Repository.
+
 &nbsp;
 
 ## "datasets" directory:
@@ -31,17 +33,29 @@ anything with "PROCESSED" only - used in SLO TBL topic classification.
 
 other .csv files are original files obtained from the Borg supercomputer.
 
+Note: large datasets are not included in GitHub Repository.
+
 &nbsp;
 
 ## "jupyter-notebooks" directory:
 
-"lda-presentation.ipynb" - LDA basics and SLO LDA topic extraction.
+"slo-lda-introduction.ipynb" - Introduction to latent dirichlet allocation and topic modeling.
+
+"slo-lda-implementation.ipynb" - Our implementation of LDA on our Twitter dataset.
+
+"slo-lda-grid-search.ipynb" - Exhaustive grid search for Scikit-Learn LDA model hyper parameters.
+
+"slo-lda-execution-output.ipynb" - multiple executions and associated topic extraction output for our LDA implementation.
 
 "SLO analysis.ipynb" - from the Calvin College SLO-Classifier repository.
 
-"slo-analysis-personal.ipynb" - adapted from SLO analysis.ipynb.
+"slo-twitter-data-analysis.ipynb" - adapted from SLO analysis.ipynb for SLO Twitter dataset analysis.
 
-.png images for use in "lda-presentation.ipynb"
+"personal-research-journal.ipynb" - Jupyter notebook file for keeping research notes.
+
+"lda-presentation-images" sub-directory -  image files for LDA Jupyter Notebook files.
+
+"lda-presentation-markdown-tables" sub-directory - table files for markdown and html tables used in LDA Jupyter Notebook files.
 
 &nbsp;
 
@@ -49,15 +63,13 @@ other .csv files are original files obtained from the Borg supercomputer.
 
 This README.md file.
 
-"research-journal.ipynb" - Jupyter notebook file for keeping research notes.
-
 "scikit-learn-lda-example.py" - Example of Scikit-Learn implementation of LDA.
 
 "slo_lda_topic_extraction_utility_functions.py" - utility functions for LDA topic extraction.
 
-"slo-lda-topic-extraction.py" - initial implementation of LDA topic extraction on "LDA_PROCESSED" dataset.
+"slo_lda_topic_extraction.py" - initial implementation of LDA topic extraction on "LDA_PROCESSED" dataset.
 
-"slo-analysis-personal.py" - codebase for "slo-analysis-personal.ipynb"
+"slo-twitter-data-analysis.py" - codebase for "slo-twitter-data-analysis.ipynb"
 
 &nbsp;
 
