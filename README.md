@@ -11,7 +11,7 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 ## Directories:
 
-"notes-word-documents" directory - Word document files containing notes on background concepts and materials for SLO Topic Modeling.
+"notes-pdfs" directory - Word documents and PDF files containing notes on background concepts and materials for SLO Topic Modeling.
 
 "datasets" directory - contains Twitter datasets.
 
@@ -56,6 +56,8 @@ Note: large datasets are not included in GitHub Repository.
 "lda-presentation-images" sub-directory -  image files for LDA Jupyter Notebook files.
 
 "lda-presentation-markdown-tables" sub-directory - table files for markdown and html tables used in LDA Jupyter Notebook files.
+
+"pdfs" sub-directory - pdf files.
 
 &nbsp;
 

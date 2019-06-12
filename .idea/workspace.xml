@@ -2,18 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-execution-output.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-grid-search.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-implementation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-analysis-personal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/research-journal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/personal-research-journal.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo-analysis-personal.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo-twitter-data-analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/Initial_topic_assignment_for_each_word_in_each_document.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/Initial_topic_assignment_for_each_word_in_each_document.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/The_list_of_unique_words_in_our_vocabulary.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/The_list_of_unique_words_in_our_vocabulary.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/Topics_for_our_example.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/Topics_for_our_example.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/computing_the_beta_distribution.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/computing_the_beta_distribution.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/computing_the_theta_distribution.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/computing_the_theta_distribution.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/updating_the_initial_topic_assignment_for_each_word_in_each_document.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/updating_the_initial_topic_assignment_for_each_word_in_each_document.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes-word-documents/coursera-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/coursera-notes.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes-word-documents/luminoso-product-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/luminoso-product-notes.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes-word-documents/senior-presentation-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/senior-presentation-notes.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -74,10 +74,10 @@
         <option value="$PROJECT_DIR$/slo-lda-grid-search.ipynb" />
         <option value="$PROJECT_DIR$/slo-lda-lda-executions.ipynb" />
         <option value="$PROJECT_DIR$/slo_lda_topic_extraction.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" />
         <option value="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" />
         <option value="$PROJECT_DIR$/slo-twitter-data-analysis.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -128,15 +128,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Dropbox\summer-research-2019\datasets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\pdfs" />
       <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks" />
       <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\lda-presentation-images" />
       <recent name="D:\Dropbox\summer-research-2019" />
       <recent name="D:\Dropbox\summer-research-2019\deprecated" />
-      <recent name="D:\Dropbox\summer-research-2019\json" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\summer-research-2019\datasets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -308,16 +308,18 @@
       <workItem from="1560211861460" duration="2883000" />
       <workItem from="1560257074393" duration="38000" />
       <workItem from="1560266459695" duration="18529000" />
+      <workItem from="1560300375620" duration="2393000" />
+      <workItem from="1560304289489" duration="627000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131225000" />
+    <option name="totallyTimeSpent" value="134245000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="18" y="101" width="1911" height="2025" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3019989" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3084819" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -331,7 +333,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.49756888" weight="0.17547569" />
+      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.49756888" visible="true" weight="0.17547569" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32967034" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.32967034" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -407,8 +409,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
       <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
@@ -440,19 +442,6 @@
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-lda-execution-output.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="119">
-            <caret line="7" column="32" lean-forward="true" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb">
@@ -490,6 +479,19 @@
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="306">
+            <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
   </component>
 </project>
