@@ -55,9 +55,11 @@ Note: large datasets are not included in GitHub Repository.
 
 "lda-presentation-images" sub-directory -  image files for LDA Jupyter Notebook files.
 
-"lda-presentation-markdown-tables" sub-directory - table files for markdown and html tables used in LDA Jupyter Notebook files.
+"lda-presentation-tables" sub-directory - table files for markdown and html tables used in LDA Jupyter Notebook files.
 
 "pdfs" sub-directory - pdf files.
+
+"dataset-chunks" sub-directory - raw JSON Twitter data file split into chunks and saved as CSV/JSON files.
 
 &nbsp;
 

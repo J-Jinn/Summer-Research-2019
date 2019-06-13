@@ -2,18 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/Initial_topic_assignment_for_each_word_in_each_document.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/Initial_topic_assignment_for_each_word_in_each_document.tgn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/The_list_of_unique_words_in_our_vocabulary.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/The_list_of_unique_words_in_our_vocabulary.tgn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/Topics_for_our_example.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/Topics_for_our_example.tgn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/computing_the_beta_distribution.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/computing_the_beta_distribution.tgn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/computing_the_theta_distribution.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/computing_the_theta_distribution.tgn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-markdown-tables/updating_the_initial_topic_assignment_for_each_word_in_each_document.tgn" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/lda-presentation-tables/updating_the_initial_topic_assignment_for_each_word_in_each_document.tgn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/SLO analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/SLO-analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/personal-research-journal.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/personal-research-journal.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes-word-documents/coursera-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/coursera-notes.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes-word-documents/luminoso-product-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/luminoso-product-notes.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes-word-documents/senior-presentation-notes.docx" beforeDir="false" afterPath="$PROJECT_DIR$/notes-pdfs/senior-presentation-notes.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-execution-output.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-execution-output.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-grid-search.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-grid-search.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-implementation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo-twitter-data-analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo-twitter-data-analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo_lda_topic_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_lda_topic_extraction.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +22,24 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myActivateViewOnRun" value="false" />
+  </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/slo-twitter-data-analysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="500" column="33" lean-forward="true" selection-start-line="500" selection-start-column="33" selection-end-line="500" selection-end-column="33" />
+              <folding>
+                <element signature="e#3027#3048#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,12 +60,14 @@
       <find>id</find>
       <find>print</find>
       <find>log.debug</find>
+      <find>tweet_dataframe_processed</find>
     </findStrings>
     <replaceStrings>
       <replace>tweet_dataset_processed</replace>
       <replace>log.debug</replace>
-      <replace>log.info</replace>
       <replace>print</replace>
+      <replace>log.info</replace>
+      <replace>csv_dataframe</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -73,19 +92,19 @@
         <option value="$PROJECT_DIR$/jupyter-notebooks/slo-lda-implementation.ipynb" />
         <option value="$PROJECT_DIR$/slo-lda-grid-search.ipynb" />
         <option value="$PROJECT_DIR$/slo-lda-lda-executions.ipynb" />
-        <option value="$PROJECT_DIR$/slo_lda_topic_extraction.py" />
         <option value="$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb" />
         <option value="$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py" />
+        <option value="$PROJECT_DIR$/slo_lda_topic_extraction.py" />
         <option value="$PROJECT_DIR$/slo-twitter-data-analysis.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="18" />
-    <option name="y" value="101" />
-    <option name="width" value="1911" />
-    <option name="height" value="2025" />
+    <option name="x" value="11" />
+    <option name="y" value="383" />
+    <option name="width" value="1889" />
+    <option name="height" value="1740" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="1" />
@@ -101,6 +120,16 @@
             <path>
               <item name="summer-research-2019" type="b2602c69:ProjectViewProjectNode" />
               <item name="summer-research-2019" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="summer-research-2019" type="b2602c69:ProjectViewProjectNode" />
+              <item name="summer-research-2019" type="462c0819:PsiDirectoryNode" />
+              <item name="datasets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="summer-research-2019" type="b2602c69:ProjectViewProjectNode" />
+              <item name="summer-research-2019" type="462c0819:PsiDirectoryNode" />
+              <item name="json" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="summer-research-2019" type="b2602c69:ProjectViewProjectNode" />
@@ -125,7 +154,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../cs344-ai" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="coverage" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -309,37 +338,42 @@
       <workItem from="1560257074393" duration="38000" />
       <workItem from="1560266459695" duration="18529000" />
       <workItem from="1560300375620" duration="2393000" />
-      <workItem from="1560304289489" duration="627000" />
+      <workItem from="1560304289489" duration="4326000" />
+      <workItem from="1560343465780" duration="8000" />
+      <workItem from="1560344020548" duration="661000" />
+      <workItem from="1560353495682" duration="19368000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134245000" />
+    <option name="totallyTimeSpent" value="157981000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="101" width="1911" height="2025" extended-state="0" />
+    <frame x="11" y="383" width="1889" height="1740" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3084819" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23182067" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294893" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4978678" weight="0.32505286" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49750692" weight="0.32482886" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5021322" side_tool="true" weight="0.32747254" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50193906" side_tool="true" weight="0.32918483" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.49756888" visible="true" weight="0.17547569" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.32967034" />
-      <window_info anchor="bottom" id="Python Console" order="13" weight="0.32967034" />
+      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.49756888" visible="true" weight="0.17423771" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.32928118" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49806094" weight="0.32918483" />
+      <window_info anchor="right" id="Coverage" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32901135" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.23619464" />
       <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
@@ -353,7 +387,7 @@
     <SUITE FILE_PATH="coverage/summer_research_2019$scikit_learn_lda_example.coverage" NAME="scikit-learn-lda-example Coverage Results" MODIFIED="1559267685968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$random_lda_example.coverage" NAME="random-lda-example Coverage Results" MODIFIED="1559784666836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_v0_5beta.coverage" NAME="slo-lda-topic-extraction-v0.5beta Coverage Results" MODIFIED="1559669907994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis.coverage" NAME="slo-twitter-data-analysis Coverage Results" MODIFIED="1560294077992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis.coverage" NAME="slo-twitter-data-analysis Coverage Results" MODIFIED="1560394182213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_analysis_personal.coverage" NAME="slo-analysis-personal Coverage Results" MODIFIED="1559702379094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_utility_functions.coverage" NAME="slo_lda_topic_extraction_utility_functions Coverage Results" MODIFIED="1559783669640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -419,13 +453,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/json/dataset_slo_20100101-20180510.json">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="17">
-          <caret line="1" column="715" selection-start-line="1" selection-start-column="715" selection-end-line="1" selection-end-column="715" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deprecated/slo-lda-topic-extraction-v0.6beta.py" />
     <entry file="file://$PROJECT_DIR$/random-lda-example.py" />
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/lda-presentation-images/20190606_095118.jpg">
@@ -444,38 +471,55 @@
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-lda-execution-output.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/slo-twitter-data-analysis.py">
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-lda-introduction.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cs344-ai/venv3.6-64bit/Lib/site-packages/IPython/core/interactiveshell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="344" column="7" lean-forward="true" selection-start-line="344" selection-start-column="7" selection-end-line="344" selection-end-column="7" />
+        <state relative-caret-position="351">
+          <caret line="3290" selection-start-line="3290" selection-end-line="3290" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/json/dataset_slo_20100101-20180510.json">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="17">
+          <caret line="1" column="715" selection-start-line="1" selection-start-column="715" selection-end-line="1" selection-end-column="715" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/dataset-chunks/raw-twitter-dataset-chunk-2.csv">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/dataset-chunks/raw-twitter-dataset-chunk-1.json">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="85">
+          <caret line="5" column="229" lean-forward="true" selection-start-line="5" selection-start-column="229" selection-end-line="5" selection-end-column="229" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="163" selection-start-line="163" selection-end-line="163" />
           <folding>
-            <element signature="e#3027#3048#0" expanded="true" />
+            <element signature="e#880#901#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="51" column="43" lean-forward="true" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
+        <state relative-caret-position="289">
+          <caret line="157" column="43" selection-start-line="157" selection-start-column="43" selection-end-line="157" selection-end-column="43" />
           <folding>
             <element signature="e#940#961#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="34" lean-forward="true" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
-          <folding>
-            <element signature="e#880#901#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -483,15 +527,22 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="306">
-            <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <first_editor relative-caret-position="357">
+            <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           </first_editor>
           <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-current-research-articles.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
+    <entry file="file://$PROJECT_DIR$/slo-twitter-data-analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="500" column="33" lean-forward="true" selection-start-line="500" selection-start-column="33" selection-end-line="500" selection-end-column="33" />
+          <folding>
+            <element signature="e#3027#3048#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

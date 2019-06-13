@@ -129,7 +129,7 @@ def latent_dirichlet_allocation_topic_extraction():
     tf_feature_names = tf_vectorizer.get_feature_names()
 
     # Run LDA.
-    lda = LatentDirichletAllocation(n_topics=12, max_iter=5, learning_method='online', learning_offset=50.,
+    lda = LatentDirichletAllocation(n_topics=20, max_iter=5, learning_method='online', learning_offset=50.,
                                     random_state=0).fit(tf)
 
     # Display the top words for each topic.
@@ -218,13 +218,13 @@ if __name__ == '__main__':
     """
     Perform exhaustive grid search on data subset.
     """
-    data_subset = lda_util.dataframe_subset(tweet_dataset_processed, 10000)
-    lda_util.latent_dirichlet_allocation_grid_search(data_subset, lda_search_parameters)
+    # data_subset = lda_util.dataframe_subset(tweet_dataset_processed, 10000)
+    # lda_util.latent_dirichlet_allocation_grid_search(data_subset, lda_search_parameters)
 
     """
     Perform the topic extraction.
     """
-    # latent_dirichlet_allocation_topic_extraction()
+    latent_dirichlet_allocation_topic_extraction()
     """
     Perform the topic extraction using collapsed Gibbs Sampling.
     """
