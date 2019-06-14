@@ -79,6 +79,8 @@ This README.md file.
 
 "slo-twitter-data-analysis.py" - codebase for "slo-twitter-data-analysis.ipynb"
 
+"slo_twitter_data_analysis_utility_function.py" - utility functions for SLO Twitter dataset analysis.
+
 &nbsp;
 
 ## Link to GitHub Repositories:
