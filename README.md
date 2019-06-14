@@ -61,6 +61,10 @@ Note: large datasets are not included in GitHub Repository.
 
 "dataset-chunks" sub-directory - raw JSON Twitter data file split into chunks and saved as CSV/JSON files.
 
+"attribute-datasets" sub-directory - stores CSV and JSON files of extracted individul or subset of attributes from raw JSON dataset.
+
+"twitter-data-analysis-tables" sub-directory - stores HTML tables used in "slo-twitter-data-analysis.ipynb"
+
 &nbsp;
 
 ## Files in root Directory:

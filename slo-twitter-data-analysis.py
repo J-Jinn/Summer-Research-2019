@@ -9,155 +9,7 @@ SLO Twitter Dataset Analysis
 ###########################################################
 Notes:
 
-Json file sample:
-
-{"in_reply_to_status_id_str":"305159434462691328",
-
-"in_reply_to_status_id":305159434462691328,
-
-"coordinates":null,
-
-"created_at":"Sat Feb 23 03:40:21 +0000 2013",
-
-"truncated":false,
-
-"in_reply_to_user_id_str":"2768501",
-
-"source":"<a href=\"http:\/\/twitter.com\/download\/iphone\" rel=\"nofollow\">Twitter for iPhone<\/a>",
-
-"retweet_count":0,
-
-"retweeted":false,
-
-"geo":null,
-
-"in_reply_to_screen_name":"abcnews",
-
-"is_quote_status":false,
-
-***************************************
-
-"entities":{
-
-"urls":[],
-
-"hashtags":[],
-
-"user_mentions":[{"indices":[0,8],"screen_name":"abcnews","id_str":"2768501", "name":"ABC News","id":2768501}],
-
-"symbols":[]},
-
-***************************************
-
-"full_text":"@abcnews About bloody time. Adani only wants FIFO Indian workers for his Bowen basin mines.",
-
-"id_str":"305160140833816576",
-
-"in_reply_to_user_id":2768501,
-
-"display_text_range":[0,91],
-
-"favorite_count":0,
-
-"id":305160140833816576,
-
-"place":null,
-
-"contributors":null,
-
-"lang":"en",
-
-***************************************
-
-"user":{
-
-"utc_offset":36000,
-
-"friends_count":1385,
-
-"profile_image_url_https":"https:\/\/pbs.twimg.com\/profile_images\/698290934618787840\/SIpBKnWE_normal.jpg",
-
-"listed_count":3,
-
-"profile_background_image_url":"http:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png","default_profile_image":false,
-
-"favourites_count":533,
-
-"description":"Train Driver extraordinaire, proud Union Leftie and Labor supporter.
-
-Cant stand the LNP and their regressive ideas. Mainly political but I do enjoy a laugh.",
-
-"created_at":"Tue Aug 21 23:23:52 +0000 2012",
-
-"is_translator":false,
-
-"profile_background_image_url_https":"https:\/\/abs.twimg.com\/images\/themes\/theme1\/bg.png",
-
-"protected":false,
-
-"screen_name":"DazzDicko",
-
-"id_str":"772466924",
-
-"profile_link_color":"1DA1F2",
-
-"is_translation_enabled":false,
-
-"translator_type":"none",
-
-"id":772466924,
-
-"geo_enabled":true,
-
-"profile_background_color":"C0DEED",
-
-"lang":"en",
-
-"has_extended_profile":false,
-
-"profile_sidebar_border_color":"C0DEED",
-
-"profile_text_color":"333333",
-
-"verified":false,
-
-"profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/698290934618787840\/SIpBKnWE_normal.jpg",
-
-"time_zone":"Australia\/Brisbane",
-
-"url":null,"contributors_enabled":false,
-
-"profile_background_tile":false,
-
-********************
-
-"entities":{"description":{"urls":[]}},
-
-********************
-
-"statuses_count":5176,
-
-"follow_request_sent":false,
-
-"followers_count":945,
-
-"profile_use_background_image":true,
-
-"default_profile":true,
-
-"following":false,
-
-"name":"Daryl Dickson",
-
-"location":"Far North Queensland",
-
-"profile_sidebar_fill_color":"DDEEF6",
-
-"notifications":false},
-
-***************************************
-
-"favorited":false}
+Work-in-progress.
 
 ###########################################################
 
@@ -232,74 +84,6 @@ def bar_plot_zipf(col, **kwargs):
     data = kwargs.pop('data')
     height = data[col].value_counts().value_counts(normalize=True)
     ax.bar(height.index, height)
-
-
-################################################################################################################
-
-def time_series(json_dataframe, chunk):
-    """
-    Visualize the Tweet creation time based on time-date information in the raw JSON Tweet file.
-
-    Note: The processed CSV dataset file does not contain this information.
-
-    :param json_dataframe: the dataframe containing the JSON data chunk.
-    :param chunk: the dataframe JSON data chunk number.
-    :return: None.
-    """
-    plt.figure()
-    plt.title(f"Tweet Creation TimeDate Count for Chunk: {chunk}")
-    plt.xlabel("Year and Month")
-    plt.ylabel("Tweet Count")
-    pd.to_datetime(json_dataframe['created_at']).value_counts().resample('1D').sum().plot()
-    plt.show()
-
-
-################################################################################################################
-
-def json_retweeted(json_dataframe, chunk):
-    """
-    Re-tweet statistics and visualizations for the raw JSON file chunks.
-
-    :param json_dataframe: the dataframe containing the JSON data chunk.
-    :param chunk: the dataframe JSON data chunk number.
-    :return: None.
-    """
-    print(f"Re-Tweet Statistics for raw JSON file data chunk {chunk}:")
-    print(json_dataframe['retweeted'].value_counts())
-    print()
-
-
-################################################################################################################
-
-def csv_retweeted():
-    """
-    Re-tweet statistics and visualizations for the CSV Twitter preprocessed dataset.
-
-    Note: The raw JSON file does not have associated "company" information.
-
-    :return: None.
-    """
-
-    print("Re-Tweet Statistics for CSV dataset:")
-    print(csv_dataframe['retweeted'].value_counts())
-    print()
-
-    print("Re-Tweet Statistics for CSV dataset by Company:")
-    print("Number of Tweets that are or aren't re-tweets by associated company: ")
-    print(csv_dataframe.groupby(['company', 'retweeted']).size())
-    print()
-
-    # Graph the Re-Tweet Statistics.
-    print("Proportion of Re-Tweets versus non Re-Tweets by associated company: ")
-    plt.figure()
-    grid = sns.FacetGrid(csv_dataframe[['retweeted', 'company']], col='company', col_wrap=6,
-                         ylim=(0, 1))
-    grid.map_dataframe(bar_plot, 'retweeted').set_titles('{col_name}')
-    plt.show()
-
-
-# Call the function.
-# csv_retweeted()
 
 
 ################################################################################################################
@@ -437,100 +221,308 @@ def emojis():
 
 ################################################################################################################
 
-def call_data_analysis_function_on_json_file_chunks(function_name, enable_info):
+def call_data_analysis_function_on_json_file_chunks(input_file_path, function_name):
     """
     This function reads the raw JSON Tweet dataset in chunk-by-chunk and calls the user-defined data analysis
     function that is specified as a parameter.
 
+    :param input_file_path: absolute file path of the input raw JSON file.
     :param function_name: name of the data analysis function to call.
-    :param enable_info: enable or disable dataframe information output.
-
     :return: None.
     """
+    start_time = time.time()
+
     # Define size of chunks to read in.
     chunksize = 100000
 
     # Read in the JSON file.
-    twitter_data = pd.read_json("json/dataset_slo_20100101-20180510.json",
+    twitter_data = pd.read_json(f"{input_file_path}",
                                 orient='records',
                                 lines=True,
                                 chunksize=chunksize)
 
-    # twitter_data = pd.read_json("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-    #                             orient='records',
-    #                             lines=True,
-    #                             chunksize=chunksize)
-
     # Create a empty Pandas dataframe.
     json_dataframe = pd.DataFrame()
 
-    start_time = time.time()
     counter = 0
     chunk_number = 0
 
+    # Loop through chunk-by-chunk and call the data analysis function on each chunk.
     for data in twitter_data:
         json_dataframe = json_dataframe.append(data, ignore_index=True)
 
         counter += 1
         chunk_number += 1
 
-        # Note: Absolute file paths are required.  Relative do not work.
-        csv_output_file_path = "D:/Dropbox/summer-research-2019/jupyter-notebooks/dataset-chunks/" \
-                               "raw-twitter-dataset-chunk-" + str(chunk_number) + ".csv"
-        json_output_file_path = "D:/Dropbox/summer-research-2019/jupyter-notebooks/dataset-chunks/" \
-                                "raw-twitter-dataset-chunk-" + str(chunk_number) + ".json"
-
-        if enable_info:
+        if chunk_number == 1 and function_name == "none":
             # Print shape and column names.
-            log.info("\n")
             log.info(
-                f"The shape of the dataframe storing the contents of the raw JSON Tweet file chunk {chunk_number} is:")
+                f"\nThe shape of the dataframe storing the contents of the raw JSON Tweet file chunk "
+                f"{chunk_number} is:\n")
             log.info(json_dataframe.shape)
-            log.info("\n")
             log.info(
-                f"The columns of the dataframe storing the contents of the raw JSON Tweet file chunk {chunk_number} is:")
+                f"\nThe columns of the dataframe storing the contents of the raw JSON Tweet file chunk "
+                f"{chunk_number} is:\n")
             log.info(json_dataframe.columns)
-            log.info("\n")
             log.info(
-                f"A sample from the dataframe storing the contents of the raw JSON Tweet file chunk {chunk_number} is:")
-            log.info(json_dataframe.sample(1))
-            log.info("\n")
+                f"\nA sample from the dataframe storing the contents of the raw JSON Tweet file chunk "
+                f"{chunk_number} is:\n")
+            with pd.option_context('display.max_rows', None, 'display.max_columns',
+                                   None, 'display.width', None, 'display.max_colwidth', 1000):
+                log.info(f"\n{json_dataframe.sample(1, axis=0)}")
+            time.sleep(2)
 
-        # Limit # of chunks so we don't run out of RAM.
-        if counter >= 1:
-            # Export to CSV file.
-            # json_dataframe.to_csv(str(csv_output_file_path), sep=',',
-            #                       encoding='utf-8', index=False, header=True)
-            # Export JSON file.
-            # json_dataframe.to_json(str(json_output_file_path), orient='records', lines=True)
-
-            if function_name != "None":
-                # Call the data analysis functions.
-                function_name(json_dataframe, chunk_number)
+        if function_name != "none":
+            # Call the data analysis functions.
+            function_name(json_dataframe, chunk_number)
+        else:
+            return
             # Clear the contents of the dataframe.
-            json_dataframe = pd.DataFrame()
-            # Reset the counter.
-            counter = 0
+        json_dataframe = pd.DataFrame()
 
-            # For debug purposes.
-            # break
+        # For debug purposes.
+        # break
+
+    end_time = time.time()
+    time_elapsed = (end_time - start_time) / 60.0
+    time.sleep(3)
+    log.info(f"The time taken to read in the JSON file by Chunks is {time_elapsed} minutes")
+    log.info(f"The number of chunks is {chunk_number} based on chunk size of {chunksize}")
+    log.info('\n')
+
+
+################################################################################################################
+
+def generalized_field_extraction_function(input_file_path, output_file_path, field_to_extract, file_type):
+    """
+    This is a generalized function to extract a single field from the raw JSON Tweet file.
+    The data is read in by chunks to ensure they can fit in RAM.
+
+    :param file_type: type of file to save as. ("json" or "csv")
+    :param input_file_path: absolute file path of the input file to extract the field from.
+    :param output_file_path: absolute file path of the output file to save the extracted field to.
+    :param field_to_extract: string name of the field to extract.
+    :return: None.
+    """
+    start_time = time.time()
+
+    # Define size of chunks to read in.
+    chunksize = 100000
+
+    # Read in the JSON file.
+    twitter_data = pd.read_json(f"{input_file_path}",
+                                orient='records',
+                                lines=True,
+                                chunksize=chunksize)
+
+    # Create empty Pandas Dataframes.
+    json_dataframe = pd.DataFrame()
+    created_at_dataframe = pd.DataFrame()
+    selected_field = pd.DataFrame()
+
+    # Append each chunk of extracted fields to the dataframe.
+    chunk_number = 0
+    for data in twitter_data:
+        json_dataframe = json_dataframe.append(data, ignore_index=True)
+        selected_field[field_to_extract] = json_dataframe[field_to_extract]
+        created_at_dataframe = created_at_dataframe.append(selected_field)
+
+        # Clear dataframe and increment counter.
+        json_dataframe = pd.DataFrame()
+        chunk_number += 1
+
+    file_path = \
+        f"{output_file_path}{field_to_extract}-attribute.{file_type}"
+
+    if file_type == "csv":
+        # Export to CSV file.
+        created_at_dataframe.to_csv(file_path, sep=',',
+                                    encoding='utf-8', index=False, header=True)
+    elif file_type == "json":
+        # Export JSON file.
+        created_at_dataframe.to_json(file_path, orient='records', lines=True)
+    else:
+        print(f"Invalid file type entered - aborting operation")
+        return
 
     end_time = time.time()
     time_elapsed = (end_time - start_time) / 60.0
 
-    log.info("The time taken to read in the JSON file by Chunks is: " + str(time_elapsed) + " minutes")
-    log.info("The number of chunks is: " + str(chunk_number) + " based on chunk size of: " + str(chunksize))
+    log.info(f"The time taken to extract the field \"{field_to_extract}\" from the JSON file is {time_elapsed} minutes")
+    log.info(f"The number of chunks is {chunk_number} based on chunk size of {chunksize} ")
     log.info('\n')
+
+
+################################################################################################################
+
+def generalized_json_data_chunking_file_export_function(input_file_path, output_file_path, file_type):
+    """
+    This function reads in raw JSON files as chunks and exports each individual chunk to a CSV or JSON file.
+    Please use absolute file path strings.
+    Please use "csv" or "json" for the file type to save as.
+
+    :param file_type: type of file to save as.
+    :param input_file_path: absolute file path of the input file.
+    :param output_file_path: absolute file path of the output file.
+
+    :return: None.
+    """
+    start_time = time.time()
+
+    # Define size of chunks to read in.
+    chunksize = 100000
+
+    # Read in the JSON file.
+    twitter_data = pd.read_json(f"{input_file_path}",
+                                orient='records',
+                                lines=True,
+                                chunksize=chunksize)
+
+    # Create a empty Pandas dataframe.
+    json_dataframe = pd.DataFrame()
+
+    # Read in data by chunk and export to file.
+    chunk_number = 0
+    for data in twitter_data:
+        json_dataframe = json_dataframe.append(data, ignore_index=True)
+        chunk_number += 1
+
+        # Note: Absolute file paths are required.  Relative do not work.
+        csv_output_file_path = f"{output_file_path}raw-twitter-dataset-chunk-{chunk_number}.csv"
+        json_output_file_path = f"{output_file_path}raw-twitter-dataset-chunk-{chunk_number}.json"
+
+        if file_type == "csv":
+            # Export to CSV file.
+            json_dataframe.to_csv(csv_output_file_path, sep=',',
+                                  encoding='utf-8', index=False, header=True)
+        elif file_type == "json":
+            # Export JSON file.
+            json_dataframe.to_json(json_output_file_path, orient='records', lines=True)
+        else:
+            print(f"Invalid file type entered - aborting operation")
+            return
+
+        # Clear the contents of the dataframe.
+        json_dataframe = pd.DataFrame()
+
+    end_time = time.time()
+    time_elapsed = (end_time - start_time) / 60.0
+
+    log.info(f"The time taken to read in the JSON file by Chunks is {time_elapsed} minutes")
+    log.info(f"The number of chunks is {chunk_number} based on chunk size of {chunksize}")
+    log.info('\n')
+
+
+################################################################################################################
+
+def tweet_count_by_timedate_time_series(created_at_attribute_file, file_type):
+    """
+    Visualize the Tweet creation time based on time-date information in the "created_at" attribute field of the
+    input file.
+
+    This function will work for any JSON file or CSV file that contains a attribute or column named "created_at".
+
+    Note: Ensure input file is small enough to fit in RAM.  This function will not read in data by chunks!
+
+    :param file_type: type of input file.
+    :param created_at_attribute_file: the input file containing the "created_at" Tweet attribute.
+    :return: None.
+    """
+    start_time = time.time()
+
+    if file_type == "csv":
+        twitter_data = pd.read_csv(f"{created_at_attribute_file}", sep=",")
+    elif file_type == "json":
+        twitter_data = pd.read_json(f"{created_at_attribute_file}",
+                                    orient='records',
+                                    lines=True)
+    else:
+        print(f"Invalid file type entered - aborting operation")
+        return
+
+    # Create a empty Pandas dataframe.
+    json_dataframe = pd.DataFrame(twitter_data)
+
+    plt.figure()
+    plt.title(f"Tweet Creation Time-Date Count by Year/Month/Day")
+    plt.xlabel("Year/Month/Day")
+    plt.ylabel("Tweet Count")
+    pd.to_datetime(json_dataframe['created_at']).value_counts().resample('1D').sum().plot()
+    plt.show()
+    end_time = time.time()
+    time_elapsed = (end_time - start_time) / 60.0
+    log.debug(f"The time taken to visualize the statistics is {time_elapsed} minutes")
+
+
+################################################################################################################
+
+
+def json_retweeted(json_dataframe, chunk):
+    """
+    Re-tweet statistics and visualizations for the raw JSON Twitter data chunks.
+
+    :param json_dataframe: the dataframe containing the JSON data chunk.
+    :param chunk: the JSON data chunk number.
+    :return: None.
+    """
+    print(f"Re-Tweet Statistics for raw JSON Twitter data chunk {chunk}:")
+    print(json_dataframe['retweeted'].value_counts())
+    print()
+
+
+################################################################################################################
+
+def json_favorited(json_dataframe, chunk):
+    """
+    Re-tweet statistics and visualizations for the raw JSON Twitter data chunks.
+
+    :param json_dataframe: the dataframe containing the JSON data chunk.
+    :param chunk: the JSON data chunk number.
+    :return: None.
+    """
+    print(f"Re-Tweet Statistics for raw JSON Twitter data chunk {chunk}:")
+    print(json_dataframe['favorited'].value_counts())
+    print()
+
+
+################################################################################################################
+
+def csv_retweeted():
+    """
+    Re-tweet statistics and visualizations for the CSV Twitter preprocessed dataset.
+
+    Note: The raw JSON file does not have associated "company" information.
+
+    :return: None.
+    """
+
+    print("Re-Tweet Statistics for entire CSV dataset:")
+    print(csv_dataframe['retweeted'].value_counts())
+    print()
+
+    print("Re-Tweet Statistics for CSV dataset by Company:")
+    print("Number of Tweets that are or aren't re-tweets by associated company: ")
+    print(csv_dataframe.groupby(['company', 'retweeted']).size())
+    print()
+
+    # Graph the Re-Tweet Statistics.
+    print("Proportion of Re-Tweets versus non Re-Tweets by associated company: ")
+    plt.figure()
+    grid = sns.FacetGrid(csv_dataframe[['retweeted', 'company']], col='company', col_wrap=6,
+                         ylim=(0, 1))
+    grid.map_dataframe(bar_plot, 'retweeted').set_titles('{col_name}')
+    plt.show()
+
+
+# Call the function.
+# csv_retweeted()
 
 
 ################################################################################################################
 
 # Read in the CSV file.
 tweet_dataset_processed = \
-    pd.read_csv("datasets/dataset_20100101-20180510.csv", sep=",")
-
-# tweet_dataset_processed = \
-#     pd.read_csv("D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv", sep=",")
+    pd.read_csv("D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv", sep=",")
 
 # Reindex and shuffle the data randomly.
 tweet_dataset_processed = tweet_dataset_processed.reindex(
@@ -548,7 +540,9 @@ log.info("The columns of our dataframe storing the contents of the preprocessed 
 log.info(csv_dataframe.columns)
 log.info("\n")
 log.info("A sample from the dataframe storing the contents of the preprocessed CSV Tweet file is:")
-log.info(csv_dataframe.sample(10))
+with pd.option_context('display.max_rows', None, 'display.max_columns',
+                       None, 'display.width', None, 'display.max_colwidth', 1000):
+    log.info(f"\n{csv_dataframe.sample(1, axis=0)}")
 log.info("\n")
 
 ################################################################################################################
@@ -558,10 +552,27 @@ Main function.  Execute the program.
 """
 if __name__ == '__main__':
     # Specify and call data analysis functions on chunked raw JSON Tweet file.
-    call_data_analysis_function_on_json_file_chunks(time_series, False)
-    call_data_analysis_function_on_json_file_chunks(json_retweeted, False)
+    # call_data_analysis_function_on_json_file_chunks(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json", json_retweeted)
+    # call_data_analysis_function_on_json_file_chunks(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json", json_favorited)
+    call_data_analysis_function_on_json_file_chunks(
+        "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json", "none")
 
-    # Use this call to just print raw JSON file data chunk information.
-    call_data_analysis_function_on_json_file_chunks("None", True)
+    # Extract the "created_at" field from raw JSON file and export to CSV file.
+    # generalized_field_extraction_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+    #     "user", "csv")
+
+    # Read in JSON raw data as chunks and export to CSV/JSON files.
+    # generalized_json_data_chunking_file_export_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/dataset-chunks/", "csv")
+
+    # Display Tweet count by time-date time series statistics.
+    # tweet_count_by_timedate_time_series(
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/created_at-attribute.csv",
+    #     "csv")
 
 ################################################################################################################
