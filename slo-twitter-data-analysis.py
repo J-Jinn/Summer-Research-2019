@@ -236,13 +236,30 @@ def tweet_character_counts(tweet_csv_dataframe):
 
 ################################################################################################################
 
+def attribute_describe(input_file_path, attribute_name):
+    """
+    Function utilizes Pandas "describe" function to return dataframe statistics.
+
+    :param input_file_path: absolute file path of the dataset in CSV format.
+    :param attribute_name:  name of the attribute we are analyzing.
+    :return: None.
+    """
+    dataframe = tweet_util.import_dataset(
+        f"{input_file_path}", "csv")
+
+    print(f"Pandas describe for {attribute_name}: ")
+    print(dataframe.describe(include='all'))
+
+
+################################################################################################################
+
 """
 Main function.  Execute the program.
 """
 if __name__ == '__main__':
     # Import dataset and convert to dataframe.
-    tweet_preprocessed_csv_dataframe = tweet_util.import_dataset(
-        "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv", "csv")
+    # tweet_preprocessed_csv_dataframe = tweet_util.import_dataset(
+    #     "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv", "csv")
 
     # # Specify and call data analysis functions on chunked raw JSON Tweet file.
     # tweet_util.call_data_analysis_function_on_json_file_chunks(
@@ -254,16 +271,16 @@ if __name__ == '__main__':
     # tweet_util.call_data_analysis_function_on_json_file_chunks(
     #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json", "none")
 
-    # Extract the "created_at" field from raw JSON file and export to CSV file.
-    tweet_util.generalized_field_extraction_function(
-        "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-        "user", "csv")
+    # # Extract the "created_at" field from raw JSON file and export to CSV file.
+    # tweet_util.generalized_field_extraction_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+    #     "user", "csv")
 
-    # Read in JSON raw data as chunks and export to CSV/JSON files.
-    tweet_util.generalized_json_data_chunking_file_export_function(
-        "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-        "D:/Dropbox/summer-research-2019/jupyter-notebooks/dataset-chunks/", "csv")
+    # # Read in JSON raw data as chunks and export to CSV/JSON files.
+    # tweet_util.generalized_json_data_chunking_file_export_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/dataset-chunks/", "csv")
 
     # Display Tweet count by time-date time series statistics.
     # tweet_count_by_timedate_time_series(
@@ -278,5 +295,32 @@ if __name__ == '__main__':
 
     # Determine the # of characters in Tweets via relative frequency histogram.
     # tweet_character_counts(tweet_preprocessed_csv_dataframe)
+
+    # Extract various individual fields from raw JSON file and export to CSV file.
+    # tweet_util.generalized_field_extraction_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+    #     "reply_count", "csv")
+
+    # Analyze full-text.
+    # attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/full_text-attribute.csv",
+    #                    "full_text")
+    #
+    # attribute_describe(
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/retweet_count-attribute.csv",
+    #     "retweet_count")
+    #
+    # attribute_describe(
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/favorite_count-attribute.csv",
+    #     "favorite_count")
+
+    pd.options.display.max_rows = None
+    pd.options.display.max_columns = None
+    pd.options.display.width = None
+    pd.options.display.max_colwidth = 1000
+
+    attribute_describe(
+        "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv",
+        "entire CSV dataset")
 
 ################################################################################################################
