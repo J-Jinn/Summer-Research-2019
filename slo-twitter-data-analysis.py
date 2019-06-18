@@ -236,19 +236,78 @@ def tweet_character_counts(tweet_csv_dataframe):
 
 ################################################################################################################
 
-def attribute_describe(input_file_path, attribute_name):
+def attribute_describe(input_file_path, attribute_name, file_type):
     """
     Function utilizes Pandas "describe" function to return dataframe statistics.
 
+    https://chrisalbon.com/python/data_wrangling/pandas_dataframe_descriptive_stats/
+
+    Note: This function will no work for attributes whose value are "objects" themselves.
+    (can only be numeric type or string)
+
     :param input_file_path: absolute file path of the dataset in CSV format.
     :param attribute_name:  name of the attribute we are analyzing.
+    :param file_type: type of input file.
     :return: None.
     """
-    dataframe = tweet_util.import_dataset(
-        f"{input_file_path}", "csv")
+    start_time = time.time()
+
+    if file_type == "csv":
+        twitter_data = pd.read_csv(f"{input_file_path}", sep=",")
+    elif file_type == "json":
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True)
+    else:
+        print(f"Invalid file type entered - aborting operation")
+        return
+
+    # Create a empty Pandas dataframe.
+    dataframe = pd.DataFrame(twitter_data)
 
     print(f"Pandas describe for {attribute_name}: ")
     print(dataframe.describe(include='all'))
+
+    end_time = time.time()
+    time_elapsed = (end_time - start_time) / 60.0
+    log.debug(f"The time taken to visualize the statistics is {time_elapsed} minutes")
+
+
+################################################################################################################
+
+def count_nan_non_nan(input_file_path, attribute_name, file_type):
+    """
+    Function counts the number of NaN and non-Nan examples in a Pandas dataframe.
+
+    :param input_file_path: absolute file path of the dataset in CSV format.
+    :param attribute_name:  name of the attribute we are analyzing.
+    :param file_type: type of input file.
+    :return: None.
+    """
+    start_time = time.time()
+
+    if file_type == "csv":
+        twitter_data = pd.read_csv(f"{input_file_path}", sep=",", dtype=object)
+    elif file_type == "json":
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True)
+    else:
+        print(f"Invalid file type entered - aborting operation")
+        return
+
+    # Create a empty Pandas dataframe.
+    dataframe = pd.DataFrame(twitter_data)
+
+    empty_examples = dataframe[attribute_name].isnull().sum()
+    non_empty_examples = dataframe[attribute_name].count() - empty_examples
+
+    print(f"The number of NaN rows for {attribute_name} is {empty_examples}")
+    print(f"The number of non-NaN rows for {attribute_name} is {non_empty_examples}")
+
+    end_time = time.time()
+    time_elapsed = (end_time - start_time) / 60.0
+    log.debug(f"The time taken to visualize the statistics is {time_elapsed} minutes")
 
 
 ################################################################################################################
@@ -257,6 +316,11 @@ def attribute_describe(input_file_path, attribute_name):
 Main function.  Execute the program.
 """
 if __name__ == '__main__':
+    pd.options.display.max_rows = None
+    pd.options.display.max_columns = None
+    pd.options.display.width = None
+    pd.options.display.max_colwidth = 1000
+
     # Import dataset and convert to dataframe.
     # tweet_preprocessed_csv_dataframe = tweet_util.import_dataset(
     #     "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv", "csv")
@@ -275,7 +339,7 @@ if __name__ == '__main__':
     # tweet_util.generalized_field_extraction_function(
     #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-    #     "user", "csv")
+    #     "id", "csv")
 
     # # Read in JSON raw data as chunks and export to CSV/JSON files.
     # tweet_util.generalized_json_data_chunking_file_export_function(
@@ -296,31 +360,37 @@ if __name__ == '__main__':
     # Determine the # of characters in Tweets via relative frequency histogram.
     # tweet_character_counts(tweet_preprocessed_csv_dataframe)
 
-    # Extract various individual fields from raw JSON file and export to CSV file.
+    # Extract various individual fields from raw JSON file and export to CSV/JSON file.
     # tweet_util.generalized_field_extraction_function(
     #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-    #     "reply_count", "csv")
+    #     "user", "json")
 
     # Analyze full-text.
     # attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/full_text-attribute.csv",
-    #                    "full_text")
+    #                    "full_text", "csv")
     #
     # attribute_describe(
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/retweet_count-attribute.csv",
-    #     "retweet_count")
+    #     "retweet_count", "csv")
     #
     # attribute_describe(
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/favorite_count-attribute.csv",
-    #     "favorite_count")
+    #     "favorite_count", "csv")
 
-    pd.options.display.max_rows = None
-    pd.options.display.max_columns = None
-    pd.options.display.width = None
-    pd.options.display.max_colwidth = 1000
+    # attribute_describe(
+    #     "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv",
+    #     "entire CSV dataset")
 
-    attribute_describe(
-        "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510.csv",
-        "entire CSV dataset")
+    # Extract multiple fields from raw JSON file and export to CSV file.
+    # tweet_util.generalized_field_extraction_function(
+    #     "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+    #     ["retweet_count", "retweeted", "favorite_count", "favorited"], "csv")
+
+    # Determine the number of NaN and non-NaN rows for a attribute in a dataset.
+    # count_nan_non_nan(
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    #     "['retweet_count', 'retweeted', 'favorite_count', 'favorited']-attribute.csv", "favorite_count", "csv")
 
 ################################################################################################################
