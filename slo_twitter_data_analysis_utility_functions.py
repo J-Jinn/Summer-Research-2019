@@ -11,6 +11,8 @@ Notes:
 
 These are imported into the "slo-twitter-data-analysis.py" file.
 
+TODO - refactor and iterate upon codebase for style, readability, and efficiency.
+
 ###########################################################
 
 Resources Used:
@@ -52,9 +54,12 @@ Turn debug log statements for various sections of code on/off.
 log.basicConfig(level=log.INFO)
 tf.logging.set_verbosity(tf.logging.INFO)
 
+################################################################################################################
+################################################################################################################
+"""
+This section contains helper functions taken from "SLO analysis.ipynb" by Shuntaro Yada from CSIRO.
+"""
 
-################################################################################################################
-################################################################################################################
 
 def bar_plot(col, **kwargs):
     """
@@ -73,7 +78,6 @@ def bar_plot(col, **kwargs):
 
 ################################################################################################################
 
-
 def bar_plot_zipf(col, **kwargs):
     """
     Helper function to visualize the data.
@@ -91,7 +95,78 @@ def bar_plot_zipf(col, **kwargs):
 
 
 ################################################################################################################
+
+def ts_plot(col, **kwargs):
+    """
+    Helper function to visualize the data.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    ts = pd.to_datetime(data[col]).value_counts().resample('1D').sum()
+    ax.plot(ts)
+
+
 ################################################################################################################
+
+def ts_plot_2(col, **kwargs):
+    """
+    Helper function to visualize the data.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+
+    FIXME - not working as intended.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    ts_rt = pd.to_datetime(data.query("retweeted_custom == 'TRUE'")[col]).value_counts().resample('1D').sum()
+    ts = pd.to_datetime(data.query("retweeted_custom == 'FALSE'")[col]).value_counts().resample('1D').sum()
+    ax.plot(ts)
+    ax.plot(ts_rt)
+
+
+################################################################################################################
+
+def relhist_proc(col, **kwargs):
+    """
+    Helper function to visualize the data.  Constructs a relative frequency histogram.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    proc = kwargs.pop('proc')
+    processed = proc(data[col])
+    # relative frequency histogram
+    # https://stackoverflow.com/questions/9767241/setting-a-relative-frequency-in-a-matplotlib-histogram
+    ax.hist(processed, weights=np.ones_like(processed) / processed.size, **kwargs)
+
+
+################################################################################################################
+
+def char_len(tweets):
+    """
+    Determine the length of the Tweet text.
+
+    :param tweets: the Tweet text.
+    :return: the length of the Tweet.
+    """
+    return tweets.str.len()
+
+
+################################################################################################################
+################################################################################################################
+"""
+This section contains the utility functions we created.
+"""
+
 
 def call_data_analysis_function_on_json_file_chunks(input_file_path, function_name):
     """
@@ -177,17 +252,27 @@ def generalized_multi_field_extraction_function(input_file_path, output_file_pat
        :return: None.
 
        FIXME - ensure the last Tweet is not truncated when producing the CSV file.
+       TODO - ensure it works for CSV files.
        """
     start_time = time.time()
 
     # Define size of chunks to read in.
     chunksize = 100000
 
-    # Read in the JSON file.
-    twitter_data = pd.read_json(f"{input_file_path}",
-                                orient='records',
-                                lines=True,
-                                chunksize=chunksize)
+    if file_type == "csv":
+        # Read in the CSV file.
+        twitter_data = \
+            pd.read_csv(f"{input_file_path}", sep=",",
+                        chunksize=chunksize)
+    elif file_type == "json":
+        # Read in the JSON file.
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True,
+                                    chunksize=chunksize)
+    else:
+        print("Invalid file type - aborting operation")
+        return
 
     # Create empty Pandas Dataframes.
     json_dataframe = pd.DataFrame()
@@ -201,7 +286,10 @@ def generalized_multi_field_extraction_function(input_file_path, output_file_pat
 
         # Append each attribute in the list to the dataframe.
         for field in fields_to_extract:
-            selected_field[field] = json_dataframe[field]
+            if json_dataframe[field] is not None:
+                selected_field[field] = json_dataframe[field]
+            else:
+                selected_field[field] = "NaN"
             created_at_dataframe = created_at_dataframe.append(selected_field)
 
         # Clear dataframe and increment counter.
@@ -243,17 +331,27 @@ def generalized_field_extraction_function(input_file_path, output_file_path, fie
     :param output_file_path: absolute file path of the output file to save the extracted field to.
     :param field_to_extract: string name of the field to extract.
     :return: None.
+    TODO - ensure it works for CSV files.
     """
     start_time = time.time()
 
     # Define size of chunks to read in.
     chunksize = 100000
 
-    # Read in the JSON file.
-    twitter_data = pd.read_json(f"{input_file_path}",
-                                orient='records',
-                                lines=True,
-                                chunksize=chunksize)
+    if file_type == "csv":
+        # Read in the CSV file.
+        twitter_data = \
+            pd.read_csv(f"{input_file_path}", sep=",",
+                        chunksize=chunksize)
+    elif file_type == "json":
+        # Read in the JSON file.
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True,
+                                    chunksize=chunksize)
+    else:
+        print("Invalid file type - aborting operation")
+        return
 
     # Create empty Pandas Dataframes.
     json_dataframe = pd.DataFrame()
@@ -264,7 +362,10 @@ def generalized_field_extraction_function(input_file_path, output_file_path, fie
     chunk_number = 0
     for data in twitter_data:
         json_dataframe = json_dataframe.append(data, ignore_index=True)
-        selected_field[field_to_extract] = json_dataframe[field_to_extract]
+        if json_dataframe[field_to_extract] is not None:
+            selected_field[field_to_extract] = json_dataframe[field_to_extract]
+        else:
+            selected_field[field_to_extract] = "NaN"
         created_at_dataframe = created_at_dataframe.append(selected_field)
 
         # Clear dataframe and increment counter.
@@ -295,13 +396,13 @@ def generalized_field_extraction_function(input_file_path, output_file_path, fie
 
 ################################################################################################################
 
-def generalized_json_data_chunking_file_export_function(input_file_path, output_file_path, file_type):
+def generalized_data_chunking_file_export_function(input_file_path, output_file_path, file_type):
     """
-    This function reads in raw JSON files as chunks and exports each individual chunk to a CSV or JSON file.
+    This function reads in raw JSON or CSV files as chunks and exports each individual chunk to a CSV or JSON file.
     Please use absolute file path strings.
-    Please use "csv" or "json" for the file type to save as.
+    Please use "csv" or "json" for the file type to save as and import as.
 
-    :param file_type: type of file to save as.
+    :param file_type: type of file to save as or import as.
     :param input_file_path: absolute file path of the input file.
     :param output_file_path: absolute file path of the output file.
 
@@ -312,11 +413,20 @@ def generalized_json_data_chunking_file_export_function(input_file_path, output_
     # Define size of chunks to read in.
     chunksize = 100000
 
-    # Read in the JSON file.
-    twitter_data = pd.read_json(f"{input_file_path}",
-                                orient='records',
-                                lines=True,
-                                chunksize=chunksize)
+    if file_type == "csv":
+        # Read in the CSV file.
+        twitter_data = \
+            pd.read_csv(f"{input_file_path}", sep=",",
+                        chunksize=chunksize)
+    elif file_type == "json":
+        # Read in the JSON file.
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True,
+                                    chunksize=chunksize)
+    else:
+        print("Invalid file type - aborting operation")
+        return
 
     # Create a empty Pandas dataframe.
     json_dataframe = pd.DataFrame()
@@ -359,6 +469,8 @@ def import_dataset(input_file_path, file_type):
     """
     This function imports a JSON or CSV dataset and puts it into a Pandas Dataframe while providing basic information
     on the contents of the data in the frame.
+
+    Note: Does NOT import in chunks.  Assumes file will fit in system RAM.
 
     :return: the Pandas Dataframe containing the dataset.
     """
@@ -416,17 +528,27 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
        :return: None.
 
        TODO - find a faster and more efficient way to perform this function.
+       FIXME - not working for CSV files.
        """
     start_time = time.time()
 
     # Define size of chunks to read in.
     chunksize = 100000
 
-    # Read in the JSON file.
-    twitter_data = pd.read_json(f"{input_file_path}",
-                                orient='records',
-                                lines=True,
-                                chunksize=chunksize)
+    if file_type == "csv":
+        # Read in the CSV file.
+        twitter_data = \
+            pd.read_csv(f"{input_file_path}", sep=",",
+                        chunksize=chunksize)
+    elif file_type == "json":
+        # Read in the JSON file.
+        twitter_data = pd.read_json(f"{input_file_path}",
+                                    orient='records',
+                                    lines=True,
+                                    chunksize=chunksize)
+    else:
+        print("Invalid file type - aborting operation")
+        return
 
     # Create empty Pandas Dataframes.
     json_dataframe = pd.DataFrame()
@@ -435,17 +557,21 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
 
     # Loop through each chunk of data from the JSON file.
     chunk_number = 0
+    # TODO - emulate Professor Vanderlinden's code for the outer loop.
     for data in twitter_data:
         json_dataframe = json_dataframe.append(data, ignore_index=True)
 
         # Loop through each row in the dataframe that contains a top-level field and nested dictionary of fields.
         for element in json_dataframe[top_level_field]:
             # print(element)
-
+            # TODO - use integer index values for keys (TypeError: string indices must be integers)
             # Append each nested attribute in specified List to the dataframe as a column in a row in new dataframe.
             for field in nested_fields_to_extract:
                 # print(element[field])
-                selected_field[field] = pd.Series(element[field])
+                if element[field] is not None:
+                    selected_field[field] = pd.Series(element[field])
+                else:
+                    selected_field[field] = "NaN"
             # print(selected_field.shape)
             # print(selected_field.sample)
             created_at_dataframe = created_at_dataframe.append(selected_field, ignore_index=True)
@@ -456,6 +582,9 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
         # Clear dataframe and increment counter.
         json_dataframe = pd.DataFrame()
         chunk_number += 1
+
+        # One chunk only for debug purposes.
+        break
 
     file_path = \
         f"{output_file_path}\'{top_level_field}\'-top-level-attribute-" \
@@ -481,103 +610,15 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
     log.info(f"The number of chunks is {chunk_number} based on chunk size of {chunksize} ")
     log.info('\n')
 
-
 ################################################################################################################
-
-def create_url(data):
-    """
-    Helper function that constructs the direct URL link to the Tweet based on Tweet ID and user screenname.
-
-    :param data: current row (example) we are operating on.
-    :return: the row with the new column with the direct URL link.
-    """
-    url_path = f"https://twitter.com/{data['screen_name']}/status/{data['id']}"
-    data['tweet_direct_url'] = url_path
-
-    return data
-
-
-def create_tweet_url_direct_link_derived_column():
-    """
-    Function creates a derived column in dataset file that provides a direct URL link to the Tweet.
-
-    Note: Requires the "id" field in main Tweet object and the "screenname" field in the "user" object.
-
-    :return: None
-    """
-
-    input_file_path_1 = "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/id-attribute.csv"
-    input_file_path_2 = "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/screen_name-attribute.csv"
-
-    dataset_1 = pd.read_csv(f"{input_file_path_1}", sep=",")
-    dataset_2 = pd.read_csv(f"{input_file_path_2}", sep=",")
-
-    dataframe_1 = pd.DataFrame(dataset_1)
-    dataframe_2 = pd.DataFrame(dataset_2)
-
-    tweet_id = dataframe_1['id']
-    user_name = dataframe_2['screen_name']
-
-    combined_df = pd.DataFrame(pd.concat([tweet_id, user_name], axis=0))
-    combined_df = combined_df.apply(create_url, axis=1)
 
 
 ################################################################################################################
 
-def unique_values(input_file_path, attribute_list, file_type):
-    """
-    Function that determines the # of unique items based on specified attributes list to check for duplicate values.
+# Extract list of specified attributes from nested JSON dictionary structure. (debug test purposes)
+# generalized_two_layer_nested_multi_field_extraction_function(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/user-attribute.json",
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+#     "user", ["id", "name", "screen_name", "description"], "json")
 
-    Note: If attribute_list is an empty List, then the function will use all columns in the dataframe to check for
-    duplicate values.
-
-    :param file_type: type of file to import. ("json" or "csv")
-    :param input_file_path: absolute file path of the input file to extract the field from.
-    :param attribute_list: List of attributes to use to determine the uniqueness of the examples in the dataframe.
-    :return: the dataframe with only unique rows based on the specified attribute List for uniqueness checking.
-    """
-
-    if file_type == "csv":
-        # Read in the CSV file.
-        tweet_dataset = \
-            pd.read_csv(f"{input_file_path}", sep=",")
-    elif file_type == "json":
-        # Read in the JSON file.
-        tweet_dataset = pd.read_json(f"{input_file_path}",
-                                     orient='records',
-                                     lines=True)
-    else:
-        print("Invalid file type - aborting operation")
-        return
-
-    tweet_dataframe = pd.DataFrame(tweet_dataset)
-
-    print(f"Dataframe shape: \n{tweet_dataframe.shape}\n")
-
-    if len(attribute_list) == 0:
-        # Drop any duplicate rows by checking all columns for duplicate values.
-        tweet_dataframe.drop_duplicates()
-    else:
-        # Drop any duplicate rows by checking specified columns (attributes) for duplicate values.
-        tweet_dataframe.drop_duplicates(subset=[f"{attribute_list}"])
-
-    print(f"Dataframe shaped after dropping duplicate items: \n{tweet_dataframe.shape}\n")
-
-    print(f"The number of unique rows in the dataframe after dropping duplicate values in attribute(s) "
-          f"{attribute_list} is {tweet_dataframe.count()}")
-
-    # Return the dataframe with only the unique items based on the check.
-    return tweet_dataframe
-
-
-################################################################################################################
-
-# Extract list of specified attributes from nested JSON dictionary structure.
-generalized_two_layer_nested_multi_field_extraction_function(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/user-attribute.json",
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-    "user", ["id", "name", "screen_name", "description"], "csv")
-
-# import_dataset("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/user-attribute.csv", "csv")
-# FIXME - why is there 700,000 listed Tweets in the dataset when using pd.shape() but only approx. 670k+ in the file?
 ################################################################################################################
