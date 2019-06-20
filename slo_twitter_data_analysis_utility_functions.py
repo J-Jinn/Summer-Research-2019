@@ -9,7 +9,7 @@ SLO Twitter Dataset Analysis Utility Functions
 ###########################################################
 Notes:
 
-These are imported into the "slo-twitter-data-analysis.py" file.
+These are imported into the "slo_twitter_data_analysis.py" file.
 
 TODO - refactor and iterate upon codebase for style, readability, and efficiency.
 
@@ -33,6 +33,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import csv
 from pandas.io.json import json_normalize
 
 sns.set()
@@ -124,8 +125,8 @@ def ts_plot_2(col, **kwargs):
     """
     ax = plt.gca()
     data = kwargs.pop('data')
-    ts_rt = pd.to_datetime(data.query("retweeted_custom == 'TRUE'")[col]).value_counts().resample('1D').sum()
-    ts = pd.to_datetime(data.query("retweeted_custom == 'FALSE'")[col]).value_counts().resample('1D').sum()
+    ts_rt = pd.to_datetime(data.query("retweeted_derived == 'TRUE'")[col]).value_counts().resample('1D').sum()
+    ts = pd.to_datetime(data.query("retweeted_derived == 'FALSE'")[col]).value_counts().resample('1D').sum()
     ax.plot(ts)
     ax.plot(ts_rt)
 
@@ -212,11 +213,11 @@ def call_data_analysis_function_on_json_file_chunks(input_file_path, function_na
                 f"{chunk_number} is:\n")
             log.info(json_dataframe.columns)
             log.info(
-                f"\nA sample from the dataframe storing the contents of the raw JSON Tweet file chunk "
+                f"\nThe first row from the dataframe storing the contents of the raw JSON Tweet file chunk "
                 f"{chunk_number} is:\n")
             with pd.option_context('display.max_rows', None, 'display.max_columns',
                                    None, 'display.width', None, 'display.max_colwidth', 1000):
-                log.info(f"\n{json_dataframe.sample(1, axis=0)}")
+                log.info(f"\n{json_dataframe.iloc[0]}")
             time.sleep(2)
 
         if function_name != "none":
@@ -224,7 +225,7 @@ def call_data_analysis_function_on_json_file_chunks(input_file_path, function_na
             function_name(json_dataframe, chunk_number)
         else:
             return
-            # Clear the contents of the dataframe.
+        # Clear the contents of the dataframe.
         json_dataframe = pd.DataFrame()
 
         # For debug purposes.
@@ -500,10 +501,10 @@ def import_dataset(input_file_path, file_type):
     log.info(dataframe.shape)
     log.info(f"\nThe columns of our dataframe storing the contents of the {file_type} Tweet data is:\n")
     log.info(dataframe.columns)
-    log.info(f"\nA sample from the dataframe storing the contents of the {file_type} Tweet data is:\n")
+    log.info(f"\nThe first row from the dataframe storing the contents of the {file_type} Tweet data is:\n")
     with pd.option_context('display.max_rows', None, 'display.max_columns',
                            None, 'display.width', None, 'display.max_colwidth', 1000):
-        log.info(f"\n{dataframe.sample(1, axis=0)}\n")
+        log.info(f"\n{dataframe.iloc[0]}\n")
 
     return dataframe
 
@@ -564,7 +565,7 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
         # Loop through each row in the dataframe that contains a top-level field and nested dictionary of fields.
         for element in json_dataframe[top_level_field]:
             # print(element)
-            # TODO - use integer index values for keys (TypeError: string indices must be integers)
+            # TODO - for CSV files, use integer index values for keys (TypeError: string indices must be integers)
             # Append each nested attribute in specified List to the dataframe as a column in a row in new dataframe.
             for field in nested_fields_to_extract:
                 # print(element[field])
@@ -610,15 +611,172 @@ def generalized_two_layer_nested_multi_field_extraction_function(input_file_path
     log.info(f"The number of chunks is {chunk_number} based on chunk size of {chunksize} ")
     log.info('\n')
 
+
 ################################################################################################################
+
+def append_to_csv(tweet_dataframe, attribute_list, output_file_path):
+    """
+    This function appends to an existing CSV dataset file new attributes (columns).
+
+    Note: Appends new rows with specified columns to end of specified file.
+
+    :param tweet_dataframe:  Tweet dataframe.
+    :param attribute_list: names of the attributes (columns) to append to the CSV dataset file.
+    :param output_file_path: absolute file path of CSV dataset to append to.
+    :return: None.
+    """
+    tweet_dataframe[attribute_list].to_csv(output_file_path,
+                                           index=False,
+                                           quoting=csv.QUOTE_NONNUMERIC,
+                                           mode='a',
+                                           header=True,
+                                           encoding="utf-8"
+                                           )
 
 
 ################################################################################################################
+
+def export_to_csv(tweet_dataframe, output_file_path):
+    """
+    This function write to a new CSV dataset file the Pandas Dataframe specified as a parameter.
+
+    Note: If specified file exists, will overwrite/write changes to that file.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :param output_file_path: absolute file path of the location to save the CSV dataset file to.
+    :return: None.
+    """
+    tweet_dataframe.to_csv(output_file_path,
+                           index=False,
+                           quoting=csv.QUOTE_NONNUMERIC,
+                           mode='w',
+                           header=True,
+                           encoding="utf-8"
+                           )
+
+
+################################################################################################################
+
+def tweet_single_company_name_or_multiple_company_designation(tweet_dataframe):
+    """
+    This function adds a attribute to the dataset that identifies a Tweet as being associated with a single company
+    by that company's name or if associated with multiple companies, by the designation of "multiple".
+
+    Note: This utility function is intended to also be implemented in "dataset_process_adapted.py" to add a new column
+    to the CSV dataset produced from the raw JSON datset.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    """
+
+    def compute_company_designation(row):
+        """
+         This function adds a attribute to the dataset that identifies a Tweet as being associated with a single
+         company by that company's name or if associated with multiple companies, by the designation of "multiple".
+
+        :param row: example in the dataset we are operating on.
+        :return:  the modified example.
+        """
+
+        if row["multiple_companies_derived_count"] > 1:
+            row["company_derived_designation"] = "multiple"
+        else:
+            row["company_derived_designation"] = row["company_derived"]
+
+        return row["company_derived_designation"]
+
+    dataframe = pd.DataFrame(tweet_dataframe)
+    # Note: Ensure axis=1 so function applies to entire row rather than per column by default. (axis = 0 = column)
+    dataframe["company_derived_designation"] = dataframe.apply(compute_company_designation, axis=1)
+
+    export_to_csv(dataframe,
+                  "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv")
+
+
+################################################################################################################
+
+def export_multi_company_tweets(tweet_dataframe):
+    """
+    This function exports to a CSV dataset file only those Tweets that are associated with multiple companies.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    """
+    dataframe = pd.DataFrame(tweet_dataframe)
+    multi_company_only_df = dataframe.loc[dataframe['multiple_companies_derived_count'] > 1]
+    export_to_csv(multi_company_only_df,
+                  "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets.csv")
+
+
+################################################################################################################
+
+def analyze_multi_company_tweets(tweet_dataframe):
+    dataframe = pd.DataFrame(tweet_dataframe)
+    print(f"\nStat summary of multi-company Tweets:\n {dataframe.describe()}\n")
+
+
+################################################################################################################
+
+
+def flatten_nested_structures(input_file_path, output_file_path, attribute_list):
+    """This function grabs the attributes specified in the List from the
+    nested user JSON structure.
+    """
+    user_series = pd.read_json(json.dumps(row['user']), typ='series')
+    user_series['description'] = clean_text(user_series['description'])
+
+    user_fields = ['id', 'name', 'screen_name', 'location', 'description',
+                   'followers_count', 'friends_count', 'listed_count', 'favourites_count', 'statuses_count',
+                   'created_at',
+                   'time_zone', 'lang']
+
+    return user_series[user_fields]
+
+
+################################################################################################################
+
+################################################################################################################
+
+start_time = time.time()
 
 # Extract list of specified attributes from nested JSON dictionary structure. (debug test purposes)
 # generalized_two_layer_nested_multi_field_extraction_function(
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/user-attribute.json",
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
 #     "user", ["id", "name", "screen_name", "description"], "json")
+
+# Extract various individual fields from raw JSON file and export to CSV/JSON file.
+generalized_field_extraction_function(
+    "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
+    "retweeted_status", "csv")
+
+# # Import CSV dataset and convert to dataframe.
+# tweet_csv_dataframe = import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv",
+#     "csv")
+
+# # Append new column to CSV dataset file indicating a single company name association or "multiple" for multiple
+# # company associations.
+# tweet_single_company_name_or_multiple_company_designation(tweet_csv_dataframe)
+
+# # Isolate multi-company associated Tweets for data analysis.
+# export_multi_company_tweets(tweet_csv_dataframe)
+
+# # Import CSV dataset and convert to dataframe.
+# multi_company_tweets_df = import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets.csv",
+#     "csv")
+
+# # Analyze the multi-company associated Tweets.
+# analyze_multi_company_tweets(multi_company_tweets_df)
+
+end_time = time.time()
+
+time_elapsed_seconds = (end_time - start_time)
+time_elapsed_minutes = (end_time - start_time) / 60.0
+time_elapsed_hours = (end_time - start_time) / 60.0 / 60.0
+print(f"Time taken to process dataset: {time_elapsed_seconds} seconds, "
+      f"{time_elapsed_hours} hours, {time_elapsed_minutes} minutes")
 
 ################################################################################################################

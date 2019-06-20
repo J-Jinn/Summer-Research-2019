@@ -61,13 +61,34 @@ tf.logging.set_verbosity(tf.logging.INFO)
 ################################################################################################################
 ################################################################################################################
 
+def tweets_number_associated_companies(tweet_dataframe):
+    """
+    Function displays statistics on the # of Tweets associated with one versus multiple companies.
+
+    :param tweet_dataframe: the Twitter dataset in a Pandas dataframe.
+    :return: None.
+    """
+    # Number of rows in entire dataframe.
+    number_rows_total = tweet_csv_dataframe.shape[0]
+
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
+
+    # Number of rows associated with only one company.
+    number_rows_one_company = single_company_only_df.shape[0]
+
+    print(f"The # of Tweets associated with multiple companies is {number_rows_total - number_rows_one_company}")
+    print(f"The # of Tweets associated with one company is {number_rows_one_company}")
+
+
+################################################################################################################
 
 def tweet_count_by_timedate_time_series(created_at_attribute_file, file_type):
     """
-    Visualize the Tweet creation time based on time-date information in the "created_at" attribute field of the
-    input file.
+    Function computes time series statistics and visualizations on Tweet Creation Time-Date Stamp.
 
-    This function will work for any JSON file or CSV file that contains a attribute or column named "created_at".
+    This function will work for any JSON file or CSV file that contains a attribute or column named "tweet_created_at"
+    and "company_derived".
 
     Note: Ensure input file is small enough to fit in RAM.  This function will not read in data by chunks!
 
@@ -90,6 +111,9 @@ def tweet_count_by_timedate_time_series(created_at_attribute_file, file_type):
     # Create a empty Pandas dataframe.
     dataframe = pd.DataFrame(twitter_data)
 
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = dataframe.loc[dataframe['multiple_companies_derived_count'] == 1]
+
     # 1st Plot.
     plt.figure(figsize=(18.5, 10.5), dpi=300)
     plt.title(f"Tweet Creation Time-Date Count by Year/Month/Day")
@@ -100,14 +124,16 @@ def tweet_count_by_timedate_time_series(created_at_attribute_file, file_type):
 
     # 2nd Plot.
     plt.figure()
-    grid = sns.FacetGrid(dataframe[['tweet_created_at', 'company_custom']], row='company_custom', size=2, aspect=10,
+    grid = sns.FacetGrid(single_company_only_df[['tweet_created_at', 'company_derived']], row='company_derived', size=2,
+                         aspect=10,
                          sharey=False)
     grid.map_dataframe(tweet_util.ts_plot, 'tweet_created_at').set_titles('{row_name}')
     plt.show()
 
     # # 3rd Plot.
-    # TODO - not working as intended.
-    # grid = sns.FacetGrid(dataframe[['retweeted_custom', 'tweet_created_at', 'company_custom']], row='company_custom',
+    # # FIXME - not working as intended.
+    # plt.figure()
+    # grid = sns.FacetGrid(dataframe[['retweeted_derived', 'tweet_created_at', 'company_derived']], row='company_derived',
     #                      size=2, aspect=10,
     #                      sharey=False)
     # grid.map_dataframe(tweet_util.ts_plot_2, 'tweet_created_at').set_titles('{row_name}')
@@ -120,61 +146,63 @@ def tweet_count_by_timedate_time_series(created_at_attribute_file, file_type):
 
 ################################################################################################################
 
-def attribute_value_counts(tweet_dataframe, attribute_name):
+def retweet_statistics(tweet_dataframe):
     """
-    User-specified attribute statistics and visualizations for the CSV format Twitter dataset.
+    Re-Tweet statistics and visualizations for the CSV format Twitter dataset.
     Uses the Pandas "value_counts()" function to display unique values for the attribute.
-    Suggested use on Boolean attributes or other attributes with only a few unique values.
     Groups user-specified attribute by the company the Tweet is associated with.
 
     Note: The raw JSON file does not have associated "company" information.
 
-    TODO - finish generalizaing or reverse and return to being specific to reTweets.
     :param tweet_dataframe: the Twitter dataset in a Pandas dataframe.
-    :param attribute_name: name of the attribute we are analyzing.
     :return: None.
     """
 
-    print(f"\"{attribute_name}\" Attribute Statistics for entire CSV dataset:")
-    print(tweet_dataframe[attribute_name].value_counts())
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
+
+    print(f"ReTweeted Attribute Statistics for entire CSV dataset:")
+    print(tweet_dataframe["retweeted_derived"].value_counts())
     print()
 
-    print(f"\"{attribute_name}\" Attribute Statistics for CSV dataset by Company:")
-    print(f"Number of Tweets that are \"{attribute_name}\" Attribute by associated company: ")
-    print(tweet_dataframe.groupby(['company_custom', attribute_name]).size())
+    print(f"ReTweeted Statistics for CSV dataset by Company:")
+    print(f"Number of Tweets that are \"retweeted_derived\" Attribute by associated company: ")
+    print(tweet_dataframe.groupby(['company_derived', "retweeted_derived"]).size())
     print()
 
     # Graph the Statistics.
-    print(f"Proportion of \"{attribute_name}\" Attribute by associated company: ")
+    print(f"Percentage of All Tweets that Are or Aren't Retweets' by Associated Company: ")
     plt.figure()
-    grid = sns.FacetGrid(tweet_dataframe[[attribute_name, 'company_custom']], col='company_custom', col_wrap=6,
-                         ylim=(0, 1))
-    grid.map_dataframe(tweet_util.bar_plot, attribute_name).set_titles('{col_name}')
+    grid = sns.FacetGrid(single_company_only_df[["retweeted_derived", 'company_derived']], col='company_derived',
+                         col_wrap=6, ylim=(0, 1))
+    grid.map_dataframe(tweet_util.bar_plot, "retweeted_derived").set_titles('{col_name}') \
+        .set_xlabels("ReTweet - 0.0 No, 1.0 Yes").set_ylabels("Percentage of All Tweets")
     plt.show()
 
-    # TODO - understand what this represents.
     plt.figure()
-    print(f"What does this represent?")
-    grid = sns.FacetGrid(tweet_dataframe[['tweet_id', 'company_custom']], col='company_custom', col_wrap=6, ylim=(0, 1),
+    print(f"Percentage of All Tweets Associated with a Given Company by ReTweet Count")
+    grid = sns.FacetGrid(single_company_only_df[['tweet_id', 'company_derived']], col='company_derived', col_wrap=6,
+                         ylim=(0, 1),
                          xlim=(0, 10))
-    grid.map_dataframe(tweet_util.bar_plot_zipf, 'tweet_id').set_titles('{col_name}').set_xlabels('RTed count')
+    grid.map_dataframe(tweet_util.bar_plot_zipf, 'tweet_id').set_titles('{col_name}').set_xlabels(
+        'ReTweeted Count').set_ylabels("Percentage of All Tweets")
     plt.show()
 
     # Retweet counts of the top Retweeted Tweets.
-    print(f"\nRetweet counts of the top Retweeted Tweets.\n")
-    print(tweet_dataframe[['company_custom', 'tweet_id']].groupby('company_custom') \
+    print(f"\nReTweet counts for the Top (most) Retweeted Tweets.\n")
+    print(single_company_only_df[['company_derived', 'tweet_id']].groupby('company_derived') \
           .apply(lambda x: x['tweet_id'].value_counts().value_counts(normalize=True) \
                  .sort_index(ascending=False).head(3)))
 
     # Portion of top Retweeted Tweets.
-    print(f"\nPortion of top Retweeted Tweets.\n")
-    print(tweet_dataframe[['company_custom', 'tweet_id']].groupby('company_custom') \
+    print(f"\nWhat Percentage of All Tweets for Given Company does the Top (most) Retweeted Tweets Comprise?.\n")
+    print(single_company_only_df[['company_derived', 'tweet_id']].groupby('company_derived') \
           .apply(lambda x: x['tweet_id'].value_counts(normalize=True).head()))
 
 
 ################################################################################################################
 
-def most_tweets_by_users_per_company(tweet_dataframe):
+def user_screen_name_statistics(tweet_dataframe):
     """
     User screen-name by associated company related statistics and visualizations.
 
@@ -183,13 +211,16 @@ def most_tweets_by_users_per_company(tweet_dataframe):
     :param tweet_dataframe: the Twitter dataset in a Pandas dataframe.
     :return: None.
     """
-    # Increased limit in order to display all 5 users for all companies.
+    # Increased limit in order to display all 5 users for all companies and combinations of companies.
     pd.options.display.max_rows = 1000
 
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
+
     print("User Statistics for CSV dataset by Company: ")
-    print("Top Tweet counts for unique user by associated company.")
+    print("Top Tweet counts for Unique User by Associated Company.")
     print(
-        tweet_dataframe[['company_custom', 'user_screen_name']].groupby('company_custom')
+        single_company_only_df[['company_derived', 'user_screen_name']].groupby('company_derived')
             .apply(lambda x: x['user_screen_name'].value_counts(normalize=True).head())
         # .value_counts(normalize=True)\
         # .sort_index(ascending=False).head())
@@ -197,13 +228,14 @@ def most_tweets_by_users_per_company(tweet_dataframe):
     print()
 
     # Graph the User Statistics.
-    print("Proportion of most Tweets for unique users by associated company: ")
+    print("Number of Times a Percentage of Users Appears as Tweet Author for a Given Company: ")
     plt.figure()
-    grid = sns.FacetGrid(tweet_dataframe[['user_screen_name', 'company_custom']], col='company_custom', col_wrap=6,
+    grid = sns.FacetGrid(single_company_only_df[['user_screen_name', 'company_derived']], col='company_derived',
+                         col_wrap=6,
                          ylim=(0, 1),
                          xlim=(0, 10))
     grid.map_dataframe(tweet_util.bar_plot_zipf, 'user_screen_name').set_titles('{col_name}').set_xlabels(
-        'appearance count')
+        'Appearance (Tweet author) Count').set_ylabels("Percentage of all Users")
     plt.show()
 
 
@@ -218,14 +250,16 @@ def tweet_character_counts(tweet_dataframe):
     :param tweet_dataframe: the Twitter dataset in a Pandas dataframe.
     :return: None.
     """
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
 
-    print("Character Statistics for CSV dataset by Company: ")
-    print("Character count relative frequency histogram: ")
+    print("Character Count Statistics for CSV dataset by Company: ")
+    print("Character Count Relative Frequency Histogram: ")
     plt.figure()
-    grid = sns.FacetGrid(tweet_dataframe[['text_custom', 'company_custom']], col='company_custom', col_wrap=6,
+    grid = sns.FacetGrid(single_company_only_df[['text_derived', 'company_derived']], col='company_derived', col_wrap=6,
                          ylim=(0, 1))
-    grid.map_dataframe(tweet_util.relhist_proc, 'text_custom', bins=10, proc=tweet_util.char_len).set_titles(
-        '{col_name}')
+    grid.map_dataframe(tweet_util.relhist_proc, 'text_derived', bins=10, proc=tweet_util.char_len).set_titles(
+        '{col_name}').set_xlabels("# of Characters").set_ylabels("Percentage of all Tweets")
     plt.show()
 
 
@@ -273,7 +307,7 @@ def attribute_describe(input_file_path, attribute_name_list, file_type):
 
 def count_nan_non_nan(input_file_path, attribute_name_list, file_type):
     """
-    Function counts the number of NaN and non-Nan examples in a Pandas dataframe.
+    Function counts the number of NaN and non-Nan examples in a Pandas dataframe for the specified columns.
 
     :param input_file_path: absolute file path of the dataset in CSV format.
     :param attribute_name_list:  list of names of the attributes we are analyzing.
@@ -326,7 +360,7 @@ def unique_values(input_file_path, attribute_list, file_type):
     :param attribute_list: List of attributes to use to determine the uniqueness of the examples in the dataframe.
     :return: the dataframe with only unique rows based on the specified attribute List for uniqueness checking.
 
-    TODO - is this function even necessary/useful?
+    TODO - is this function even necessary/useful? Not functional yet.
     """
 
     if file_type == "csv":
@@ -371,33 +405,40 @@ def hashtags(tweet_dataframe):
     :param tweet_dataframe: the Twitter dataset in a dataframe.
     :return: None.
 
-    FIXME - not functional.
+    FIXME - graphs function; text stats non-functional (TypeError: 'float' object is not iterable)
     """
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
+
     # the number of hashtags within tweets
-    tweet_dataframe['#hashtags'] = tweet_dataframe['hashtags_custom'].apply(
+    print(f"The Number of Hashtags within Tweets:")
+    single_company_only_df['#hashtags'] = single_company_only_df['tweet_entities_hashtags'].apply(
         lambda x: len(x) if x is not None and not isinstance(x, float) else 0)
     # companies = df['company']
 
-    grid = sns.FacetGrid(tweet_dataframe[['#hashtags', 'company_custom']], col='company_custom', col_wrap=6,
+    plt.figure()
+    grid = sns.FacetGrid(single_company_only_df[['#hashtags', 'company_derived']], col='company_derived', col_wrap=6,
                          ylim=(0, 1),
                          xlim=(-1, 10))
-    grid.map_dataframe(tweet_util.bar_plot, '#hashtags').set_titles('{col_name}')
+    grid.map_dataframe(tweet_util.bar_plot, '#hashtags').set_titles('{col_name}') \
+        .set_xlabels("# of Hashtags").set_ylabels("Percentage of All Tweets?")
+    plt.show()
 
-    # top hashtags
-    tweet_dataframe[['company_custom', 'hashtags_custom']].groupby('company_custom') \
-        .apply(lambda x: pd.Series([hashtag
-                                    for hashtags in x['hashtags_custom'] if hashtags is not None
-                                    for hashtag in hashtags]) \
-               .value_counts(normalize=True) \
-               .head())
-
-    # top hashtags, lower-cased
-    tweet_dataframe[['company_custom', 'hashtags_custom']].groupby('company_custom') \
-        .apply(lambda x: pd.Series([hashtag.lower()
-                                    for hashtags in x['hashtags_custom'] if hashtags is not None
-                                    for hashtag in hashtags]) \
-               .value_counts(normalize=True) \
-               .head())
+    # # top hashtags
+    # single_company_only_df[['company_derived', 'tweet_entities_hashtags']].groupby('company_derived') \
+    #     .apply(lambda x: pd.Series([hashtag
+    #                                 for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
+    #                                 for hashtag in hashtags]) \
+    #            .value_counts(normalize=True) \
+    #            .head())
+    #
+    # # top hashtags, lower-cased
+    # single_company_only_df[['company_derived', 'tweet_entities_hashtags']].groupby('company_derived') \
+    #     .apply(lambda x: pd.Series([hashtag.lower()
+    #                                 for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
+    #                                 for hashtag in hashtags]) \
+    #            .value_counts(normalize=True) \
+    #            .head())
 
 
 ################################################################################################################
@@ -408,10 +449,38 @@ def mentions(tweet_dataframe):
 
     :param tweet_dataframe: the Twitter dataset in a dataframe.
     :return: None.
-
-    TODO - implement.  will need to extract mentions from Tweet text.
     """
-    print("TODO - implement")
+    # Select only rows with one associated company. (don't graph company combos)
+    single_company_only_df = tweet_dataframe.loc[tweet_dataframe['multiple_companies_derived_count'] == 1]
+
+    print(f"tweet_entities_user_mentions_id count divided by length of tweet_dataframe")
+    print(tweet_dataframe['tweet_entities_user_mentions_id'].count() / len(tweet_dataframe))
+
+    print(f"tweet_in_reply_to_status_id count divided by length of tweet_dataframe")
+    print(tweet_dataframe['tweet_in_reply_to_status_id'].count() / len(tweet_dataframe))
+
+    # the number of mentions within tweets
+    print(f"\nThe number of Mentions within the Tweets:")
+    single_company_only_df['#mentions'] = single_company_only_df['tweet_entities_user_mentions_id']. \
+        apply(lambda x: len(x) if isinstance(x, list) else 0)
+
+    plt.figure()
+    grid = sns.FacetGrid(single_company_only_df[['#mentions', 'company_derived']], col='company_derived', col_wrap=6,
+                         ylim=(0, 1),
+                         xlim=(-1, 10))
+    grid.map_dataframe(tweet_util.bar_plot, '#mentions').set_titles('{col_name}') \
+        .set_xlabels("Number of Mentions").set_ylabels("Percentage of All Tweets?")
+    plt.show()
+
+    # top mentions
+    print(f"Top (Most) Mentions for a Company by User Mentions ID")
+    print(
+        single_company_only_df[['company_derived', 'tweet_entities_user_mentions_id']].groupby('company_derived') \
+            .apply(lambda x: pd.Series([mention
+                                        for mentions in x['tweet_entities_user_mentions_id'] if mentions is not None
+                                        for mention in mentions]) \
+                   .value_counts(normalize=True) \
+                   .head()))
 
 
 ################################################################################################################
@@ -420,10 +489,10 @@ def mentions(tweet_dataframe):
 Main function.  Execute the program.
 """
 if __name__ == '__main__':
-    # # Import CSV dataset and convert to dataframe.
-    # tweet_csv_dataframe = tweet_util.import_dataset(
-    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes.csv",
-    #     "csv")
+    # Import CSV dataset and convert to dataframe.
+    tweet_csv_dataframe = tweet_util.import_dataset(
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv",
+        "csv")
 
     ###############################################################################################
 
@@ -433,22 +502,26 @@ if __name__ == '__main__':
 
     # # Display Tweet count by time-date time series statistics.
     # tweet_count_by_timedate_time_series(
-    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes.csv",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-temp.csv",
     #     "csv")
 
-    # Determine whether Tweets have been re-Tweeted.
-    # attribute_value_counts(tweet_csv_dataframe, "retweeted_custom")
+    # # Determine whether Tweets have been re-Tweeted.
+    # retweet_statistics(tweet_csv_dataframe)
 
     # # Determine the Tweet count for most prolific user by company.
-    # most_tweets_by_users_per_company(tweet_csv_dataframe)
+    # user_screen_name_statistics(tweet_csv_dataframe)
 
     # # Determine the # of characters in Tweets via relative frequency histogram.
     # tweet_character_counts(tweet_csv_dataframe)
 
-    # Hashtag Statistics.
+    # # Hashtag Statistics.
     # hashtags(tweet_csv_dataframe)
 
-    # Mentions Statistics.
+    # # Mentions Statistics.
+    # mentions(tweet_csv_dataframe)
+
+    # # Tweets associated with one or multiple companies.
+    # tweets_number_associated_companies(tweet_csv_dataframe)
 
     ###############################################################################################
 
@@ -477,27 +550,34 @@ if __name__ == '__main__':
 
     ###############################################################################################
 
+    original_fields = ['created_at', 'id', 'full_text', 'in_reply_to_status_id',
+                       'in_reply_to_user_id', 'in_reply_to_screen_name',
+                       'retweet_count', 'favorite_count', 'lang']
+
     tweet_fields = ['tweet_created_at', 'tweet_id', 'tweet_full_text', 'tweet_in_reply_to_status_id',
-                    'tweet_in_reply_to_user_id',
-                    'tweet_in_reply_to_screen_name', 'tweet_retweet_count', 'tweet_favorite_count', 'tweet_lang']
+                    'tweet_in_reply_to_user_id', 'tweet_in_reply_to_screen_name',
+                    'tweet_retweet_count', 'tweet_favorite_count', 'tweet_lang']
 
     user_fields = ['user_id', 'user_name', 'user_screen_name', 'user_location', 'user_description',
                    'user_followers_count', 'user_friends_count', 'user_listed_count', 'user_favourites_count',
-                   'user_statuses_count',
-                   'user_created_at',
-                   'user_time_zone', 'user_lang', ]
+                   'user_statuses_count', 'user_created_at', 'user_time_zone', 'user_lang']
 
-    required_fields = ['retweeted_custom', 'hashtags_custom', 'company_custom', 'text_custom',
-                       'tweet_url_link_custom'] + tweet_fields + user_fields
+    entities_fields = ["tweet_entities_expanded_urls", "tweet_entities_hashtags", "tweet_entities_user_mentions_id",
+                       "tweet_entities_user_mentions_name", "tweet_entities_user_mentions_screen_name",
+                       "tweet_entities_symbols"]
+
+    required_fields = ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
+                       'tweet_url_link_derived', 'multiple_companies_derived', 'multiple_companies_derived_count',
+                       'tweet_text_length_derived'] + tweet_fields + user_fields + entities_fields
 
     # # Analyze full-text.
     # attribute_describe(
-    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes.csv",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-temp.csv",
     #     required_fields, "csv")
     #
     # # Determine the number of NaN and non-NaN rows for a attribute in a dataset.
     # count_nan_non_nan(
-    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes.csv",
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-temp.csv",
     #     required_fields, "csv")
 
 ################################################################################################################
