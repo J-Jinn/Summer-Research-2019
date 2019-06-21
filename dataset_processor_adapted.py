@@ -481,14 +481,14 @@ if __name__ == '__main__':
 
     start_time = time.time()
 
-    # Absolute file path.
-    create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-                   "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final3.csv",
-                   "utf-8", False)
+    # # Absolute file path.
+    # create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #                "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv",
+    #                "utf-8", False)
 
     # # Relative file path.
     # create_dataset("/json/dataset_slo_20100101-20180510.json",
-    #                "/jupyter-notebooks/attribute-datasets/selected-attributes-expanded.csv",
+    #                "/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv",
     #                "utf-8", False)
 
     end_time = time.time()

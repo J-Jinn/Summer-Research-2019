@@ -1,6 +1,8 @@
 # Summer-Research-2019
 Calvin College Summer Research 2019 with Professor VanderLinden
 
+TODO - update to reflect current project structure.
+
 &nbsp;
 
 ## Project Trello Board:

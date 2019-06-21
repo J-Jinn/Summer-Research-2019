@@ -34,6 +34,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import csv
+import json
 from pandas.io.json import json_normalize
 
 sns.set()
@@ -251,8 +252,6 @@ def generalized_multi_field_extraction_function(input_file_path, output_file_pat
        :param output_file_path: absolute file path of the output file to save the extracted field to.
        :param fields_to_extract: List of string names of the fields to extract.
        :return: None.
-
-       FIXME - ensure the last Tweet is not truncated when producing the CSV file.
        TODO - ensure it works for CSV files.
        """
     start_time = time.time()
@@ -489,12 +488,12 @@ def import_dataset(input_file_path, file_type):
         print("Invalid file type - aborting operation")
         return
 
-        # Reindex and shuffle the data randomly.
-    tweet_dataset_processed = tweet_dataset.reindex(
-        pd.np.random.permutation(tweet_dataset.index))
+    # Reindex and shuffle the data randomly.
+    # tweet_dataset_processed = tweet_dataset.reindex(
+    #     pd.np.random.permutation(tweet_dataset.index))
 
     # Generate a Pandas dataframe.
-    dataframe = pd.DataFrame(tweet_dataset_processed)
+    dataframe = pd.DataFrame(tweet_dataset)
 
     # Print shape and column names.
     log.info(f"\nThe shape of our dataframe storing the contents of the {file_type} Tweet data is:\n")
@@ -710,73 +709,195 @@ def export_multi_company_tweets(tweet_dataframe):
 
 ################################################################################################################
 
-def analyze_multi_company_tweets(tweet_dataframe):
-    dataframe = pd.DataFrame(tweet_dataframe)
-    print(f"\nStat summary of multi-company Tweets:\n {dataframe.describe()}\n")
-
-
-################################################################################################################
-
-
-def flatten_nested_structures(input_file_path, output_file_path, attribute_list):
-    """This function grabs the attributes specified in the List from the
-    nested user JSON structure.
+def extract_tweets_over_specified_character_length(tweet_dataframe, character_length):
     """
-    user_series = pd.read_json(json.dumps(row['user']), typ='series')
-    user_series['description'] = clean_text(user_series['description'])
+    This function extracts all tweets over the specified character length and exports it to a separate CSV file.
 
-    user_fields = ['id', 'name', 'screen_name', 'location', 'description',
-                   'followers_count', 'friends_count', 'listed_count', 'favourites_count', 'statuses_count',
-                   'created_at',
-                   'time_zone', 'lang']
+    :param tweet_dataframe: Tweet dataframe.
+    :param character_length: Tweets over this length should be extracted.
+    :return: None.
+    """
+    long_tweets = tweet_dataframe.loc[tweet_dataframe["tweet_text_length_derived"] > character_length]
+    export_to_csv(long_tweets,
+                  "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/tweets-over-140-characters.csv")
 
-    return user_series[user_fields]
+
+################################################################################################################
+
+def compute_user_description_text_length(tweet_dataframe):
+    """
+    This function adds a attribute to the dataset that records the length of the user description text.
+
+    Note: This utility function is intended to also be implemented in "dataset_process_adapted.py" to add a new column
+    to the CSV dataset produced from the raw JSON datset.
+
+    Resources:
+
+    https://stackoverflow.com/questions/26614465/python-pandas-apply-function-if-a-column-value-is-not-null
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    """
+
+    def text_length(row):
+        """
+         This function adds a attribute to the dataset that identifies a Tweet as being associated with a single
+         company by that company's name or if associated with multiple companies, by the designation of "multiple".
+
+        :param row: example in the dataset we are operating on.
+        :return:  the modified example.
+        """
+
+        derived_series = pd.read_json(json.dumps(row['user_description']), typ='series')
+        derived_series = pd.Series(derived_series)
+        derived_string = derived_series.to_string()
+        row["user_description_text_length"] = len(derived_string)
+        return row["user_description_text_length"]
+
+    dataframe = pd.DataFrame(tweet_dataframe)
+    # Note: Ensure axis=1 so function applies to entire row rather than per column by default. (axis = 0 = column)
+    dataframe["user_description_text_length"] = dataframe.apply(
+        lambda x: text_length(x) if (pd.notnull(x["user_description"])) else 0, axis=1)
+
+    export_to_csv(dataframe,
+                  "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv")
 
 
 ################################################################################################################
 
+def flatten_nested_structures(input_file_path, output_file_path, top_level_attribute, nested_attributes_list):
+    """
+    Function to flatten nested fields and extract to CSV file as individual columns.
+
+    :param input_file_path: absolute file path of the input data file import location.
+    :param output_file_path: absolute file path of the output data file save location.
+    :param top_level_attribute: outer attribute that encapsulates the nested attributes.
+    :param nested_attributes_list: nested attributes to extract as a List.
+    :return: None.  Saves to file.
+
+    # TODO - not functional; need to apply lambda expression to skip applying function if attribute is null.
+    """
+
+    def flatten(row):
+        """
+        Helper function to extract attributes from each example in the dataframe.
+
+        :param row: current example (row) passed in.
+        :return: nested attributes as individual columns.
+        """
+        series = pd.read_json(json.dumps(row[top_level_attribute]), typ='series')
+        return series[nested_attributes_list]
+
+    counter = 0
+    include_header = True
+    # Read Json in chunks to avoid RAM issues.
+    for df_chunk in pd.read_json(input_file_path, orient='records', lines=True, chunksize=100):
+        # Extract all nested attributes.
+        # df_chunk[nested_attributes_list] = df_chunk.apply(
+        #     lambda x: flatten(x)
+        #     if (pd.notnull(x[top_level_attribute]))
+        #     else
+        #     None,
+        #     axis=1)
+
+        df_chunk[nested_attributes_list] = df_chunk.apply(
+            lambda x: flatten(x) if (pd.notnull(x[top_level_attribute])) else x.drop(), axis=1)
+
+        # Write each chunk to the combined dataset file.
+        df_chunk[nested_attributes_list].to_csv(output_file_path, index=False, quoting=csv.QUOTE_NONNUMERIC, mode='a',
+                                                header=include_header, encoding="utf-8")
+        # Print a progress message.
+        counter += df_chunk.shape[0]
+        log.info(f'\t\tprocessed {counter} records...')
+        # Only include the header once, at the top of the file.
+        include_header = False
+        break
+
+
 ################################################################################################################
 
-start_time = time.time()
 
-# Extract list of specified attributes from nested JSON dictionary structure. (debug test purposes)
-# generalized_two_layer_nested_multi_field_extraction_function(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/user-attribute.json",
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-#     "user", ["id", "name", "screen_name", "description"], "json")
+def spacy_language_detection(tweet_dataframe):
+    """
+    This function adds a attribute to the dataset that records what language the Tweet is in.
+    We use the spaCy natural language processing library and the "spacy-langdetect" library built on top of it to
+    identify Tweets as English or non-English.
+    This is done as Twitter is terrible at correctly identifying the language of a Tweet.
 
-# Extract various individual fields from raw JSON file and export to CSV/JSON file.
-generalized_field_extraction_function(
-    "D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/",
-    "retweeted_status", "csv")
+    Note: This utility function is intended to also be implemented in "dataset_process_adapted.py" to add a new column
+    to the CSV dataset produced from the raw JSON datset.
 
-# # Import CSV dataset and convert to dataframe.
-# tweet_csv_dataframe = import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final.csv",
-#     "csv")
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    TODO - implement and test.
+    """
 
-# # Append new column to CSV dataset file indicating a single company name association or "multiple" for multiple
-# # company associations.
-# tweet_single_company_name_or_multiple_company_designation(tweet_csv_dataframe)
+    def what_language(row):
+        """
+         This function executes spAcy N.L.P. library and "spacy-langdetect" to determine the language of the Tweet.
 
-# # Isolate multi-company associated Tweets for data analysis.
-# export_multi_company_tweets(tweet_csv_dataframe)
+        :param row: example in the dataset we are operating on.
+        :return:  the modified example.
+        """
 
-# # Import CSV dataset and convert to dataframe.
-# multi_company_tweets_df = import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets.csv",
-#     "csv")
+        import spacy
+        from spacy_langdetect import LanguageDetector
+        nlp = spacy.load("en")
+        nlp.add_pipe(LanguageDetector(), name="language_detector", last=True)
+        document = nlp(row["text_derived"])
+        # document level language detection. Think of it like average language of document!
+        text_language = document._.language
+        row["spaCy_language_detect"] = str(text_language["language"])
 
-# # Analyze the multi-company associated Tweets.
-# analyze_multi_company_tweets(multi_company_tweets_df)
+        return row["spaCy_language_detect"]
 
-end_time = time.time()
+        # global non_english_count_global
+        # if row['lang'].startswith('en'):
+        #     # Leave English codes (i.e., en, en-gb) unchanged.
+        #     return row['lang']
+        # else:
+        #     # Compute alternate code for non-English tweets, many of which are
+        #     # in English as well.
+        #     lang2 = Text(row['full_text']).language.code
+        #     if not lang2.startswith('en'):
+        #         non_english_count_global += 1
+        #         log.warning(f"\t\t\tnon-English tweet (will be dropped): "
+        #                        f"\n\t\t\t\tid: {row['id']}"
+        #                        f"\n\t\t\t\ttweet: {row['text']}"
+        #                        f"\n\t\t\t\tLanguage tags: {row['lang']} - {lang2}"
+        #                        )
+        #     return lang2
 
-time_elapsed_seconds = (end_time - start_time)
-time_elapsed_minutes = (end_time - start_time) / 60.0
-time_elapsed_hours = (end_time - start_time) / 60.0 / 60.0
-print(f"Time taken to process dataset: {time_elapsed_seconds} seconds, "
-      f"{time_elapsed_hours} hours, {time_elapsed_minutes} minutes")
+    dataframe = pd.DataFrame(tweet_dataframe)
+    # Note: Ensure axis=1 so function applies to entire row rather than per column by default. (axis = 0 = column)
+    dataframe["spaCy_language_detect"] = dataframe.apply(
+        lambda x: what_language(x) if (pd.notnull(x["text_derived"])) else "none", axis=1)
+
+    export_to_csv(dataframe,
+                  "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-test.csv")
+
+
+################################################################################################################
+
+def test_spacy_langdetect_basic_usage():
+    """
+    This function tests the out-of-box usage of the "spacy-langdetect" library built on top of spaCy N.L.P. library.
+    :return:  None.
+    """
+    import spacy
+    from spacy_langdetect import LanguageDetector
+    nlp = spacy.load("en")
+    nlp.add_pipe(LanguageDetector(), name="language_detector", last=True)
+    text = "This is English text. " \
+           "Er lebt mit seinen Eltern und seiner Schwester in Berlin. " \
+           "Yo me divierto todos los días en el parque. " \
+           "Je m'appelle Angélica Summer, j'ai 12 ans et je suis canadienne."
+    doc = nlp(text)
+    # document level language detection. Think of it like average language of document!
+    print(doc._.language)
+    # sentence level language detection
+    for i, sent in enumerate(doc.sents):
+        print(sent, sent._.language)
+
 
 ################################################################################################################
