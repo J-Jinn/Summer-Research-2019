@@ -3,13 +3,14 @@ Social License to Operate
 Advisor: Professor VanderLinden
 Name: Joseph Jinn
 Date: 5-29-19
+Version: 1.0
 
 SLO Twitter Dataset Analysis
 
 ###########################################################
 Notes:
 
-Work-in-progress.
+Perpetual work-in-progress.
 
 ###########################################################
 
@@ -27,12 +28,10 @@ import logging as log
 import warnings
 import time
 from matplotlib import pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
 
 # Import custom utility functions.
-import slo_twitter_data_analysis_utility_functions as tweet_util
 import slo_twitter_data_analysis_utility_functions_v2 as tweet_util_v2
 
 #############################################################
