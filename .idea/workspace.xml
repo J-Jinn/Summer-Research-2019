@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dataset_processor_adapted_v2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-codebase-intro.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-retweet-statistics.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-time-statistics.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-tweet-api-intro.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-character-statistics.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-user-statistics.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions_v2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset_processor_adapted.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset_processor_adapted.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-old-deprecated.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated/slo-twitter-data-analysis-old-deprecated.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/deprecated/slo-twitter-data-analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-analysis-v2.0.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-analysis-v2.0.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-analysis-v2.0.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-v2.0.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slo_twitter_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_twitter_data_analysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py" afterDir="false" />
     </list>
@@ -20,13 +24,27 @@
   <component name="CoverageOptionsProvider">
     <option name="myActivateViewOnRun" value="false" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
+            <state relative-caret-position="7905">
+              <caret line="465" selection-start-line="465" selection-end-line="465" />
               <folding>
                 <element signature="e#588#609#0" expanded="true" />
               </folding>
@@ -34,32 +52,33 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12308">
-              <caret line="724" column="59" selection-start-line="724" selection-start-column="59" selection-end-line="724" selection-end-column="59" />
-              <folding>
-                <element signature="e#736#757#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-tweet-api-intro.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataset_processor_adapted.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1768">
-              <caret line="104" column="86" selection-start-line="104" selection-start-column="86" selection-end-line="104" selection-end-column="86" />
-              <folding>
-                <element signature="e#896#905#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-time-statistics.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-analysis-v2.0.ipynb">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-retweet-statistics.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-user-statistics.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-character-statistics.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-codebase-intro.ipynb">
           <provider selected="true" editor-type-id="jupyter-editor" />
         </entry>
       </file>
@@ -75,7 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>company</find>
       <find>retweet</find>
       <find>hashtag</find>
       <find>hashtags</find>
@@ -102,7 +120,10 @@
       <find>tweet.</find>
       <find>custom</find>
       <find>{attribute_name}</find>
+      <find>RT @</find>
+      <find>full_text</find>
       <find>retweeted_status</find>
+      <find>tweet_util</find>
     </findStrings>
     <replaceStrings>
       <replace>tweet_dataset_processed</replace>
@@ -152,16 +173,26 @@
         <option value="$PROJECT_DIR$/slo-twitter-data-analysis.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/dataset_processor_adapted.py" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/attribute-datasets/test.json" />
         <option value="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py" />
+        <option value="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions_v2.0.py" />
+        <option value="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions_v2.py" />
         <option value="$PROJECT_DIR$/slo_twitter_data_analysis.py" />
+        <option value="$PROJECT_DIR$/dataset_processor_adapted_v2.py" />
+        <option value="$PROJECT_DIR$/slo-twitter-data-analysis-tweet-api-intro.ipynb" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-datay-analysis-time-statistics.ipynb" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-retweet-analysis.ipynb" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-user-analysis.ipynb" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-character-analysis.ipynb" />
+        <option value="$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-codebase-intro.ipynb" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="102" />
-    <option name="y" value="28" />
+    <option name="x" value="30" />
+    <option name="y" value="92" />
     <option name="width" value="1900" />
-    <option name="height" value="2088" />
+    <option name="height" value="2036" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -172,7 +203,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -199,6 +229,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,16 +241,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Dropbox\summer-research-2019\deprecated" />
-      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks" />
-      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\twitter-data-analysis-tables" />
-      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\pdfs" />
-      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\lda-presentation-images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Dropbox\summer-research-2019\slo-classifiers-files" />
       <recent name="D:\Dropbox\summer-research-2019\datasets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks" />
+      <recent name="D:\Dropbox\summer-research-2019\deprecated" />
+      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\twitter-data-analysis-tables" />
+      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\pdfs" />
+      <recent name="D:\Dropbox\summer-research-2019\jupyter-notebooks\lda-presentation-images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -234,7 +265,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.slo_twitter_data_analysis">
+  <component name="RunManager" selected="Python.dataset_processor_adapted_v2">
     <configuration name="dataset_processor_adapted" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="summer-research-2019" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -257,7 +288,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="slo-twitter-data-analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="dataset_processor_adapted_v2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="summer-research-2019" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -270,29 +301,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/slo-twitter-data-analysis.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="slo_lda_topic_extraction" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="summer-research-2019" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/slo_lda_topic_extraction.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset_processor_adapted_v2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -345,13 +354,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="slo_twitter_data_analysis_utility_functions_v2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="summer-research-2019" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions_v2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dataset_processor_adapted_v2" />
         <item itemvalue="Python.slo_twitter_data_analysis" />
+        <item itemvalue="Python.slo_twitter_data_analysis_utility_functions_v2" />
         <item itemvalue="Python.slo_twitter_data_analysis_utility_functions" />
         <item itemvalue="Python.dataset_processor_adapted" />
-        <item itemvalue="Python.slo-twitter-data-analysis" />
-        <item itemvalue="Python.slo_lda_topic_extraction" />
       </list>
     </recent_temporary>
   </component>
@@ -424,11 +455,16 @@
       <workItem from="1561002645124" duration="1553000" />
       <workItem from="1561032247235" duration="401000" />
       <workItem from="1561049751339" duration="30034000" />
+      <workItem from="1561121269510" duration="60000" />
+      <workItem from="1561121371007" duration="1036000" />
+      <workItem from="1561122739786" duration="9896000" />
+      <workItem from="1561136410560" duration="311000" />
+      <workItem from="1561136980939" duration="32744000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="358472000" />
+    <option name="totallyTimeSpent" value="402519000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,31 +476,32 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="102" y="28" width="1900" height="2088" extended-state="0" />
+    <frame x="30" y="92" width="1900" height="2036" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22173913" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26086956" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294893" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49692908" weight="0.28951406" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49692908" weight="0.25486076" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3998949" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32964134" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5030709" side_tool="true" weight="0.2885021" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32964134" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32947975" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.49692908" visible="true" weight="0.142711" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.3284039" />
+      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.49692908" visible="true" weight="0.14135575" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.3279033" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49806094" weight="0.3285865" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.2361809" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="Coverage" order="5" side_tool="true" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32995737" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -477,62 +514,20 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_v0_7beta.coverage" NAME="slo_lda_topic_extraction_v0.7beta Coverage Results" MODIFIED="1559933438098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction.coverage" NAME="slo_lda_topic_extraction Coverage Results" MODIFIED="1560282801313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$dataset_processor_adapted.coverage" NAME="dataset_processor_adapted Coverage Results" MODIFIED="1561077989023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_v0_6beta.coverage" NAME="slo-lda-topic-extraction-v0.6beta Coverage Results" MODIFIED="1559695454648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis.coverage" NAME="slo_twitter_data_analysis Coverage Results" MODIFIED="1561169227821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_analysis_personal.coverage" NAME="slo-analysis-personal Coverage Results" MODIFIED="1559702379094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis_utility_functions.coverage" NAME="slo_twitter_data_analysis_utility_functions Coverage Results" MODIFIED="1561130454650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_utility_functions.coverage" NAME="slo_lda_topic_extraction_utility_functions Coverage Results" MODIFIED="1559783669640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction.coverage" NAME="slo_lda_topic_extraction Coverage Results" MODIFIED="1560282801313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$scikit_learn_lda_example.coverage" NAME="scikit-learn-lda-example Coverage Results" MODIFIED="1559267685968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$dataset_processor_adapted_v2.coverage" NAME="dataset_processor_adapted_v2 Coverage Results" MODIFIED="1561170850262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis_utility_functions_v2.coverage" NAME="slo_twitter_data_analysis_utility_functions_v2 Coverage Results" MODIFIED="1561168646648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$random_lda_example.coverage" NAME="random-lda-example Coverage Results" MODIFIED="1559784666836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_v0_5beta.coverage" NAME="slo-lda-topic-extraction-v0.5beta Coverage Results" MODIFIED="1559669907994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis.coverage" NAME="slo_twitter_data_analysis Coverage Results" MODIFIED="1561085276646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_analysis_personal.coverage" NAME="slo-analysis-personal Coverage Results" MODIFIED="1559702379094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis_utility_functions.coverage" NAME="slo_twitter_data_analysis_utility_functions Coverage Results" MODIFIED="1561078110112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_utility_functions.coverage" NAME="slo_lda_topic_extraction_utility_functions Coverage Results" MODIFIED="1559783669640" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/notes/README.md" />
-    <entry file="file://$PROJECT_DIR$/../cs344-ai/cs344/Project/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-1139">
-            <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="6" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok_PROCESSED_shortened.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok_PROCESSED2.csv" />
-    <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok_PROCESSED.csv">
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/tbl_kvlinden_PROCESSED.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/tbl_training_set_LDA_PROCESSED.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-918" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/tbl_kvlinden_LDA_PROCESSED.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok.csv">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="51">
-          <caret line="3" column="111" selection-start-line="3" selection-start-column="111" selection-end-line="3" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510_tok_LDA_PROCESSED.csv">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="LargeFileEditor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/datasets/dataset_20100101-20180510.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state>
@@ -607,13 +602,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/attribute-datasets/user-attribute.json">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="306">
-          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/attribute-datasets/user-attribute.json" />
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/attribute-datasets/user-test.json" />
     <entry file="file://$PROJECT_DIR$/slo_lda_topic_extraction_utility_functions.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -649,16 +638,7 @@
     <entry file="file://$PROJECT_DIR$/deprecated/slo-twitter-data-analysis.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/slo-twitter-data-analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8279">
-          <caret line="497" selection-start-line="497" selection-end-line="497" />
-          <folding>
-            <element signature="e#588#609#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/slo-twitter-data-analysis.py" />
     <entry file="file://$PROJECT_DIR$/slo-classifiers-files/dataset_processor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="698">
@@ -666,13 +646,6 @@
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/json/dataset_slo_20100101-20180510.json">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="595">
-          <caret line="35" column="205" lean-forward="true" selection-start-line="35" selection-start-column="205" selection-end-line="35" selection-end-column="205" />
         </state>
       </provider>
     </entry>
@@ -686,35 +659,125 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis.py">
+    <entry file="file://$PROJECT_DIR$/../cs344-ai/venv3.6-64bit/Lib/site-packages/pandas/core/series.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
+        <state relative-caret-position="173">
+          <caret line="865" selection-start-line="865" selection-end-line="865" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/attribute-datasets/test.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/json/dataset_slo_20100101-20180510.json">
+      <provider selected="true" editor-type-id="LargeFileEditor">
+        <state relative-caret-position="272">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Program Files/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="319" selection-start-line="319" selection-end-line="319" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_breakpoints.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="100" selection-start-line="100" selection-end-line="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cs344-ai/venv3.6-64bit/Lib/site-packages/pandas/core/frame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="6476" selection-start-line="6476" selection-end-line="6476" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cs344-ai/venv3.6-64bit/Lib/site-packages/pandas/core/apply.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="256" selection-start-line="256" selection-end-line="256" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="65" selection-end-line="971" />
           <folding>
-            <element signature="e#588#609#0" expanded="true" />
+            <element signature="e#736#757#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dataset_processor_adapted.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1768">
-          <caret line="104" column="86" selection-start-line="104" selection-start-column="86" selection-end-line="104" selection-end-column="86" />
+        <state relative-caret-position="340">
+          <caret line="71" column="53" lean-forward="true" selection-end-line="503" />
           <folding>
             <element signature="e#896#905#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-analysis-v2.0.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
+    <entry file="file://$PROJECT_DIR$/output_file_path.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py">
+    <entry file="file://$PROJECT_DIR$/dataset_processor_adapted_v2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12308">
-          <caret line="724" column="59" selection-start-line="724" selection-start-column="59" selection-end-line="724" selection-end-column="59" />
+        <state relative-caret-position="-2075">
+          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+          <folding>
+            <element signature="e#854#863#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions_v2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1115">
+          <caret line="472" column="11" selection-start-line="472" selection-start-column="11" selection-end-line="472" selection-end-column="11" />
           <folding>
             <element signature="e#736#757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-v2.0.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-time-statistics.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-retweet-statistics.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-user-statistics.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slow-twitter-data-analysis-character-statistics.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-codebase-intro.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-twitter-data-analysis-tweet-api-intro.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/slo_twitter_data_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7905">
+          <caret line="465" selection-start-line="465" selection-end-line="465" />
+          <folding>
+            <element signature="e#588#609#0" expanded="true" />
           </folding>
         </state>
       </provider>
