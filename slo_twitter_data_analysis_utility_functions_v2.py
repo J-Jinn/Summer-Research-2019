@@ -99,6 +99,7 @@ def bar_plot_zipf(col, **kwargs):
 def ts_plot(col, **kwargs):
     """
     Helper function to visualize the data.
+    Used specifically for Time-Series Statistics.
 
     :param col: the columns of the graph.
     :param kwargs: variable number of arguments.
@@ -115,6 +116,7 @@ def ts_plot(col, **kwargs):
 def ts_plot_2(col, **kwargs):
     """
     Helper function to visualize the data.
+    Used specifically for Time-Series Statistics.
 
     :param col: the columns of the graph.
     :param kwargs: variable number of arguments.
@@ -168,7 +170,7 @@ This section contains the utility functions we created.
 """
 
 
-def import_dataset(input_file_path, file_type):
+def import_dataset(input_file_path, file_type, show_df_info):
     """
     This function imports a JSON or CSV dataset and puts it into a Pandas Dataframe while providing basic information
     on the contents of the data in the frame.
@@ -176,10 +178,11 @@ def import_dataset(input_file_path, file_type):
     Note: Does NOT import in chunks.  Assumes file will fit in system RAM.
 
     :return: the Pandas Dataframe containing the dataset.
+    # TODO - return to encoding = "utf-8" after resolving mixed data types issues with specific columns in dataset.
     """
     if file_type == "csv":
         # Read in the CSV file.
-        tweet_dataset = pd.read_csv(f"{input_file_path}", sep=",")
+        tweet_dataset = pd.read_csv(f"{input_file_path}", sep=",", encoding="iso-8859-1")
     elif file_type == "json":
         # Read in the JSON file.
         tweet_dataset = pd.read_json(f"{input_file_path}", orient='records', lines=True)
@@ -190,15 +193,16 @@ def import_dataset(input_file_path, file_type):
     # Generate a Pandas dataframe.
     dataframe = pd.DataFrame(tweet_dataset)
 
-    # Print shape and column names.
-    log.info(f"\nThe shape of our dataframe storing the contents of the {file_type} Tweet data is:\n")
-    log.info(dataframe.shape)
-    log.info(f"\nThe columns of our dataframe storing the contents of the {file_type} Tweet data is:\n")
-    log.info(dataframe.columns)
-    log.info(f"\nThe first row from the dataframe storing the contents of the {file_type} Tweet data is:\n")
-    with pd.option_context('display.max_rows', None, 'display.max_columns',
-                           None, 'display.width', None, 'display.max_colwidth', 1000):
-        log.info(f"\n{dataframe.iloc[0]}\n")
+    if show_df_info:
+        # Print shape and column names.
+        log.info(f"\nThe shape of our dataframe storing the contents of the {file_type} Tweet data is:\n")
+        log.info(dataframe.shape)
+        log.info(f"\nThe columns of our dataframe storing the contents of the {file_type} Tweet data is:\n")
+        log.info(dataframe.columns)
+        log.info(f"\nThe first row from the dataframe storing the contents of the {file_type} Tweet data is:\n")
+        with pd.option_context('display.max_rows', None, 'display.max_columns',
+                               None, 'display.width', None, 'display.max_colwidth', 1000):
+            log.info(f"\n{dataframe.iloc[0]}\n")
     return dataframe
 
 
@@ -424,9 +428,10 @@ def export_multi_company_tweets(tweet_dataframe):
 
     :param tweet_dataframe: Tweet dataframe.
     :return: None.
+    # FIXME - why int/string comparison error when checking "multiple_companies_derived_count"?
     """
     dataframe = pd.DataFrame(tweet_dataframe)
-    multi_company_only_df = dataframe.loc[dataframe['multiple_companies_derived_count'] > 1]
+    multi_company_only_df = dataframe.loc[dataframe['company_derived_designation'] == "multiple"]
     export_to_csv_json(
         multi_company_only_df, [],
         "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets", "w", "csv")
@@ -669,5 +674,56 @@ def spacy_language_detection(tweet_dataframe):
     export_to_csv_json(
         dataframe, [],
         "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/spacy-lang-detect-test", "w", "csv")
+
+
+################################################################################################################
+
+def indicate_is_retweet(tweet_dataframe):
+    """
+    This function adds a attribute (column) to the dataset that indicates that the Tweet is a re-Tweet.
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None. Saves to file.
+    """
+
+    def is_a_retweet(row):
+        """
+        This helper function determines whether a Tweet in our dataset is a re-tweet.
+        :param row: example in the dataset we are operating on.
+        :return:  the modified example with additional column specifying if it's a re-tweet.
+        TODO - figure out a way to determine if retweet based on presence of non-null value for retweeted_status
+        """
+        temp_df = pd.DataFrame(row)
+        # temp_series = pd.Series(row)
+        # print(temp_df)
+        # print(temp_series)
+        if "retweeted_status" in temp_df.columns:
+            row["is_a_retweet"] = True
+            return row["is_a_retweet"]
+        row["is_a_retweet"] = False
+        return row["is_a_retweet"]
+
+    dataframe = pd.DataFrame(tweet_dataframe)
+    dataframe["is_a_retweet?"] = dataframe.apply(is_a_retweet, axis=1)
+
+    export_to_csv_json(
+        dataframe, [],
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/selected-attributes-final-is-retweet",
+        "w", "csv")
+
+
+################################################################################################################
+
+def find_mixed_data_types_in_dataset_rows(tweet_dataframe):
+    """
+    This function finds mixed data types that should not exist for the specified column(s) in the dataset.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None. Saves to file.
+    """
+
+    weird = (tweet_dataframe.applymap(type) != tweet_dataframe.iloc[1].apply(type)).any(axis=1)
+
+    print("These rows contain data type(s) that is different from the rest of the rows in the column(s):")
+    print(tweet_dataframe[weird])
 
 ################################################################################################################

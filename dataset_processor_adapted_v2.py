@@ -28,11 +28,12 @@ import numpy as np
 import pandas as pd
 import logging as log
 from pathlib import Path
-from fire import Fire
+# from fire import Fire
 import spacy
 from spacy_langdetect import LanguageDetector
 from settings import PTN_rt, PTN_companies
-import dask.dataframe as dask_df
+
+# import dask.dataframe as dask_df
 
 log.basicConfig(level=log.INFO)
 # Count irrelevant tweets.
@@ -82,7 +83,7 @@ retweeted_status_object_fields = [
 #########################################################################################################
 #########################################################################################################
 
-def create_dataset(json_data_filepath, dataset_filepath, encoding, drop_irrelevant_tweets):
+def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets):
     """
     Function creates a Twitter CSV dataset file from raw JSON dataset file.
 
@@ -90,7 +91,6 @@ def create_dataset(json_data_filepath, dataset_filepath, encoding, drop_irreleva
 
     :param json_data_filepath: absolute filepath of the raw JSON file (include the file type extension)
     :param dataset_filepath:  absolute filepath of the location to save to (include file type extension)
-    :param encoding: encoding type for reading and writing JSON/CSV.
     :param drop_irrelevant_tweets: remove Tweets declared irrelevant from the dataframe/dataset.
     :return: None.  Exports to CSV/JSON file.
     """
@@ -181,7 +181,7 @@ def create_dataset(json_data_filepath, dataset_filepath, encoding, drop_irreleva
         log.info(f'\t\tprocessed {count} records...')
 
         # Debug purposes.
-        break
+        # break
 
     # Drop duplicate rows/examples/Tweets.
     df_full = pd.read_csv(dataset_filepath, sep=',', encoding="utf-8")
@@ -203,13 +203,13 @@ def rename_column(row):
     :param row: example in the dataset we are operating on.
     :return:  the modified example.
     """
-    # series = pd.read_json(json.dumps(row["quoted_status_id"]), typ='series')
-    # series = pd.Series(series)
-    # series_string = series.to_string()
-    # if len(series_string) > 0:
-    #     return row["quoted_status_id"]
-    # row["quoted_status_id"] = np.NaN
-    # return row["quoted_status_id"]
+    series = pd.read_json(json.dumps(row["quoted_status_id"]), typ='series')
+    series = pd.Series(series)
+    series_string = series.to_string()
+    if len(series_string) > 0:
+        return row["quoted_status_id"]
+    row["quoted_status_id"] = np.NaN
+    return row["quoted_status_id"]
 
     # if not pd.isnull(row["quoted_status_id"]):
     #     return row["quoted_status_id"]
@@ -427,6 +427,7 @@ def compute_multiple_companies(row):
     return row["multiple_companies_derived_count"]
 
 
+# TODO - check the two functions above/below to ensure they are doing what we expect!
 #########################################################################################################
 
 def compute_company_designation(row):
@@ -521,7 +522,6 @@ def create_separate_company_datasets(dataset_filepath, dataset_path, filename_ba
 def main(json_data_filepath='dataset.json',
          dataset_path='.',
          filename_base='dataset',
-         encoding='utf-8',
          drop_irrelevant_tweets=True,
          add_company_datasets=False,
          logging_level=log.INFO,
@@ -560,7 +560,7 @@ def main(json_data_filepath='dataset.json',
     full_dataset_filepath = Path(dataset_path) / f'{filename_base}.csv'
     remove_filepath_if_exists(full_dataset_filepath)
 
-    create_dataset(Path(json_data_filepath), full_dataset_filepath, encoding, drop_irrelevant_tweets)
+    create_dataset(Path(json_data_filepath), full_dataset_filepath, drop_irrelevant_tweets)
 
     if add_company_datasets:
         create_separate_company_datasets(full_dataset_filepath,
@@ -574,13 +574,15 @@ def main(json_data_filepath='dataset.json',
 if __name__ == '__main__':
     # Fire(main)
     # Example invocation:
-    # python dataset_processor.py --json_data_filepath=/media/hdd_2/slo/stance/slo-tweets-20160101-20180304/dataset.json --dataset_path=/media/hdd_2/slo/stance/datasets
+    # python dataset_processor.py
+    # --json_data_filepath=/media/hdd_2/slo/stance/slo-tweets-20160101-20180304/dataset.json
+    # --dataset_path=/media/hdd_2/slo/stance/datasets
 
     start_time = time.time()
     # Absolute file path.
     create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
                    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19.csv",
-                   "utf-8", False)
+                   False)
     end_time = time.time()
 
     time_elapsed_seconds = (end_time - start_time)
