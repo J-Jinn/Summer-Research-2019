@@ -34,7 +34,6 @@ import seaborn as sns
 import csv
 import json
 
-sns.set()
 #############################################################
 # Pandas options.
 pd.options.display.max_rows = None
@@ -43,10 +42,15 @@ pd.options.display.width = None
 pd.options.display.max_colwidth = 1000
 # Pandas float precision display.
 pd.set_option('precision', 12)
+# Seaborn setting.
+sns.set()
 # Don't output these types of warnings to terminal.
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
 warnings.simplefilter(action='ignore', category=UserWarning)
+# Matplotlib log settings.
+mylog = log.getLogger("matplotlib")
+mylog.setLevel(log.INFO)
 
 """
 Turn debug log statements for various sections of code on/off.

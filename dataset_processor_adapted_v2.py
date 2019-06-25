@@ -79,6 +79,14 @@ retweeted_status_object_fields = [
     'retweeted_status_entities',
     'retweeted_status_user', 'retweeted_status_coordinates', 'retweeted_status_place']
 
+# Names to give "user" object attributes.
+retweeted_status_user_object_fields = [
+    'retweeted_status_user_id', 'retweeted_status_user_name', 'retweeted_status_user_screen_name',
+    'retweeted_status_user_location', 'retweeted_status_user_description', 'retweeted_status_user_followers_count',
+    'retweeted_status_user_friends_count', 'retweeted_status_user_listed_count',
+    'retweeted_status_user_favourites_count', 'retweeted_status_user_statuses_count',
+    'retweeted_status_user_created_at', 'retweeted_status_user_time_zone', 'retweeted_status_user_lang']
+
 
 #########################################################################################################
 #########################################################################################################
@@ -106,7 +114,7 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
     #                                   encoding="ISO-8859-1"):
     #     print()
 
-    for df_chunk in pd.read_json(json_data_filepath, orient='records', lines=True, chunksize=100000):
+    for df_chunk in pd.read_json(json_data_filepath, orient='records', lines=True, chunksize=100):
 
         # Modify these to determine what to export to CSV.
         required_fields = ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
@@ -155,6 +163,11 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         # Extract Tweet object "retweeted_status" object fields.
         df_chunk[retweeted_status_object_fields] = df_chunk.apply(compute_flatten_retweeted_status_attribute, axis=1)
 
+        # Flatten nested fields in "retweeted_status_user".
+        # FIXME - non-functional.
+        # df_chunk[retweeted_status_user_object_fields] = df_chunk.apply(
+        #     compute_flatten_retweeted_status_user_attributes, axis=1)
+
         # # Polyglot only works on Linux (PITA to get working on Windows - sometimes impossible)
         # df_chunk['language_polyglot'] = df_chunk.apply(update_language, axis=1)
 
@@ -174,6 +187,10 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         df_chunk[required_fields].to_csv(dataset_filepath, index=False, quoting=csv.QUOTE_NONNUMERIC, mode='a',
                                          header=include_header)
 
+        # Write select attributes within each chunk to a separate dataset file to reduce file size.
+        df_chunk[required_fields].to_csv(dataset_filepath, index=False, quoting=csv.QUOTE_NONNUMERIC, mode='a',
+                                         header=include_header)
+
         # Print a progress message.
         count += df_chunk.shape[0]
         # Only include the header once, at the top of the file.
@@ -181,7 +198,7 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         log.info(f'\t\tprocessed {count} records...')
 
         # Debug purposes.
-        # break
+        break
 
     # Drop duplicate rows/examples/Tweets.
     df_full = pd.read_csv(dataset_filepath, sep=',', encoding="utf-8")
@@ -261,6 +278,30 @@ def compute_flatten_retweeted_status_attribute(row):
         return series[retweeted_status_original_field_names]
     row[retweeted_status_original_field_names] = np.NaN
     return row[retweeted_status_original_field_names]
+
+
+#########################################################################################################
+
+def compute_flatten_retweeted_status_user_attributes(row):
+    """
+    Function to extract 'retweeted_status' nested "user" attributes from each example in the dataframe.
+    :param row: current example (row) passed in.
+    :return: nested attributes as individual columns added to the current example (row).
+    FIXME - non-functional.
+    """
+    retweeted_status_original_user_field_names = [
+        'id', 'name', 'screen_name', 'location', 'description', 'followers_count', 'friends_count',
+        'listed_count', 'favourites_count', 'statuses_count', 'created_at', 'time_zone', 'lang']
+
+    if not pd.isnull(row["retweeted_status_user"]):
+        series = pd.read_json(json.dumps(row["retweeted_status_user"]), typ='series')
+        return series[retweeted_status_original_user_field_names]
+    # So, context-sensitive menus will give us available function calls.
+    # row = pd.Series(row)
+    # row.append(pd.Series(retweeted_status_user_object_fields), ignore_index=True)
+    # print(f"{row}")
+    row[retweeted_status_original_user_field_names] = np.NaN
+    return row[retweeted_status_original_user_field_names]
 
 
 #########################################################################################################
@@ -427,7 +468,6 @@ def compute_multiple_companies(row):
     return row["multiple_companies_derived_count"]
 
 
-# TODO - check the two functions above/below to ensure they are doing what we expect!
 #########################################################################################################
 
 def compute_company_designation(row):
@@ -580,9 +620,9 @@ if __name__ == '__main__':
 
     start_time = time.time()
     # Absolute file path.
-    create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-                   "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19.csv",
-                   False)
+    # create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+    #                "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-25-19.csv",
+    #                False)
     end_time = time.time()
 
     time_elapsed_seconds = (end_time - start_time)
