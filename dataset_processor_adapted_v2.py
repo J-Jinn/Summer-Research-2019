@@ -23,7 +23,10 @@ import os
 import csv
 import json
 import re
+import sys
 import time
+from os import path
+
 import numpy as np
 import pandas as pd
 import logging as log
@@ -98,10 +101,13 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
     Note: The order by which we use "df.apply(func) IS IMPORTANT as there is some dependencies between derived fields.
 
     :param json_data_filepath: absolute filepath of the raw JSON file (include the file type extension)
-    :param dataset_filepath:  absolute filepath of the location to save to (include file type extension)
+    :param dataset_filepath:  absolute filepath of the location to save to (exclude file type extension)
     :param drop_irrelevant_tweets: remove Tweets declared irrelevant from the dataframe/dataset.
     :return: None.  Exports to CSV/JSON file.
     """
+    # Stupidity check.
+    check_for_preexisting_output_file(dataset_filepath)
+
     global unknown_company_count_global, non_english_count_global
     log.info(f'\tloading raw tweets from {json_data_filepath}')
 
@@ -120,8 +126,9 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         required_fields = ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
                            'tweet_url_link_derived', 'multiple_companies_derived_count', "company_derived_designation",
                            'tweet_text_length_derived', "spaCy_language_detect", "user_description_text_length"] \
-                          + tweet_object_fields + user_object_fields + entities_object_fields \
-                          + retweeted_status_object_fields
+                          + tweet_object_fields + user_object_fields + entities_object_fields
+
+        extra_fields = ["tweet_id"] + retweeted_status_object_fields
 
         # Rename main Tweet object fields.
         df_chunk[tweet_object_fields] = df_chunk[original_tweet_object_field_names]
@@ -184,12 +191,12 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
             ]
 
         # Write each chunk to the combined dataset file.
-        df_chunk[required_fields].to_csv(dataset_filepath, index=False, quoting=csv.QUOTE_NONNUMERIC, mode='a',
-                                         header=include_header)
+        df_chunk[required_fields].to_csv(f"{dataset_filepath}.csv", index=False, quoting=csv.QUOTE_NONNUMERIC,
+                                         mode='a', header=include_header)
 
         # Write select attributes within each chunk to a separate dataset file to reduce file size.
-        df_chunk[required_fields].to_csv(dataset_filepath, index=False, quoting=csv.QUOTE_NONNUMERIC, mode='a',
-                                         header=include_header)
+        df_chunk[extra_fields].to_csv(f"{dataset_filepath}-extra.csv", index=False,
+                                      quoting=csv.QUOTE_NONNUMERIC, mode='a', header=include_header)
 
         # Print a progress message.
         count += df_chunk.shape[0]
@@ -201,10 +208,16 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         break
 
     # Drop duplicate rows/examples/Tweets.
-    df_full = pd.read_csv(dataset_filepath, sep=',', encoding="utf-8")
+    df_full = pd.read_csv(f"{dataset_filepath}.csv", sep=',', encoding="utf-8")
     df_full.drop_duplicates(inplace=True)
-    df_full.dropna(how="all")
-    df_full.to_csv(dataset_filepath, index=False, header=True, quoting=csv.QUOTE_NONNUMERIC, encoding='utf-8')
+    # df_full.dropna(how="all")
+    df_full.to_csv(f"{dataset_filepath}.csv",
+                   index=False, header=True, quoting=csv.QUOTE_NONNUMERIC, encoding='utf-8')
+
+    df_extra = pd.read_csv(f"{dataset_filepath}-extra.csv", sep=',', encoding="utf-8")
+    df_extra.drop_duplicates(inplace=True)
+    df_extra.to_csv(f"{dataset_filepath}-extra.csv",
+                    index=False, header=True, quoting=csv.QUOTE_NONNUMERIC, encoding='utf-8')
 
     log.info(f'\tsaved the dataset to {dataset_filepath}'
              f'\n\t\tunknown company count: {unknown_company_count_global}'
@@ -589,6 +602,8 @@ def main(json_data_filepath='dataset.json',
             (default: True)
         logging_level -- the level of logging to use
             (default: logging.INFO)
+
+    TODO - we are not currently using the "Fire" library for CLI operation.
     """
     log.basicConfig(level=logging_level, format='%(message)s')
     log.info(f'building the dataset')
@@ -609,6 +624,26 @@ def main(json_data_filepath='dataset.json',
 
 
 #########################################################################################################
+
+def check_for_preexisting_output_file(output_file_path):
+    """
+    This function checks for any pre-existing file that has the same name as the specified output file name for the
+    dataset at the specified save location.  If so, it will ABORT the operation to ensure that we are not appending to
+    a pre-existing CSV file.
+
+    Resources:
+    https://www.guru99.com/python-check-if-file-exists.html
+
+    :return: None.
+    """
+
+    if path.exists(f"{output_file_path}"):
+        print("Output file at specified save location file path already exists!")
+        print("Aborting operation!")
+        sys.exit()
+
+
+#########################################################################################################
 #########################################################################################################
 
 if __name__ == '__main__':
@@ -619,10 +654,11 @@ if __name__ == '__main__':
     # --dataset_path=/media/hdd_2/slo/stance/datasets
 
     start_time = time.time()
+
     # Absolute file path.
-    # create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
-    #                "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-25-19.csv",
-    #                False)
+    create_dataset("D:/Dropbox/summer-research-2019/json/dataset_slo_20100101-20180510.json",
+                   "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-25-19",
+                   False)
     end_time = time.time()
 
     time_elapsed_seconds = (end_time - start_time)

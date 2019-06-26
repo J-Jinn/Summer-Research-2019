@@ -2,7 +2,7 @@
 Social License to Operate Research
 Advisor: Professor VanderLinden
 Name: Joseph Jinn
-Date: 5-29-19
+Date: 6-25-19
 version: 2.0
 
 SLO Twitter Dataset Analysis Utility Functions
@@ -17,7 +17,6 @@ These are used by and imported into the "slo_twitter_data_analysis.py" file.
 Resources Used:
 
 dataset_slo_20100101-20180510.json
-dataset_20100101-20180510.csv
 
 """
 

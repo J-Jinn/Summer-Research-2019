@@ -2,8 +2,8 @@
 Social License to Operate
 Advisor: Professor VanderLinden
 Name: Joseph Jinn
-Date: 5-29-19
-Version: 1.0
+Date: 6-25-19
+Version: 2.0
 
 SLO Twitter Dataset Analysis
 
@@ -27,7 +27,6 @@ TODO - IMPORTANT NOTE: Ensure we delete any test file BEFORE creating the new da
 Resources Used:
 
 dataset_slo_20100101-20180510.json
-dataset_20100101-20180510.csv
 
 """
 
@@ -42,6 +41,7 @@ import pandas as pd
 import seaborn as sns
 
 # Import custom utility functions.
+import dataset_processor_adapted_v2 as dataset_create
 import slo_twitter_data_analysis_utility_functions_v2 as tweet_util_v2
 
 #############################################################
@@ -91,6 +91,12 @@ def tweets_number_associated_companies(tweet_dataframe):
 
     print(f"The # of Tweets associated with multiple companies is {number_rows_total - number_rows_one_company}")
     print(f"The # of Tweets associated with one company is {number_rows_one_company}")
+
+    percent_single = number_rows_one_company / number_rows_total * 100.0
+    percent_multiple = (number_rows_total - number_rows_one_company) / number_rows_total * 100.0
+
+    print(f"The percentage of the dataset associated with a single company is {percent_single}%")
+    print(f"The percentage of the dataset associated with multiple companies is {percent_multiple}%")
 
 
 ################################################################################################################
@@ -164,6 +170,7 @@ def retweet_statistics(tweet_dataframe):
 
     print(f"ReTweeted Statistics for entire Twitter dataset:")
     print(tweet_dataframe["retweeted_derived"].value_counts())
+    print(tweet_dataframe["retweeted_derived"].value_counts(normalize=True))
     print()
 
     print(f"ReTweeted Statistics for Tweets by Company for entire Twitter dataset:")
@@ -194,7 +201,9 @@ def retweet_statistics(tweet_dataframe):
           .apply(lambda x: x['tweet_id'].value_counts().value_counts(normalize=False)
                  .sort_index(ascending=False).head(3)))
 
-    print(f"\nWhat Percentage of All Tweets for Given Company does the Top (most) Retweeted Tweets Comprise?.\n")
+    print(
+        f"\nWhat Percentage of All Tweets for Given Company across the entire dataset does the Top (most) Retweeted "
+        f"Tweets Comprise?.\n")
     print(tweet_dataframe[['company_derived_designation', 'tweet_id']].groupby('company_derived_designation')
           .apply(lambda x: x['tweet_id'].value_counts(normalize=True).head(5)))
 
@@ -221,17 +230,23 @@ def retweet_statistics_2(tweet_dataframe):
     :param tweet_dataframe: the Twitter dataset in a Pandas dataframe.
     :return: None.
     """
-
-    has_retweeted_text = tweet_dataframe.loc[tweet_dataframe["retweeted_status_full_text"].notnull()]
-    print(f"# of re-tweets with included original text of the original re-tweeted Tweet is: {has_retweeted_text.shape}")
-
     print("Note: These values based on 'retweeted_derived' boolean attribute:")
 
     yes_reweeted = tweet_dataframe.loc[tweet_dataframe['retweeted_derived'] == True]
     print(f"The number of Re-Tweets in the dataset: {yes_reweeted.shape}")
     no_reweeted = tweet_dataframe.loc[tweet_dataframe['retweeted_derived'] == False]
     print(f"The number of Non Re-Tweets in the dataset: {no_reweeted.shape}")
-    yes_df = pd.DataFrame(yes_reweeted).groupby("company_derived_designation")
+
+    print(f"The percentage of Tweets that are ReTweets in the dataset: "
+          f"{yes_reweeted.shape[0] / tweet_dataframe.shape[0]}")
+    print(f"The percentage of Tweets that are not ReTweets in the dataset: "
+          f"{no_reweeted.shape[0] / tweet_dataframe.shape[0]}")
+
+    has_retweeted_text = tweet_dataframe.loc[tweet_dataframe["retweeted_status_full_text"].notnull()]
+    print(f"# of re-tweets with included original text of the original re-tweeted Tweet is: "
+          f"{has_retweeted_text.shape}")
+    print(f"# of re-tweets without included original text of the original re-tweeted Tweet is: "
+          f"{yes_reweeted.shape[0] - has_retweeted_text.shape[0]}")
 
     retweet_frequency = tweet_dataframe[["tweet_id", "tweet_retweet_count"]]
     print("Tweet ID's and ReTweet Count for the Original ReTweeted Tweet (Descending head):")
@@ -664,10 +679,10 @@ if __name__ == '__main__':
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets-6-22-19.csv",
     #     "csv", False)
     #
-    # # Analyze the multi-company associated Tweets.
-    # attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-    #                    "data-analysis-datasets/multi-company-tweets.csv",
-    #                    [], "csv")
+    # Analyze the multi-company associated Tweets.
+    attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+                       "data-analysis-datasets/multi-company-tweets.csv",
+                       [], "csv")
 
     ##############################################################################################
 
@@ -779,11 +794,12 @@ if __name__ == '__main__':
         'retweeted_status_user_created_at', 'retweeted_status_user_time_zone', 'retweeted_status_user_lang']
 
     # Modify these to determine what to export to CSV.
-    required_fields = ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
-                       'tweet_url_link_derived', 'multiple_companies_derived_count', "company_derived_designation",
-                       'tweet_text_length_derived', "spaCy_language_detect", "user_description_text_length"] \
-                      + tweet_object_fields + user_object_fields + entities_object_fields \
-                      + retweeted_status_object_fields
+    required_fields = \
+        ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
+         'tweet_url_link_derived', 'multiple_companies_derived_count', "company_derived_designation",
+         'tweet_text_length_derived', "spaCy_language_detect",
+         "user_description_text_length"] + tweet_object_fields + user_object_fields + entities_object_fields + \
+        retweeted_status_object_fields
 
     # # Analyze full-text.
     # attribute_describe(
