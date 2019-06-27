@@ -124,13 +124,38 @@ def ts_plot_2(col, **kwargs):
     :param col: the columns of the graph.
     :param kwargs: variable number of arguments.
     :return: None.
-
-    FIXME - not working as intended.
     """
     ax = plt.gca()
     data = kwargs.pop('data')
-    ts_rt = pd.to_datetime(data.query("retweeted_derived == 'TRUE'")[col]).value_counts().resample('1D').sum()
-    ts = pd.to_datetime(data.query("retweeted_derived == 'FALSE'")[col]).value_counts().resample('1D').sum()
+
+    ts_rt = pd.to_datetime(data.query("retweeted_derived == '1'")[col]).value_counts().resample('1D').sum()
+    ts = pd.to_datetime(data.query("retweeted_derived == '0'")[col]).value_counts().resample('1D').sum()
+
+    ax.plot(ts)
+    ax.plot(ts_rt)
+
+
+################################################################################################################
+
+def ts_plot_2_fixed(col, **kwargs):
+    """
+    Helper function to visualize the data.
+    Used specifically for Time-Series Statistics.
+
+    :param col: the columns of the graph.
+    :param kwargs: variable number of arguments.
+    :return: None.
+    """
+    ax = plt.gca()
+    data = kwargs.pop('data')
+    data_df = pd.DataFrame(data)
+
+    yes_retweet = data_df.loc[data_df["retweeted_derived"] == True]
+    no_retweet = data_df.loc[data_df["retweeted_derived"] == False]
+
+    ts_rt = pd.to_datetime(yes_retweet[col]).value_counts().resample('1D').sum()
+    ts = pd.to_datetime(no_retweet[col]).value_counts().resample('1D').sum()
+
     ax.plot(ts)
     ax.plot(ts_rt)
 

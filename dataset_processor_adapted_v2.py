@@ -26,7 +26,6 @@ import re
 import sys
 import time
 from os import path
-
 import numpy as np
 import pandas as pd
 import logging as log
@@ -473,11 +472,17 @@ def compute_multiple_companies(row):
     Note: we convert derived_series to a series to avoid Pandas warning.
     :param row: example in the dataset we are operating on.
     :return:  the modified example.
+    TODO - check we have fixed our logic error!
     """
     derived_series = pd.read_json(json.dumps(row['company_derived']), typ='series')
     derived_series = pd.Series(derived_series)
     derived_string = derived_series.to_string()
-    row["multiple_companies_derived_count"] = derived_string.count('|') + 1
+    if derived_string.count('|') > 0:
+        row["multiple_companies_derived_count"] = derived_string.count('|') + 1
+    elif len(derived_string) > 0:
+        row["multiple_companies_derived_count"] = 1
+    else:
+        row["multiple_companies_derived_count"] = 0
     return row["multiple_companies_derived_count"]
 
 

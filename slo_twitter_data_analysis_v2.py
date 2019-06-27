@@ -34,14 +34,16 @@ dataset_slo_20100101-20180510.json
 ################################################################################################################
 
 import logging as log
+import re
 import warnings
 import time
+import emoji
 from matplotlib import pyplot as plt
 import pandas as pd
+import numpy as np
 import seaborn as sns
 
 # Import custom utility functions.
-import dataset_processor_adapted_v2 as dataset_create
 import slo_twitter_data_analysis_utility_functions_v2 as tweet_util_v2
 
 #############################################################
@@ -132,17 +134,16 @@ def tweet_count_by_timedate_time_series(tweet_dataframe):
     grid.set_ylabels("Tweet Count")
     plt.show()
 
-    # # 3rd Plot.
-    # # FIXME - not working as intended.
-    # plt.figure()
-    # print("Twweet Creation Time-Date Count by Company Association and Retweeted Status")
-    # grid = sns.FacetGrid(tweet_dataframe[['retweeted_derived', 'tweet_created_at', 'company_derived_designation']],
-    #                      row='company_derived_designation', size=2, aspect=10, sharey=False)
-    # grid.map_dataframe(tweet_util_v2.ts_plot_2, 'tweet_created_at')
-    # grid.set_titles('{row_name}')
-    # grid.set_xlabels("Tweet Creation Date")
-    # grid.set_ylabels("Tweet Count")
-    # plt.show()
+    # 3rd Plot.
+    plt.figure()
+    print("Tweet Creation Time-Date Count by Company Association and Retweeted Status")
+    grid = sns.FacetGrid(tweet_dataframe[['retweeted_derived', 'tweet_created_at', 'company_derived_designation']],
+                         row='company_derived_designation', size=2, aspect=10, sharey=False)
+    grid.map_dataframe(tweet_util_v2.ts_plot_2, 'tweet_created_at')
+    grid.set_titles('{row_name}')
+    grid.set_xlabels("Tweet Creation Date")
+    grid.set_ylabels("Tweet Count")
+    plt.show()
 
     end_time = time.time()
     time_elapsed_seconds = end_time - start_time
@@ -317,6 +318,10 @@ def unique_authors_tweet_counts(tweet_dataframe):
     print("All Unique Authors by User Screen Name and their Tweet Post Count:")
     print(author_series.value_counts(sort=True, ascending=False))
 
+    print("The number of unique Tweet authors: ")
+    author_df = pd.DataFrame(author_series.value_counts(sort=True, ascending=False))
+    print(author_df.shape[0])
+
 
 ################################################################################################################
 
@@ -399,6 +404,13 @@ def hashtag_statistics(tweet_dataframe):
     grid.set_xlabels("# of Hashtags").set_ylabels("Percentage of All Tweets")
     plt.show()
 
+    has_hashtag = tweet_dataframe['tweet_entities_hashtags'].count()
+    print(f"The number of Tweets with hashtags is {has_hashtag}")
+    print(f"The percentage of Tweets with hashtags is {has_hashtag / tweet_dataframe.shape[0] * 100.0}")
+
+    ############################################################
+    # print(f"Data type of tweet hashtags attribute is: {tweet_dataframe['tweet_entities_hashtags'].dtype}")
+
     # print("Appearance Count of Most Popular Hashtags:")
     # tweet_dataframe[['company_derived_designation', 'tweet_entities_hashtags']] \
     #     .groupby('company_derived_designation') \
@@ -406,7 +418,7 @@ def hashtag_statistics(tweet_dataframe):
     #                                 for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
     #                                 for hashtag in hashtags])
     #            .value_counts(normalize=False).head())
-    #
+
     # print("Appearance Count of Most Popular Hashtags (all characters to lower-case):")
     # tweet_dataframe[['company_derived_designation', 'tweet_entities_hashtags']] \
     #     .groupby('company_derived_designation') \
@@ -414,6 +426,7 @@ def hashtag_statistics(tweet_dataframe):
     #                                 for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
     #                                 for hashtag in hashtags])
     #            .value_counts(normalize=False).head())
+    ############################################################
 
     end_time = time.time()
     time_elapsed_seconds = end_time - start_time
@@ -429,6 +442,10 @@ def mentions_statistics(tweet_dataframe):
     """
     Mentions related statistics and visualizations.
 
+    Resources:
+
+    https://www.geeksforgeeks.org/python-count-occurrences-of-a-character-in-string/
+
     :param tweet_dataframe: the Twitter dataset in a dataframe.
     :return: None.
     """
@@ -439,15 +456,35 @@ def mentions_statistics(tweet_dataframe):
 
     print("Percentage of Tweets with User Mentions:")
     print(f"(Number of Tweets with User Mentions divided by Number of Tweets in Dataset)")
-    print(tweet_dataframe['tweet_entities_user_mentions_id'].count() / len(tweet_dataframe))
+    print(tweet_dataframe['tweet_entities_user_mentions_name'].count() / len(tweet_dataframe))
 
     print("Percentage of Tweets that are Replies to Other Tweets:")
     print(f"(Number of Tweets that are Replies to Another Tweet divided by Number of Tweets in Dataset)")
     print(tweet_dataframe['tweet_in_reply_to_status_id'].count() / len(tweet_dataframe))
 
+    #######################################################
+    def compute_number_of_mentions(row):
+        """
+        Helper function to compute # of mentions because Shuntaro's method does not work on our dataset.
+
+        :param row: string containing contents of field "tweet_entities_user_mentions_id"
+        :return:
+        """
+        if row == "[]":
+            return 0
+        elif row.count(',') == 0:
+            return 1
+        count = row.count(',')
+        return count + 1
+
     print(f"\nUser Mentions Count by Percentage of All Tweets for a Given Company:")
-    tweet_dataframe['#mentions'] = tweet_dataframe['tweet_entities_user_mentions_id']. \
-        apply(lambda x: len(x) if isinstance(x, list) else 0)
+    tweet_dataframe["#mentions"] = tweet_dataframe['tweet_entities_user_mentions_id'].apply(
+        lambda x: compute_number_of_mentions(x))
+    # print(tweet_dataframe["num_mentions"].head(10))
+
+    # print(f"\nUser Mentions Count by Percentage of All Tweets for a Given Company:")
+    # tweet_dataframe['#mentions'] = tweet_dataframe['tweet_entities_user_mentions_id']. \
+    #     apply(lambda x: len(x) if isinstance(x, list) else 0)
 
     plt.figure()
     grid = sns.FacetGrid(tweet_dataframe[['#mentions', 'company_derived_designation']],
@@ -456,8 +493,10 @@ def mentions_statistics(tweet_dataframe):
     grid.set_titles('{col_name}')
     grid.set_xlabels("Number of Mentions").set_ylabels("Percentage of All Tweets")
     plt.show()
+    #######################################################
 
-    print(f"Top (Most) Mentions for a Company by User Mentions ID")
+    # FIXME - this last part is functioning incorrectly.  Adjust lambda function.
+    print(f"Mention Counts for Top (Most) Mentioned Users by Company they are Associated With")
     print(f"Top (highest) Mentions Count for a Given Company by the ID of the User that has been Mentioned")
     print(
         tweet_dataframe[['company_derived_designation', 'tweet_entities_user_mentions_id']].groupby(
@@ -615,6 +654,163 @@ def unique_values(input_file_path, attribute_list, file_type):
 
 ################################################################################################################
 
+def find_stock_symbols(tweet_dataframe):
+    """
+    This function identifies all stock symbols in the Tweet text.
+
+    :param tweet_dataframe: the Twitter dataset in a dataframe.
+    :return: None.
+    """
+    # Find all stock symbols and count the number of them.
+    tweet_dataframe['#symbols'] = tweet_dataframe.text_derived.str.findall(r"\$\w+").apply(len)
+
+    # Graph stock symbol count distribution by company.
+    plt.figure()
+    print(f"For each company, the # of stock symbols across all associated Tweets")
+    grid = sns.FacetGrid(tweet_dataframe[['#symbols', 'company_derived_designation']],
+                         col='company_derived_designation', col_wrap=6, ylim=(0, 1), xlim=(-1, 10))
+    grid.map_dataframe(tweet_util_v2.bar_plot, '#symbols')
+    grid.set_titles('{col_name}')
+    grid.set_xlabels("Symbols Count").set_ylabels("Percentage of All Tweets")
+    plt.show()
+
+    print(f"The percentage of all Tweets in the dataset that possess stock symbols:")
+    (tweet_dataframe['#symbols'] > 0).sum() / len(tweet_dataframe)
+
+
+################################################################################################################
+
+def find_urls(tweet_dataframe):
+    """
+    This function identifies all URL's within the Tweet text.
+
+    :param tweet_dataframe: the Twitter dataset in a dataframe.
+    :return: None.
+    """
+    # Find all URL's and count the # of them.
+    # noinspection RegExpRedundantEscape
+    ptn_url = re.compile(r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+")
+    tweet_dataframe['#urls'] = tweet_dataframe.text_derived.str.findall(ptn_url).apply(len)
+
+    # Graph URL count distribution by company.
+    plt.figure()
+    print(f"For each company, the # of URL's across all associated Tweets")
+    grid = sns.FacetGrid(tweet_dataframe[['#urls', 'company_derived_designation']], col='company_derived_designation',
+                         col_wrap=6, ylim=(0, 1), xlim=(-0.5, 5))
+    grid.map_dataframe(tweet_util_v2.bar_plot, '#urls')
+    grid.set_titles('{col_name}')
+    grid.set_xlabels("URL Count").set_ylabels("Percentage of All Tweets")
+    plt.show()
+
+    print(f"The percentage of all Tweets in the dataset that possess URL's:")
+    print(tweet_dataframe['#urls'] > 0).sum() / len(tweet_dataframe)
+
+
+################################################################################################################
+
+def find_emojis(tweet_dataframe):
+    """
+    This function identifies all Emoji's within the Tweet text.
+
+    :param tweet_dataframe: the Twitter dataset in a dataframe.
+    :return: None.
+    """
+    # Identify if any Tweets within out dataset have emojis.
+    ptn_emoji = emoji.get_emoji_regexp()
+    print(tweet_dataframe.text_derived.str.contains(ptn_emoji).any())
+
+    # Create column containing extracted emoji's.
+    tweet_dataframe['emojis'] = tweet_dataframe.text_derived.str.extractall(ptn_emoji).groupby(level=0).apply(
+        lambda x: x.values.flatten())
+
+    # Count the total percentage of Tweets with emojis in the dataset.
+    print(tweet_dataframe['emojis'].notnull().sum() / len(tweet_dataframe))
+
+    # Create column containing the # of emoji's for each Tweet's text.
+    tweet_dataframe['#emojis'] = tweet_dataframe['emojis'].apply(lambda x: len(x) if x is not np.nan else 0)
+
+    # Group by company the # of emoji's found for their associated Tweets.
+    print(tweet_dataframe[['company_derived_designation', '#emojis']].groupby('company_derived_designation').apply(
+        lambda x: 1 - x['#emojis'].value_counts(normalize=True).loc[0]))
+
+    # Graph the emoji distribution.
+    print(f"For each company, the # of emoji's across all associated Tweets")
+    plt.figure()
+    grid = sns.FacetGrid(tweet_dataframe[['#emojis', 'company_derived_designation']],
+                         col='company_derived_designation', col_wrap=6, ylim=(0, 1), xlim=(-0.5, 5))
+    grid.map_dataframe(tweet_util_v2.bar_plot, '#emojis')
+    grid.set_titles('{col_name}')
+    grid.set_xlabels("Emoji Count").set_ylabels("Percentage of All Tweets")
+    plt.show()
+
+    # Determine popular emoji's.
+    print(f"Determine which emoji's are the most popular in the Tweet Text:")
+    print(tweet_dataframe[['company_derived_designation', 'emojis']][tweet_dataframe['emojis'].notnull()].groupby(
+        'company_derived_designation')
+          .apply(lambda x: pd.Series([_emoji for emojis in x['emojis'] for _emoji in emojis])
+                 .value_counts(normalize=True).head()))
+
+
+################################################################################################################
+
+def tweet_language(tweet_dataframe):
+    """
+    This function provides statistics and visualizations on the language present among Tweets in our dataset.
+
+    :param tweet_dataframe: the Twitter dataset in a dataframe.
+    :return: None.
+    """
+    english = tweet_dataframe.loc[tweet_dataframe["spaCy_language_detect"] == "en"]
+    non_english = tweet_dataframe.loc[tweet_dataframe["spaCy_language_detect"] != "en"]
+
+    print(f"# of English Tweets as determined by spaCy: {english.shape[0]}")
+    print(f"# of non-English Tweets as determined by spaCy: {non_english.shape[0]}")
+
+    print(f"Percentage of English Tweets in dataset is {english.shape[0] / tweet_dataframe.shape[0] * 100.0}")
+    print(f"Percentage of non-English Tweets in dataset is {non_english.shape[0] / tweet_dataframe.shape[0] * 100.0}")
+
+
+################################################################################################################
+
+def tweet_associations(tweet_dataframe):
+    """
+    This function identifies the exact # of Tweets associated with each company.
+
+    :param tweet_dataframe: the Twitter dataset in a dataframe.
+    :return: None.
+    # TODO - refactor into a List of companies and a for loop through the entire list.
+    """
+    total_tweets = tweet_dataframe.shape[0]
+    adani = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "adani"]
+    multiple = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "multiple"]
+    bhp = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "bhp"]
+    cuesta = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "cuesta"]
+    fortescue = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "fortescue"]
+    iluka = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "iluka"]
+    newmont = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "newmont"]
+    oilsearch = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "oilsearch"]
+    riotinto = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "riotinto"]
+    santos = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "santos"]
+    whitehaven = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "whitehaven"]
+    woodside = tweet_dataframe.loc[tweet_dataframe["company_derived_designation"] == "woodside"]
+
+    print(f"The total number of Tweets in the dataset is: {total_tweets}")
+    print(f"The number of Tweets associated with adani is {adani.shape[0]}")
+    print(f"The number of Tweets associated with multiple is {multiple.shape[0]}")
+    print(f"The number of Tweets associated with bhp is {bhp.shape[0]}")
+    print(f"The number of Tweets associated with cuesta is {cuesta.shape[0]}")
+    print(f"The number of Tweets associated with fortescue is {fortescue.shape[0]}")
+    print(f"The number of Tweets associated with iluka is {iluka.shape[0]}")
+    print(f"The number of Tweets associated with newmont is {newmont.shape[0]}")
+    print(f"The number of Tweets associated with oilsearch is {oilsearch.shape[0]}")
+    print(f"The number of Tweets associated with riotinto is {riotinto.shape[0]}")
+    print(f"The number of Tweets associated with santos is {santos.shape[0]}")
+    print(f"The number of Tweets associated with whitehaven is {whitehaven.shape[0]}")
+    print(f"The number of Tweets associated with woodside is {woodside.shape[0]}")
+
+
+################################################################################################################
+
 """
 Main function.  Execute the program.
 """
@@ -632,7 +828,7 @@ if __name__ == '__main__':
     # Import CSV dataset and convert to dataframe.
     tweet_csv_dataframe = tweet_util_v2.import_dataset(
         "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-        "twitter-dataset-6-22-19-fixed.csv",
+        "twitter-dataset-6-22-19-test.csv",
         "csv", False)
 
     # # Drop the extra header.
@@ -679,10 +875,10 @@ if __name__ == '__main__':
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/multi-company-tweets-6-22-19.csv",
     #     "csv", False)
     #
-    # Analyze the multi-company associated Tweets.
-    attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-                       "data-analysis-datasets/multi-company-tweets.csv",
-                       [], "csv")
+    # # Analyze the multi-company associated Tweets.
+    # attribute_describe("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    #                    "data-analysis-datasets/multi-company-tweets.csv",
+    #                    [], "csv")
 
     ##############################################################################################
 
@@ -715,6 +911,18 @@ if __name__ == '__main__':
 
     # # More ReTweet statistics.
     # retweet_statistics_2(tweet_csv_dataframe)
+
+    # # Stock symbols statistics.
+    # find_stock_symbols(tweet_csv_dataframe)
+
+    # # URL statistics.
+    # find_urls(tweet_csv_dataframe)
+
+    # # Emoji statistics.
+    # find_emojis(tweet_csv_dataframe)
+
+    # Language statistics.
+    tweet_language(tweet_csv_dataframe)
 
     ##############################################################################################
 
@@ -804,12 +1012,17 @@ if __name__ == '__main__':
     # # Analyze full-text.
     # attribute_describe(
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19-fixed.csv",
-    #     required_fields, "csv")
+    #     [], "csv")
 
     # # Determine the number of NaN and non-NaN rows for a attribute in a dataset.
     # count_nan_non_nan(
     #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19-fixed.csv",
     #     required_fields, "csv")
+
+    # # Determine the number of non-Company associated Tweets.
+    count_nan_non_nan(
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19-fixed.csv",
+        ["company_derived"], "csv")
 
     ################################################################################################################
 
