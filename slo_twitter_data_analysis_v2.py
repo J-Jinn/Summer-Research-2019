@@ -250,8 +250,12 @@ def retweet_statistics_2(tweet_dataframe):
           f"{yes_reweeted.shape[0] - has_retweeted_text.shape[0]}")
 
     retweet_frequency = tweet_dataframe[["tweet_id", "tweet_retweet_count"]]
-    print("Tweet ID's and ReTweet Count for the Original ReTweeted Tweet (Descending head):")
+    print("Tweet ID's and ReTweet Count for Tweets in our Dataset (Descending head):")
     print(retweet_frequency.sort_values(by=["tweet_retweet_count"], ascending=False).head(10))
+
+    retweet_frequency = tweet_dataframe[["retweeted_status_id", "retweeted_status_retweet_count"]]
+    print("Tweet ID's and ReTweet Count for the Original ReTweeted Tweet (Descending head):")
+    print(retweet_frequency.sort_values(by=["retweeted_status_retweet_count"], ascending=False).head(10))
 
     print("Retweet counts by company:")
     yes_by_company = \
@@ -409,15 +413,15 @@ def hashtag_statistics(tweet_dataframe):
     print(f"The percentage of Tweets with hashtags is {has_hashtag / tweet_dataframe.shape[0] * 100.0}")
 
     ############################################################
-    # print(f"Data type of tweet hashtags attribute is: {tweet_dataframe['tweet_entities_hashtags'].dtype}")
+    print(f"Data type of tweet hashtags attribute is: {tweet_dataframe['tweet_entities_hashtags'].dtype}")
 
-    # print("Appearance Count of Most Popular Hashtags:")
-    # tweet_dataframe[['company_derived_designation', 'tweet_entities_hashtags']] \
-    #     .groupby('company_derived_designation') \
-    #     .apply(lambda x: pd.Series([hashtag
-    #                                 for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
-    #                                 for hashtag in hashtags])
-    #            .value_counts(normalize=False).head())
+    print("Appearance Count of Most Popular Hashtags:")
+    tweet_dataframe[['company_derived_designation', 'tweet_entities_hashtags']] \
+        .groupby('company_derived_designation') \
+        .apply(lambda x: pd.Series([hashtag
+                                    for hashtags in x['tweet_entities_hashtags'] if hashtags is not None
+                                    for hashtag in hashtags])
+               .value_counts(normalize=False).head())
 
     # print("Appearance Count of Most Popular Hashtags (all characters to lower-case):")
     # tweet_dataframe[['company_derived_designation', 'tweet_entities_hashtags']] \
@@ -898,7 +902,7 @@ if __name__ == '__main__':
     # tweet_character_counts(tweet_csv_dataframe)
     #
     # # Hashtag Statistics.
-    # hashtag_statistics(tweet_csv_dataframe)
+    hashtag_statistics(tweet_csv_dataframe)
     #
     # # Mentions Statistics.
     # mentions_statistics(tweet_csv_dataframe)
@@ -922,7 +926,7 @@ if __name__ == '__main__':
     # find_emojis(tweet_csv_dataframe)
 
     # Language statistics.
-    tweet_language(tweet_csv_dataframe)
+    # tweet_language(tweet_csv_dataframe)
 
     ##############################################################################################
 

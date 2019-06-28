@@ -754,4 +754,67 @@ def find_mixed_data_types_in_dataset_rows(tweet_dataframe):
     print("These rows contain data type(s) that is different from the rest of the rows in the column(s):")
     print(tweet_dataframe[weird])
 
+
 ################################################################################################################
+
+counter = 0
+
+
+def determine_multiple_companies_count_fixed(tweet_dataframe):
+    """
+    This function tests that determining the # of companies a Tweet is associated with is fixed.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None. Saves to file.
+    """
+
+    def compute_multiple_companies_count(row):
+        """
+        Function determines the number of companies a Tweet is associated with.
+        Note: we convert derived_series to a series to avoid Pandas warning.
+        :param row: example in the dataset we are operating on.
+        :return:  the modified example.
+        TODO - check we have fixed our logic error!
+        """
+        global counter
+        counter += 1
+        derived_series = pd.read_json(json.dumps(row['company_derived']), typ='series')
+        derived_series = pd.Series(derived_series)
+        derived_string = derived_series.to_string()
+        print(f"counter value is: {counter}")
+        print(f"Length of derived string: {len(derived_string)}")
+        print(f"The derived string: {derived_string}")
+        if derived_string.count('|') > 0:
+            row["multiple_companies_derived_count"] = derived_string.count('|') + 1
+        elif derived_string != "Series([], )":
+            row["multiple_companies_derived_count"] = 1
+        else:
+            row["multiple_companies_derived_count"] = 0
+        return row["multiple_companies_derived_count"]
+
+    dataframe = pd.DataFrame(tweet_dataframe)
+    dataframe["multiple_companies_derived_count"] = dataframe.apply(compute_multiple_companies_count, axis=1)
+
+    export_to_csv_json(
+        dataframe, [],
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/compute-multiple-companies-count-debug",
+        "w", "csv")
+
+
+################################################################################################################
+
+# tweet_csv_dataframe = import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-6-22-19-test-no-company-count-field.csv",
+#     "csv", False)
+
+# tweet_csv_dataframe_2 = import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "debug.json",
+#     "json", False)
+
+# export_to_csv_json(
+#     tweet_csv_dataframe, [],
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/debug", "w", "json")
+
+# determine_multiple_companies_count_fixed(tweet_csv_dataframe_2)

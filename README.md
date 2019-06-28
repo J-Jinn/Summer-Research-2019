@@ -23,6 +23,8 @@ https://trello.com/b/tXM2NIgT/slo-stance
 
 "deprecated" - files that are no longer relevant.
 
+"slo-classifiers-files" - unedited original files obtained from SLO-classifiers repository as reference material.
+
 Note: some directories not listed here as not included in GitHub Repository.
 
 &nbsp;
@@ -41,17 +43,10 @@ Note: large datasets are not included in GitHub Repository.
 
 ## "jupyter-notebooks" directory:
 
-"slo-lda-introduction.ipynb" - Introduction to latent dirichlet allocation and topic modeling.
-
-"slo-lda-implementation.ipynb" - Our implementation of LDA on our Twitter dataset.
-
-"slo-lda-grid-search.ipynb" - Exhaustive grid search for Scikit-Learn LDA model hyper parameters.
-
-"slo-lda-execution-output.ipynb" - multiple executions and associated topic extraction output for our LDA implementation.
 
 "SLO analysis.ipynb" - from the Calvin College SLO-Classifier repository.
 
-"slo-twitter-data-analysis.ipynb" - adapted from SLO analysis.ipynb for SLO Twitter dataset analysis.
+"slo-current-research-atricles.ipynb" - hyperlinks to articles and other written material on topic extraction, etc.
 
 "personal-research-journal.ipynb" - Jupyter notebook file for keeping research notes.
 
@@ -68,6 +63,24 @@ Note: large datasets are not included in GitHub Repository.
 "twitter-data-analysis-tables" sub-directory - stores HTML tables used in "slo-twitter-data-analysis.ipynb"
 
 &nbsp;
+
+### "slo-lda" subdirectory in "jupyter-notebooks" directory:
+
+"slo-lda-introduction.ipynb" - Introduction to latent dirichlet allocation and topic modeling.
+
+"slo-lda-implementation.ipynb" - Our implementation of LDA on our Twitter dataset.
+
+"slo-lda-grid-search.ipynb" - Exhaustive grid search for Scikit-Learn LDA model hyper parameters.
+
+"slo-lda-execution-output.ipynb" - multiple executions and associated topic extraction output for our LDA implementation.
+
+&nbsp;
+
+### "slo-twitter-data-analysis" subdirectory in "jupyter-notebooks" directory:
+
+contains all of our Jupyter Notebook Files for SLO Twitter data analysis.
+
+"images" sub-directory - contains all image files for the SLO Twitter data analysis Jupyter notebook files.
 
 ## Files in root Directory:
 
