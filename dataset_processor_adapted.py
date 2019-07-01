@@ -43,7 +43,7 @@ log.basicConfig(level=log.INFO)
 unknown_company_count_global = 0
 non_english_count_global = 0
 
-from polyglot.text import Text, Word
+# from polyglot.text import Text, Word
 
 #########################################################################################################
 """
@@ -121,14 +121,14 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
     #                                   encoding="ISO-8859-1"):
     #     print()
 
-    for df_chunk in pd.read_json(json_data_filepath, orient='records', lines=True, chunksize=100):
+    for df_chunk in pd.read_json(json_data_filepath, orient='records', lines=True, chunksize=10000):
 
         # Modify these to determine what to export to CSV.
         required_fields = ['retweeted_derived', 'company_derived', 'text_derived',  # "tweet_quoted_status_id",
                            'tweet_url_link_derived', 'multiple_companies_derived_count', "company_derived_designation",
                            'tweet_text_length_derived', "spaCy_language_detect_all_tweets",
-                           "user_description_text_length", "polyglot_lang_detect_all_tweets"] \
-                          + tweet_object_fields + user_object_fields + entities_object_fields
+                           "user_description_text_length",  # "polyglot_lang_detect_all_tweets"
+                           ] + tweet_object_fields + user_object_fields + entities_object_fields
 
         extra_fields = ["tweet_id"] + retweeted_status_object_fields
 
@@ -178,12 +178,12 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         #     compute_flatten_retweeted_status_user_attributes, axis=1)
 
         # Polyglot only works on Linux (PITA to get working on Windows - sometimes impossible)
-        # df_chunk['polyglot_lang_detect_non_english_only'] = df_chunk.apply(update_language_non_englsh_tweets, axis=1)
-        df_chunk['polyglot_lang_detect_all_tweets'] = df_chunk.apply(update_language_non_english_tweets, axis=1)
+        # df_chunk['polyglot_lang_detect_non_english_only'] = df_chunk.apply(update_language_non_english_tweets, axis=1)
+        # df_chunk['polyglot_lang_detect_all_tweets'] = df_chunk.apply(update_language_all_tweets(), axis=1)
 
         # Determine the Tweet text's language using spaCy natural language processing library. (note: slow)
         df_chunk["spaCy_language_detect_all_tweets"] = df_chunk.apply(
-            lambda x: what_language(x) if (pd.notnull(x["text_derived"])) else "none", axis=1)
+            lambda x: what_language(x) if (pd.notnull(x["tweet_full_text"])) else "none", axis=1)
 
         # Remove irrelevant tweets (non-English or unknown-company).
         # TODO - change to spacy instead of polyglot.
@@ -218,7 +218,7 @@ def create_dataset(json_data_filepath, dataset_filepath, drop_irrelevant_tweets)
         log.info("\t\tprocessed " + str(count) + " records...")
 
         # Debug purposes.
-        break
+        # break
 
     # # Drop duplicate rows/examples/Tweets.
     # df_full = pd.read_csv(f"{dataset_filepath}.csv", sep=',', encoding="utf-8")
@@ -605,7 +605,7 @@ def what_language(row):
     """
     nlp = spacy.load("en")
     nlp.add_pipe(LanguageDetector(), name="language_detector", last=True)
-    document = nlp(row["text_derived"])
+    document = nlp(row["tweet_full_text"])
     # document level language detection. Think of it like average language of document!
     text_language = document._.language
     row["spaCy_language_detect"] = str(text_language["language"])

@@ -44,7 +44,7 @@ import numpy as np
 import seaborn as sns
 
 # Import custom utility functions.
-import slo_twitter_data_analysis_utility_functions_v2 as tweet_util_v2
+import slo_twitter_data_analysis_utility_functions as tweet_util_v2
 
 #############################################################
 # Adjust parameters to display all contents.
@@ -1024,9 +1024,9 @@ if __name__ == '__main__':
     #     required_fields, "csv")
 
     # # Determine the number of non-Company associated Tweets.
-    count_nan_non_nan(
-        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19-fixed.csv",
-        ["company_derived"], "csv")
+    # count_nan_non_nan(
+    #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-22-19-fixed.csv",
+    #     ["company_derived"], "csv")
 
     ################################################################################################################
 
