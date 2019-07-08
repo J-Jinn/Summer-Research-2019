@@ -33,6 +33,9 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 
+# Import custom utility functions.
+import slo_twitter_data_analysis_utility_functions as tweet_util_v2
+
 #############################################################
 
 # Miscellaneous parameter adjustments for pandas and python.
@@ -46,6 +49,8 @@ Turn debug log statements for various sections of code on/off.
 (adjust log level as necessary)
 """
 log.basicConfig(level=log.INFO)
+
+
 # tf.logging.set_verbosity("INFO")
 
 
@@ -277,7 +282,42 @@ def dataframe_subset(tweet_dataset, sample_size):
 
 ################################################################################################################
 
+def topic_author_model(tweet_dataframe):
+    """
+    Function to combine all Tweets by the same author into one document (example) for topic extraction.
+
+    :param tweet_dataframe: Pandas dataframe containing Twitter dataset.
+    :return: None.
+    """
+
+    def combine_tweets(data):
+        """
+        Function to combine all Tweets by a common author into a single document(example)
+        :param data:
+        :return:
+        """
+        dataframe = pd.DataFrame(data)
+        print(dataframe.shape)
+
+    tweet_dataframe = pd.DataFrame(tweet_dataframe)
+
+    df = tweet_dataframe[["user_id", "tweet_full_text"]].groupby("user_id").apply(combine_tweets)
+    print(df.shape)
+
+
+################################################################################################################
+
 def test_function():
     print("This is a test function")
 
+
 ################################################################################################################
+
+# # Import CSV dataset and convert to dataframe.
+# tweet_csv_dataframe = tweet_util_v2.import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-6-27-19.csv",
+#     "csv", False)
+#
+# # Create author-topic model dataframe.
+# topic_author_model(tweet_csv_dataframe)
