@@ -19,6 +19,8 @@ https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.LatentDi
 https://medium.com/mlreview/topic-modeling-with-scikit-learn-e80d33668730
 https://pypi.org/project/lda/
 
+TODO - setup Singularity container and perform exhaustive grid search or randomized grid search for LDA hyperparameters.
+TODO - Add topic extraction logging that outputs the # of records processed so far. (set to INFO level), if possible.
 """
 
 ################################################################################################################
@@ -33,7 +35,7 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 
 # Import custom utility functions.
-import slo_lda_topic_extraction_utility_functions as lda_util
+import topic_extraction_utility_functions as lda_util
 
 #############################################################
 

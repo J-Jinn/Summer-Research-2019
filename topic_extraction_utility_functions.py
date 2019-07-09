@@ -2,21 +2,25 @@
 SLO Topic Modeling
 Advisor: Professor VanderLinden
 Name: Joseph Jinn
-Date: 6-5-19
+Date: 7-9-19
 
-SLO LDA Utility Functions.
+SLO Topic Extraction Utility Functions.
 
 ###########################################################
 Notes:
 
-Adapted code from SLO TBL Topic Classification code-base for use in LDA Tweet pre-processing.
+Adapted code from SLO TBL Topic Classification code-base for use in Tweet pre-processing.
 
 ###########################################################
 Resources Used:
 
 https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/tweet_preprocessor.py
 https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/dataset_processor.py
+https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/settings.py
 https://github.com/Calvin-CS/slo-classifiers/blob/topic/topic/final_derek/Preprocessing.py
+
+https://www.programcreek.com/python/example/98657/nltk.corpus.stopwords.words
+https://www.geeksforgeeks.org/removing-stop-words-nltk-python/
 
 """
 
@@ -29,12 +33,9 @@ import re
 import string
 import warnings
 import pandas as pd
-# import tensorflow as tf
+from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
-
-# Import custom utility functions.
-import slo_twitter_data_analysis_utility_functions as tweet_util_v2
 
 #############################################################
 
@@ -51,9 +52,6 @@ Turn debug log statements for various sections of code on/off.
 log.basicConfig(level=log.INFO)
 
 
-# tf.logging.set_verbosity("INFO")
-
-
 ################################################################################################################
 ################################################################################################################
 
@@ -61,31 +59,44 @@ def preprocess_tweet_text(tweet_text):
     """
     Helper function performs text pre-processing using regular expressions and other Python functions.
 
-    Notes:
-    TODO - shrink character elongations
-    TODO - remove non-english tweets
-    TODO - remove non-company associated tweets
-    TODO - remove year and time.
-    TODO - remove cash items?
+    Resources:
 
-    Resources Used:
-    https://thispointer.com/python-how-to-convert-a-list-to-string/
-    http://jonathansoma.com/lede/foundations/classes/pandas%20columns%20and%20functions/apply-a-function-to-every-row-in-a-pandas-dataframe/
+    https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/settings.py
 
-    :return: the processed Tweet.
+    :return: the processed text.
     """
-
     # Remove "RT" tags.
-    preprocessed_tweet_text = re.sub("rt", "", tweet_text)
+    preprocessed_tweet_text = re.sub('^(rt @\w+: )', "", tweet_text)
 
     # Remove URL's.
-    preprocessed_tweet_text = re.sub("http[s]?://\S+", "slo_url", preprocessed_tweet_text)
+    preprocessed_tweet_text = re.sub("http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+",
+                                     "", preprocessed_tweet_text)
+
+    # Remove concatenated URL's.
+    preprocessed_tweet_text = re.sub('(.)http', "", preprocessed_tweet_text)
 
     # Remove Tweet mentions.
-    preprocessed_tweet_text = re.sub("@\S+", "slo_mention", preprocessed_tweet_text)
+    preprocessed_tweet_text = re.sub('@[a-zA-Z_0-9]+', "", preprocessed_tweet_text)
+
+    # Remove Tweet stock symbols.
+    preprocessed_tweet_text = re.sub('$[a-zA-Z]+', "", preprocessed_tweet_text)
 
     # Remove Tweet hashtags.
-    preprocessed_tweet_text = re.sub("#\S+", "slo_hashtag", preprocessed_tweet_text)
+    preprocessed_tweet_text = re.sub('#\w+', "", preprocessed_tweet_text)
+
+    # Remove Tweet cashtags.
+    preprocessed_tweet_text = \
+        re.sub('\$(?=\(.*\)|[^()]*$)\(?\d{1,3}(,?\d{3})?(\.\d\d?)?\)?([bmk]| hundred| thousand| million| billion)?',
+               "", preprocessed_tweet_text)
+
+    # Remove Tweet year.
+    preprocessed_tweet_text = re.sub('[12][0-9]{3}', "", preprocessed_tweet_text)
+
+    # Remove Tweet time.
+    preprocessed_tweet_text = re.sub('[012]?[0-9]:[0-5][0-9]', "", preprocessed_tweet_text)
+
+    # Remove character elongations.
+    preprocessed_tweet_text = re.sub('(.)\1{2,}', "", preprocessed_tweet_text)
 
     # Remove all punctuation.
     preprocessed_tweet_text = preprocessed_tweet_text.translate(str.maketrans('', '', string.punctuation))
@@ -102,15 +113,18 @@ def preprocess_tweet_text(tweet_text):
                    "co", "amp", "riotinto", "carmichael", "abbot", "bill shorten",
                    "slourl", "slomention", "slohashtag", "sloyear", "slocash"]
 
+    # Remove stop words from Tweets.
+    delete_list += list(stopwords.words('english'))
+
     # Convert series to string.
     tweet_string = str(preprocessed_tweet_text)
 
     # Split Tweet into individual words.
-    words = tweet_string.split()
+    individual_words = tweet_string.split()
 
     # Check to see if a word is irrelevant or not.
     words_relevant = []
-    for w in words:
+    for w in individual_words:
         if w not in delete_list:
             words_relevant.append(w)
         else:
@@ -194,7 +208,7 @@ def display_topics(model, feature_names, num_top_words):
     :return: None.
     """
     for topic_idx, topic in enumerate(model.components_):
-        print("Topic %d:" % (topic_idx))
+        print("Topic %d:" % topic_idx)
         print(" ".join([feature_names[i]
                         for i in topic.argsort()[:-num_top_words - 1:-1]]))
 
@@ -217,8 +231,8 @@ def latent_dirichlet_allocation_grid_search(dataframe, search_parameters):
     ])
 
     # Perform the grid search.
-    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, search_parameters, cv=5, iid=False
-                                                   , n_jobs=-1)
+    latent_dirichlet_allocation_clf = GridSearchCV(latent_dirichlet_allocation_clf, search_parameters, cv=5,
+                                                   iid=False, n_jobs=-1)
     latent_dirichlet_allocation_clf.fit(dataframe)
 
     # View all the information stored in the model after training it.
@@ -249,6 +263,7 @@ def dataframe_subset(tweet_dataset, sample_size):
     """
 
     # Check that user passed in dataset from which we can generate a dataframe.
+    # noinspection PyBroadException
     try:
         tweet_dataframe_processed = pd.DataFrame(tweet_dataset)
     except Exception:
@@ -303,12 +318,6 @@ def topic_author_model(tweet_dataframe):
 
     df = tweet_dataframe[["user_id", "tweet_full_text"]].groupby("user_id").apply(combine_tweets)
     print(df.shape)
-
-
-################################################################################################################
-
-def test_function():
-    print("This is a test function")
 
 
 ################################################################################################################

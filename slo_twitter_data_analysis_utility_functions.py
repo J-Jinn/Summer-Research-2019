@@ -206,11 +206,10 @@ def import_dataset(input_file_path, file_type, show_df_info):
     Note: Does NOT import in chunks.  Assumes file will fit in system RAM.
 
     :return: the Pandas Dataframe containing the dataset.
-    # TODO - return to encoding = "utf-8" after resolving mixed data types issues with specific columns in dataset.
     """
     if file_type == "csv":
         # Read in the CSV file.
-        tweet_dataset = pd.read_csv(f"{input_file_path}", sep=",", encoding="iso-8859-1")
+        tweet_dataset = pd.read_csv(f"{input_file_path}", sep=",", encoding="utf-8")
     elif file_type == "json":
         # Read in the JSON file.
         tweet_dataset = pd.read_json(f"{input_file_path}", orient='records', lines=True)
@@ -293,14 +292,11 @@ def call_data_analysis_function_on_json_file_chunks(input_file_path, function_na
     # Create a empty Pandas dataframe.
     json_dataframe = pd.DataFrame()
 
-    counter = 0
     chunk_number = 0
 
     # Loop through chunk-by-chunk and call the data analysis function on each chunk.
     for data in twitter_data:
         json_dataframe = json_dataframe.append(data, ignore_index=True)
-
-        counter += 1
         chunk_number += 1
 
         if chunk_number == 1 and function_name == "none":
@@ -456,7 +452,6 @@ def export_multi_company_tweets(tweet_dataframe):
 
     :param tweet_dataframe: Tweet dataframe.
     :return: None.
-    # FIXME - why int/string comparison error when checking "multiple_companies_derived_count"?
     """
     dataframe = pd.DataFrame(tweet_dataframe)
     multi_company_only_df = dataframe.loc[dataframe['company_derived_designation'] == "multiple"]
@@ -548,7 +543,7 @@ def extract_single_multi_json_attributes(input_file_path, output_file_path, attr
         log.debug(f"{row}\n")
         return row[attributes_list]
 
-    counter = 0
+    count_records = 0
     include_header = True
     # Read Json in chunks to avoid RAM issues.
     for df_chunk in pd.read_json(input_file_path, orient='records', lines=True, chunksize=1000):
@@ -560,8 +555,8 @@ def extract_single_multi_json_attributes(input_file_path, output_file_path, attr
                                          quoting=csv.QUOTE_NONNUMERIC,
                                          mode='a', header=include_header, encoding="utf-8")
         # Print a progress message.
-        counter += df_chunk.shape[0]
-        print(f'\t\tprocessed {counter} records...')
+        count_records += df_chunk.shape[0]
+        print(f'\t\tprocessed {count_records} records...')
         # Only include the header once, at the top of the file.
         include_header = False
         # break
@@ -621,7 +616,7 @@ def flatten_extract_nested_json_attributes(input_file_path, output_file_path, to
         row[nested_attributes_list] = np.NaN
         return row[nested_attributes_list]
 
-    counter = 0
+    count_examples = 0
     include_header = True
     # Read Json in chunks to avoid RAM issues.
     for df_chunk in pd.read_json(input_file_path, orient='records', lines=True, chunksize=1000):
@@ -633,8 +628,8 @@ def flatten_extract_nested_json_attributes(input_file_path, output_file_path, to
                                                 quoting=csv.QUOTE_NONNUMERIC,
                                                 mode='a', header=include_header, encoding="utf-8")
         # Print a progress message.
-        counter += df_chunk.shape[0]
-        print(f'\t\tprocessed {counter} records...')
+        count_examples += df_chunk.shape[0]
+        print(f'\t\tprocessed {count_examples} records...')
         # Only include the header once, at the top of the file.
         include_header = False
         # break
@@ -676,6 +671,7 @@ def spacy_language_detection(tweet_dataframe):
     :return: None. Saves to file.
     """
 
+    # noinspection PyProtectedMember
     def what_language(row):
         """
          This helper function executes spaCy N.L.P. library and "spacy-langdetect"
@@ -745,10 +741,13 @@ def find_mixed_data_types_in_dataset_rows(tweet_dataframe):
     """
     This function finds mixed data types that should not exist for the specified column(s) in the dataset.
 
+    Note: Takes way too long to run on a large file.
+
     :param tweet_dataframe: Tweet dataframe.
     :return: None. Saves to file.
     """
 
+    # noinspection PyUnresolvedReferences
     weird = (tweet_dataframe.applymap(type) != tweet_dataframe.iloc[1].apply(type)).any(axis=1)
 
     print("These rows contain data type(s) that is different from the rest of the rows in the column(s):")
@@ -774,7 +773,6 @@ def determine_multiple_companies_count_fixed(tweet_dataframe):
         Note: we convert derived_series to a series to avoid Pandas warning.
         :param row: example in the dataset we are operating on.
         :return:  the modified example.
-        TODO - check we have fixed our logic error!
         """
         global counter
         counter += 1
@@ -786,10 +784,10 @@ def determine_multiple_companies_count_fixed(tweet_dataframe):
         print(f"The derived string: {derived_string}")
         if derived_string.count('|') > 0:
             row["multiple_companies_derived_count"] = derived_string.count('|') + 1
-        elif derived_string != "Series([], )":
-            row["multiple_companies_derived_count"] = 1
-        else:
+        elif "none" in derived_string:
             row["multiple_companies_derived_count"] = 0
+        else:
+            row["multiple_companies_derived_count"] = 1
         return row["multiple_companies_derived_count"]
 
     dataframe = pd.DataFrame(tweet_dataframe)
@@ -799,7 +797,6 @@ def determine_multiple_companies_count_fixed(tweet_dataframe):
         dataframe, [],
         "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/compute-multiple-companies-count-debug",
         "w", "csv")
-
 
 ################################################################################################################
 

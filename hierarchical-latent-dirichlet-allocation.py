@@ -4,46 +4,19 @@ Advisor: Professor VanderLinden
 Name: Joseph Jinn
 Date: 7-8-19
 
-Gensim: HDP - Hierarchical Dirichlet Process
+HlDA - Hierarchical Latent Dirichlet Allocation
 
 ###########################################################
 Notes:
 
 TODO - remove stop words before training.
+FIXME - not functional.
 
 ###########################################################
 Resources Used:
 
-https://radimrehurek.com/gensim/
-https://www.machinelearningplus.com/nlp/gensim-tutorial/
-https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/
+https://github.com/jreades/hlda (updated version for Python 3)
 
-https://stackoverflow.com/questions/509211/understanding-slice-notation
-
-Initial Results (default hyper parameters, with stop words included):
-
-[(0, '0.043*the + 0.037*to + 0.018*a + 0.018*of + 0.017*in + 0.016*is + 0.015*for + 0.015*and + 0.012*coal + 0.011*mine'),
- (1, '0.038*the + 0.030*to + 0.020*of + 0.017*in + 0.017*a + 0.014*for + 0.013*and + 0.012*is + 0.010*coal + 0.010*on'),
- (2, '0.034*the + 0.030*to + 0.016*of + 0.015*in + 0.014*a + 0.013*for + 0.012*and + 0.012*is + 0.010*coal + 0.009*on'),
- (3, '0.029*the + 0.029*��� + 0.026*tax + 0.024*to + 0.015*on + 0.012*of + 0.012*in + 0.012*and + 0.011*a + 0.011*for'),
- (4, '0.032*the + 0.028*to + 0.015*of + 0.014*a + 0.014*in + 0.013*for + 0.011*and + 0.011*is + 0.009*on + 0.009*coal'),
- (5, '0.029*the + 0.026*to + 0.015*in + 0.012*of + 0.012*and + 0.012*a + 0.011*for + 0.010*on + 0.009*is + 0.008*coal'),
- (6, '0.033*the + 0.029*to + 0.015*of + 0.015*a + 0.014*in + 0.013*for + 0.012*and + 0.012*is + 0.010*coal + 0.009*on'),
- (7, '0.033*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.012*is + 0.010*coal + 0.009*on'),
- (8, '0.032*the + 0.029*to + 0.014*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.011*is + 0.010*coal + 0.010*on'),
- (9, '0.033*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.011*is + 0.010*coal + 0.009*on'),
- (10, '0.033*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.012*is + 0.010*coal + 0.009*on'),
- (11, '0.032*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.011*and + 0.011*is + 0.009*coal + 0.009*on'),
- (12, '0.032*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.011*is + 0.010*coal + 0.009*on'),
- (13, '0.033*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.011*and + 0.011*is + 0.010*coal + 0.009*on'),
- (14, '0.032*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.012*for + 0.012*and + 0.011*is + 0.010*coal + 0.009*on'),
- (15, '0.033*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.011*is + 0.010*coal + 0.009*on'),
- (16, '0.032*the + 0.029*to + 0.014*of + 0.014*in + 0.014*a + 0.013*for + 0.012*and + 0.011*is + 0.010*coal + 0.009*on'),
- (17, '0.032*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.011*is + 0.011*and + 0.010*coal + 0.009*on'),
- (18, '0.032*the + 0.029*to + 0.015*of + 0.014*in + 0.014*a + 0.013*for + 0.011*and + 0.011*is + 0.010*coal + 0.009*on'),
- (19, '0.032*the + 0.029*to + 0.014*of + 0.014*in + 0.013*a + 0.013*for + 0.011*is + 0.011*and + 0.010*coal + 0.009*on')]
-
- Time taken to process dataset: 2175.6769523620605 seconds, 36.26128253936768 minutes, 0.6043547089894613 hours
 """
 
 ################################################################################################################
@@ -87,7 +60,6 @@ Turn debug log statements for various sections of code on/off.
 (adjust log level as necessary)
 """
 log.basicConfig(level=log.INFO)
-
 
 ################################################################################################################
 ################################################################################################################
@@ -145,55 +117,53 @@ words = [[text for text in tweet.split()] for tweet in slo_feature_list]
 log.info(f"\nDictionary of individual words:")
 log.info(f"{words[0]}\n")
 
-# Create the Gensim dictionary of words.
-dictionary = corpora.Dictionary(words)
-log.info(f"\nGensim dictionary of tokenized words.")
-log.info(f"{dictionary}\n")
+corpus = []
+vocab = set()
+vocab.update(words)
+corpus.append(words)
 
-# Create the Gensim corpus of document term frequencies.
-corpus = [dictionary.doc2bow(word, allow_update=True) for word in words]
-log.info(f"\nGensim corpus of document-term frequencies.")
-log.info(f"{corpus[0:10]}\n")
+# Attach indices to each word.
+vocab = sorted(list(vocab))
+vocab_index = {}
+for i, w in enumerate(vocab):
+    vocab_index[w] = i
+
+
+# # Create the Gensim dictionary of words.
+# dictionary = corpora.Dictionary(words)
+# log.info(f"\nGensim dictionary of tokenized words.")
+# log.info(f"{dictionary}\n")
+#
+# # Create the Gensim corpus of document term frequencies.
+# corpus = [dictionary.doc2bow(word, allow_update=True) for word in words]
+# log.info(f"\nGensim corpus of document-term frequencies.")
+# log.info(f"{corpus[0:10]}\n")
 
 
 ################################################################################################################
 
-def hierarchical_dirichlet_process_topic_extraction():
+
+def hierarchical_latent_dirichlet_allocation_topic_extraction():
     """
     Function performs topic extraction on Tweets using the Gensim HDP model.
 
     :return: None.
     """
-    from gensim.test.utils import common_corpus, common_dictionary
-    from gensim.models import HdpModel
-    from gensim.sklearn_api import HdpTransformer
+    from hlda.sampler import HierarchicalLDA
 
-    # LDA can only use raw term counts for LDA because it is a probabilistic graphical model.
-    tf_vectorizer = CountVectorizer(max_df=0.95, min_df=2, max_features=1000, stop_words='english')
-    tf = tf_vectorizer.fit_transform(slo_feature_series)
-    tf_feature_names = tf_vectorizer.get_feature_names()
+    # Set parameters.
+    n_samples = 500  # no of iterations for the sampler
+    alpha = 10.0  # smoothing over level distributions
+    gamma = 1.0  # CRP smoothing parameter; number of imaginary customers at next, as yet unused table
+    eta = 0.1  # smoothing over topic-word distributions
+    num_levels = 3  # the number of levels in the tree
+    display_topics = 50  # the number of iterations between printing a brief summary of the topics so far
+    n_words = 5  # the number of most probable words to print for each topic after model estimation
+    with_weights = False  # whether to print the words with the weights
 
-    log.info("\n.fit_transform - Learn the vocabulary dictionary and return term-document matrix.")
-    log.info(f"{tf}\n")
-    log.info("\n.get_feature_names - Array mapping from feature integer indices to feature name")
-    log.info(f"{tf_feature_names}\n")
-
-    # Sample dictionary and corpus.
-    log.info(f"\nExample dictionary format for Gensim:")
-    log.info(f"{common_dictionary}\n")
-    log.info(f"\nExample corpus format for Gensim:")
-    log.info(f"{common_corpus}\n")
-
-    # Train the HDP model.
-    hdp = HdpModel(corpus, dictionary)
-
-    # # For use with Scikit-Learn API.
-    # model = HdpTransformer(id2word=dictionary)
-    # distribution = model.fit_transform(corpus)
-
-    # Display the top words for each topic.
-    topic_info = hdp.print_topics(num_topics=20, num_words=10)
-    print(topic_info)
+    # Train the model.
+    hlda = HierarchicalLDA(corpus, dictionary, alpha=alpha, gamma=gamma, eta=eta, num_levels=num_levels)
+    hlda.estimate(n_samples, display_topics=display_topics, n_words=n_words, with_weights=with_weights)
 
 
 ############################################################################################
@@ -215,7 +185,7 @@ if __name__ == '__main__':
     """
     Perform the topic extraction.
     """
-    hierarchical_dirichlet_process_topic_extraction()
+    hierarchical_latent_dirichlet_allocation_topic_extraction()
 
     ################################################
     my_end_time = time.time()
