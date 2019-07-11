@@ -462,6 +462,40 @@ def export_multi_company_tweets(tweet_dataframe):
 
 ################################################################################################################
 
+def export_no_company_tweets(tweet_dataframe):
+    """
+    This function exports to a CSV dataset file only those Tweets that are associated with no companies.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    """
+    dataframe = pd.DataFrame(tweet_dataframe)
+    no_company_only_df = dataframe.loc[(dataframe['company_derived_designation'].isnull())]
+    export_to_csv_json(
+        no_company_only_df, [],
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/no-company-tweets", "w", "csv")
+
+
+################################################################################################################
+
+def export_non_english_tweets(tweet_dataframe):
+    """
+    This function exports to a CSV dataset file only those Tweets that are designated as non-English by both
+    spacy-langdetect and the Twitter API.
+
+    :param tweet_dataframe: Tweet dataframe.
+    :return: None.
+    """
+    dataframe = pd.DataFrame(tweet_dataframe)
+    non_english_spacy_and_twitter = tweet_dataframe.loc[(tweet_dataframe["spaCy_language_detect_all_tweets"] != "en") &
+                                                        (tweet_dataframe["tweet_lang"] != "en")]
+    export_to_csv_json(
+        non_english_spacy_and_twitter, [],
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/non-english-tweets", "w", "csv")
+
+
+################################################################################################################
+
 def extract_tweets_over_specified_character_length(tweet_dataframe, character_length):
     """
     This function extracts all tweets over the specified character length and exports it to a separate CSV file.
@@ -798,12 +832,13 @@ def determine_multiple_companies_count_fixed(tweet_dataframe):
         "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/compute-multiple-companies-count-debug",
         "w", "csv")
 
+
 ################################################################################################################
 
-# tweet_csv_dataframe = import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-6-22-19-test-no-company-count-field.csv",
-#     "csv", False)
+tweet_csv_dataframe = import_dataset(
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    "twitter-dataset-6-27-19.csv",
+    "csv", False)
 
 # tweet_csv_dataframe_2 = import_dataset(
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
@@ -815,3 +850,6 @@ def determine_multiple_companies_count_fixed(tweet_dataframe):
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/debug", "w", "json")
 
 # determine_multiple_companies_count_fixed(tweet_csv_dataframe_2)
+
+export_no_company_tweets(tweet_csv_dataframe)
+# export_non_english_tweets(tweet_csv_dataframe)

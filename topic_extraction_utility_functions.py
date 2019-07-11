@@ -19,6 +19,13 @@ https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/dataset_pro
 https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/settings.py
 https://github.com/Calvin-CS/slo-classifiers/blob/topic/topic/final_derek/Preprocessing.py
 
+https://www.machinelearningplus.com/nlp/gensim-tutorial/
+https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/
+https://www.machinelearningplus.com/nlp/lemmatization-examples-python/
+
+https://www.guru99.com/tokenize-words-sentences-nltk.html
+https://radimrehurek.com/gensim/utils.html
+
 https://www.programcreek.com/python/example/98657/nltk.corpus.stopwords.words
 https://www.geeksforgeeks.org/removing-stop-words-nltk-python/
 
@@ -33,17 +40,29 @@ import re
 import string
 import warnings
 import pandas as pd
+import nltk
+from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 #############################################################
 
 # Miscellaneous parameter adjustments for pandas and python.
-pd.options.display.max_rows = 10
-pd.options.display.float_format = '{:.1f}'.format
+# Pandas options.
+pd.options.display.max_rows = None
+pd.options.display.max_columns = None
+pd.options.display.width = None
+pd.options.display.max_colwidth = 1000
+# Pandas float precision display.
+pd.set_option('precision', 12)
+# Don't output these types of warnings to terminal.
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
+warnings.simplefilter(action='ignore', category=UserWarning)
 
 """
 Turn debug log statements for various sections of code on/off.
@@ -98,9 +117,6 @@ def preprocess_tweet_text(tweet_text):
     # Remove character elongations.
     preprocessed_tweet_text = re.sub('(.)\1{2,}', "", preprocessed_tweet_text)
 
-    # Remove all punctuation.
-    preprocessed_tweet_text = preprocessed_tweet_text.translate(str.maketrans('', '', string.punctuation))
-
     # Remove irrelevant words from Tweets.
     delete_list = ["slo_url", "slo_mention", "word_n", "slo_year", "slo_cash", "woodside", "auspol", "adani",
                    "stopadani",
@@ -112,9 +128,6 @@ def preprocess_tweet_text(tweet_text):
                    "goadani",
                    "co", "amp", "riotinto", "carmichael", "abbot", "bill shorten",
                    "slourl", "slomention", "slohashtag", "sloyear", "slocash"]
-
-    # Remove stop words from Tweets.
-    delete_list += list(stopwords.words('english'))
 
     # Convert series to string.
     tweet_string = str(preprocessed_tweet_text)
@@ -128,9 +141,7 @@ def preprocess_tweet_text(tweet_text):
         if w not in delete_list:
             words_relevant.append(w)
         else:
-            log.debug("Irrelevant word found: ")
-            log.debug(w)
-            log.debug('\n')
+            log.debug(f"Irrelevant word found: {w}\n")
 
     # Convert list back into original Tweet text minus irrelevant words.
     tweet_string = ' '.join(words_relevant)
@@ -138,8 +149,52 @@ def preprocess_tweet_text(tweet_text):
     tweet_series = pd.Series(tweet_string)
 
     log.debug("Tweet text with irrelevant words removed: ")
-    log.debug(tweet_series)
-    log.debug('\n')
+    log.debug(f"{tweet_series}\n")
+
+    return tweet_series
+
+
+################################################################################################################
+
+def postprocess_tweet_text(tweet_text):
+    """
+    Helper function performs text post-processing using regular expressions and other Python functions.
+
+    Resources:
+
+    https://github.com/Calvin-CS/slo-classifiers/blob/master/stance/data/settings.py
+
+    :return: the processed text.
+    """
+    # Remove all punctuation.
+    postprocessed_tweet_text = tweet_text.translate(str.maketrans('', '', string.punctuation))
+
+    # Remove stop words from Tweets.
+    delete_list = list(stopwords.words('english'))
+
+    # Convert series to string.
+    tweet_string = str(postprocessed_tweet_text)
+
+    # Split Tweet into individual words.
+    individual_words = tweet_string.split()
+
+    # NLTK word lemmatizer.
+    lemmatizer = WordNetLemmatizer()
+
+    # Check to see if a word is irrelevant or not.
+    words_relevant = []
+    for w in individual_words:
+        if w not in delete_list:
+            word_lemmatized = lemmatizer.lemmatize(w)
+            words_relevant.append(word_lemmatized)
+
+    # Convert list back into original Tweet text minus irrelevant words.
+    tweet_string = ' '.join(words_relevant)
+    # Convert back to a series object.
+    tweet_series = pd.Series(tweet_string)
+
+    log.debug("Tweet text with stop words removed and lemmatized words: ")
+    log.debug(f"{tweet_series}\n")
 
     return tweet_series
 
@@ -157,43 +212,39 @@ def tweet_dataset_preprocessor(input_file_path, output_file_path, column_name):
     """
 
     # Import the dataset.
-    slo_dataset_cmu = \
-        pd.read_csv(str(input_file_path), sep=",")
-
-    # Shuffle the data randomly.
-    slo_dataset_cmu = slo_dataset_cmu.reindex(
-        pd.np.random.permutation(slo_dataset_cmu.index))
+    twitter_dataset = \
+        pd.read_csv(f"{input_file_path}", sep=",", encoding="utf-8")
 
     # Generate a Pandas dataframe.
-    slo_dataframe_cmu = pd.DataFrame(slo_dataset_cmu[str(column_name)])
+    twitter_dataframe = pd.DataFrame(twitter_dataset[f"{column_name}"])
 
     # Print shape and column names.
-    log.info("\n")
-    log.info("The shape of our raw SLO dataframe:")
-    log.info(slo_dataframe_cmu.shape)
-    log.info("\n")
-    log.info("The columns of our raw SLO dataframe:")
-    log.info(slo_dataframe_cmu.head)
-    log.info("\n")
+    log.info(f"\nThe shape of our raw unpreprocessed text:")
+    log.info(twitter_dataframe.shape)
+    log.info(f"\nThe columns of our unpreprocessed text:")
+    log.info(twitter_dataframe.head)
 
     #######################################################
 
     # Down-case all text.
-    slo_dataframe_cmu[column_name] = slo_dataframe_cmu[column_name].str.lower()
+    twitter_dataframe[f"{column_name}"] = twitter_dataframe[column_name].str.lower()
 
     # Pre-process each tweet individually (calls a helper function).
-    slo_dataframe_cmu[str(column_name)] = slo_dataframe_cmu[str(column_name)].apply(preprocess_tweet_text)
+    twitter_dataframe[f"{column_name}_preprocessed"] = twitter_dataframe[f"{column_name}"].apply(preprocess_tweet_text)
+
+    # Post-process each tweet individuall (calls a helper function).
+    twitter_dataframe[f"{column_name}_postprocessed"] = \
+        twitter_dataframe[f"{column_name}_preprocessed"].apply(postprocess_tweet_text)
 
     # Reindex everything.
-    slo_dataframe_cmu.index = pd.RangeIndex(len(slo_dataframe_cmu.index))
-    # slo_dataframe_combined.index = range(len(slo_dataframe_combined.index))
+    twitter_dataframe.index = pd.RangeIndex(len(twitter_dataframe.index))
 
     # Save to CSV file.
-    slo_dataframe_cmu.to_csv(str(output_file_path), sep=',',
+    twitter_dataframe.to_csv(f"{output_file_path}", sep=',',
                              encoding='utf-8', index=False)
 
-    print("Dataset preprocessing finished.")
-    print("Saved to: " + output_file_path)
+    print(f"\nDataset preprocessing finished.")
+    print(f"Saved to: {output_file_path}\n")
 
 
 ################################################################################################################
@@ -330,3 +381,16 @@ def topic_author_model(tweet_dataframe):
 #
 # # Create author-topic model dataframe.
 # topic_author_model(tweet_csv_dataframe)
+
+# # Test on the already tokenized dataset from stance detection.
+# tweet_dataset_preprocessor(
+#     "D:/Dropbox/summer-research-2019/datasets/dataset_20100101-20180510_tok_PROCESSED_shortened.csv",
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/lda-ready-test.csv",
+#     "tweet_t")
+
+
+# Test on our topic modeling dataset.
+tweet_dataset_preprocessor(
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-test-subset.csv",
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-lda-ready-test.csv",
+    "text_derived")
