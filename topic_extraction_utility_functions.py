@@ -11,6 +11,8 @@ Notes:
 
 Adapted code from SLO TBL Topic Classification code-base for use in Tweet pre-processing.
 
+TODO - implement further elements of post-processing to replicate what is done using CMU Tweet Tagger.
+
 ###########################################################
 Resources Used:
 
