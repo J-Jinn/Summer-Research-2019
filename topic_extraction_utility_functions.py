@@ -47,6 +47,8 @@ from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
+# Import custom utility functions.
+import slo_twitter_data_analysis_utility_functions as tweet_util_v2
 
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -354,6 +356,11 @@ def topic_author_model(tweet_dataframe):
     """
     Function to combine all Tweets by the same author into one document (example) for topic extraction.
 
+    Resources:
+
+    https://stackoverflow.com/questions/47434426/pandas-groupby-unique-multiple-columns
+    https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
+
     :param tweet_dataframe: Pandas dataframe containing Twitter dataset.
     :return: None.
     """
@@ -364,25 +371,37 @@ def topic_author_model(tweet_dataframe):
         :param data:
         :return:
         """
-        dataframe = pd.DataFrame(data)
-        print(dataframe.shape)
+        author_series = pd.Series(data)
+        # print(f"Dataframe shape for each author and their associated tweets: {dataframe.shape}")
+
+        return author_series
 
     tweet_dataframe = pd.DataFrame(tweet_dataframe)
 
-    df = tweet_dataframe[["user_id", "tweet_full_text"]].groupby("user_id").apply(combine_tweets)
-    print(df.shape)
+    # df["authors"] = tweet_dataframe[["user_id", "tweet_full_text"]].groupby("user_id").apply(combine_tweets)
+
+    # # Group Tweets by Author.
+    # group_by_authors = tweet_dataframe.groupby(["user_screen_name"])
+    # print(group_by_authors.groups.keys())
+
+    author_tweets = tweet_dataframe.groupby(["user_screen_name"])["tweet_full_text"]
+    author_tweets = pd.DataFrame(author_tweets)
+
+    tweet_util_v2.export_to_csv_json(
+        author_tweets, [],
+        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/group-by-authors", "w", "csv")
 
 
 ################################################################################################################
 
-# # Import CSV dataset and convert to dataframe.
-# tweet_csv_dataframe = tweet_util_v2.import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-6-27-19.csv",
-#     "csv", False)
-#
-# # Create author-topic model dataframe.
-# topic_author_model(tweet_csv_dataframe)
+# Import CSV dataset and convert to dataframe.
+tweet_csv_dataframe = tweet_util_v2.import_dataset(
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    "twitter-dataset-6-27-19-test-subset.csv",
+    "csv", False)
+
+# Create author-topic model dataframe.
+topic_author_model(tweet_csv_dataframe)
 
 # # Test on the already tokenized dataset from stance detection.
 # tweet_dataset_preprocessor(
@@ -391,8 +410,8 @@ def topic_author_model(tweet_dataframe):
 #     "tweet_t")
 
 
-# Test on our topic modeling dataset.
-tweet_dataset_preprocessor(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-test-subset.csv",
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-lda-ready-test.csv",
-    "text_derived")
+# # Test on our topic modeling dataset.
+# tweet_dataset_preprocessor(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-test-subset.csv",
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-6-27-19-lda-ready-test.csv",
+#     "text_derived")
