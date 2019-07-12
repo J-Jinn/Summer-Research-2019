@@ -371,6 +371,7 @@ def topic_author_model(tweet_dataframe, debug_boolean):
     :param debug_boolean: turn debug export to CSV on or off.
     :param tweet_dataframe: Pandas dataframe containing Twitter dataset.
     :return: None.
+    TODO - remove multi-index values from the output.
     """
     tweet_dataframe = pd.DataFrame(tweet_dataframe)
 
@@ -380,7 +381,7 @@ def topic_author_model(tweet_dataframe, debug_boolean):
 
     # Group Tweets by Author with Tweet ID field included.
     group_by_author_with_tweet_id = tweet_dataframe.groupby(["user_screen_name"],
-                                                            group_keys=True, as_index=True, level=0)["tweet_id"]
+                                                            group_keys=True, as_index=True)["tweet_id"]
     group_by_author_with_tweet_id = pd.DataFrame(group_by_author_with_tweet_id)
 
     group_by_author_with_tweet_id.columns = ["user_screen_name", "associated_tweet_ids"]

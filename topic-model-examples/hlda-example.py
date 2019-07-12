@@ -198,7 +198,9 @@ for filename in glob.glob(os.path.join(basedir, 'bbc', 'tech', '*.txt')):
         except UnicodeDecodeError:
             print('Failed to load', filename)
 
-print("Done.")
+print("\nDone parsing files and creating the initial dictionary and corpus.")
+
+#####################################################
 
 # Create the dictionary.
 vocab = sorted(list(vocab))
@@ -206,10 +208,13 @@ vocab_index = {}
 for i, w in enumerate(vocab):
     vocab_index[w] = i
 
-print(len(all_docs))
+print(f"\nThe number of documents: {len(all_docs)}")
 
-print(len(vocab))
-print(vocab[0:100])
+print(f"\nThe number of words in the dictionary: {len(vocab)}")
+print(f"Sample of the words in the dictionary:\n {vocab[0:100]}")
+
+print(f"\nThe number of documents in the corpus: {len(corpus)}")
+print(f"Sample of the documents in the corpus:\n {corpus}")
 
 # Visualize the dictionary of words.
 wordcloud = WordCloud(background_color='white').generate(' '.join(all_docs))
@@ -218,6 +223,7 @@ plt.imshow(wordcloud, interpolation="bilinear")
 plt.axis("off")
 plt.show()
 
+print(f"\nLength of the dictionary, corpus, document 0 in corpus, document 1 in corpus (in that order)")
 print(len(vocab), len(corpus), len(corpus[0]), len(corpus[1]))
 
 # Create the corpus.
@@ -229,9 +235,24 @@ for doc in corpus:
         new_doc.append(word_idx)
     new_corpus.append(new_doc)
 
-# print(len(vocab), len(new_corpus))
-# print(corpus[0][0:10])
-# print(new_corpus[0][0:10])
+print(f"\nLength of the dictionary and corpus (as word dictionary index values (in that order))")
+print(len(vocab), len(new_corpus))
+
+
+print(f"\nDocument 0 in the corpus as tokenized words:")
+print(corpus[0][0:10])
+print(f"Document 0 in the corpus as tokenized word index values from the dictionary:")
+print(new_corpus[0][0:10])
+
+print(f"\nDocument 1 in the corpus as tokenized words:")
+print(corpus[1][0:10])
+print(f"Document 1 in the corpus as tokenized word index values from the dictionary:")
+print(new_corpus[1][0:10])
+
+print(f"\nDocument 2 in the corpus as tokenized words:")
+print(corpus[2][0:10])
+print(f"Document 2 in the corpus as tokenized word index values from the dictionary:")
+print(new_corpus[2][0:10])
 
 ########################################################################################################
 
@@ -249,7 +270,7 @@ my_start_time = time.time()
 
 # Execute HLDA algorithm.
 hlda = HierarchicalLDA(new_corpus, vocab, alpha=alpha, gamma=gamma, eta=eta, num_levels=num_levels)
-hlda.estimate(n_samples, display_topics=display_topics, n_words=n_words, with_weights=with_weights)
+# hlda.estimate(n_samples, display_topics=display_topics, n_words=n_words, with_weights=with_weights)
 
 my_end_time = time.time()
 

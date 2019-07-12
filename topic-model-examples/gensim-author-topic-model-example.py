@@ -1,7 +1,15 @@
+"""
+Example from Gensim API documentation on the ATM Class.
+"""
+
+########################################################################################
+
 from gensim.models import AuthorTopicModel
 from gensim.corpora import mmcorpus
 from gensim.test.utils import common_dictionary, datapath, temporary_file
 
+
+########################################################################################
 
 def example_1():
     """
@@ -16,6 +24,16 @@ def example_1():
 
     corpus = mmcorpus.MmCorpus(datapath('testcorpus.mm'))
 
+    print("Corpus contents:")
+    print(f"{corpus}\n")
+
+    for document in corpus:
+        print(f"{document}")
+
+    print("Dictionary contents:")
+    print(f"{common_dictionary}\n")
+    print(f"{common_dictionary.token2id}")
+
     with temporary_file("serialized") as s_path:
         model = AuthorTopicModel(
             corpus, author2doc=author2doc, id2word=common_dictionary, num_topics=4,
@@ -26,7 +44,10 @@ def example_1():
 
     # construct vectors for authors
     author_vecs = [model.get_author_topics(author) for author in model.id2author.values()]
+    print(author_vecs)
 
 
-# Call the funciton.
+########################################################################################
+
+# Call the function.
 example_1()
