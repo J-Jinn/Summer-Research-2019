@@ -352,44 +352,73 @@ def dataframe_subset(tweet_dataset, sample_size):
 
 ################################################################################################################
 
-def topic_author_model(tweet_dataframe):
+def topic_author_model(tweet_dataframe, debug_boolean):
     """
     Function to combine all Tweets by the same author into one document (example) for topic extraction.
 
     Resources:
 
+    (below lsit of URL's for grouping all Tweets by common author)
     https://stackoverflow.com/questions/47434426/pandas-groupby-unique-multiple-columns
     https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
 
+    (below list of URL"s for converting from dataframe to dictionary of key: author, value: tweet ID's)
+    https://stackoverflow.com/questions/18012505/python-pandas-dataframe-columns-convert-to-dict-key-and-value
+    https://stackoverflow.com/questions/18695605/python-pandas-dataframe-to-dictionary
+    https://www.geeksforgeeks.org/zip-in-python/
+    https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_dict.html
+
+    :param debug_boolean: turn debug export to CSV on or off.
     :param tweet_dataframe: Pandas dataframe containing Twitter dataset.
     :return: None.
     """
-
-    def combine_tweets(data):
-        """
-        Function to combine all Tweets by a common author into a single document(example)
-        :param data:
-        :return:
-        """
-        author_series = pd.Series(data)
-        # print(f"Dataframe shape for each author and their associated tweets: {dataframe.shape}")
-
-        return author_series
-
     tweet_dataframe = pd.DataFrame(tweet_dataframe)
 
-    # df["authors"] = tweet_dataframe[["user_id", "tweet_full_text"]].groupby("user_id").apply(combine_tweets)
+    # # Group Tweets by Author with all Tweet fields included.
+    # group_by_authors_with_all_attributes = tweet_dataframe.groupby(["user_screen_name"])
+    # group_by_authors_with_all_attributes = pd.DataFrame(group_by_authors_with_all_attributes)
 
-    # # Group Tweets by Author.
-    # group_by_authors = tweet_dataframe.groupby(["user_screen_name"])
-    # print(group_by_authors.groups.keys())
+    # Group Tweets by Author with Tweet ID field included.
+    group_by_author_with_tweet_id = tweet_dataframe.groupby(["user_screen_name"],
+                                                            group_keys=True, as_index=True, level=0)["tweet_id"]
+    group_by_author_with_tweet_id = pd.DataFrame(group_by_author_with_tweet_id)
 
-    author_tweets = tweet_dataframe.groupby(["user_screen_name"])["tweet_full_text"]
-    author_tweets = pd.DataFrame(author_tweets)
+    group_by_author_with_tweet_id.columns = ["user_screen_name", "associated_tweet_ids"]
+    print(f"Dataframe columns:\n {group_by_author_with_tweet_id.columns}\n")
+    print(f"Dataframe shape:\n {group_by_author_with_tweet_id.shape}\n")
+    print(f"Dataframe samples:\n {group_by_author_with_tweet_id.sample(5)}\n")
 
-    tweet_util_v2.export_to_csv_json(
-        author_tweets, [],
-        "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/group-by-authors", "w", "csv")
+    group_by_author_with_tweet_id_dictionary = dict(zip(group_by_author_with_tweet_id["user_screen_name"],
+                                                        group_by_author_with_tweet_id["associated_tweet_ids"]))
+
+    # group_by_author_with_tweet_id = group_by_author_with_tweet_id.to_dict("records")
+
+    # for element in group_by_author_with_tweet_id:
+    #     print(f"Nested dictionary in list:\n {element}")
+
+    for key, value in group_by_author_with_tweet_id_dictionary.items():
+        print(f"Author: {key}")
+        print(f"Associated Tweets (ID's): {value}")
+
+    # # Group Tweets by Author with Tweet full text field included.
+    # group_by_author_with_tweet_text = tweet_dataframe.groupby(["user_screen_name"])["tweet_full_text"]
+    # group_by_author_with_tweet_text = pd.DataFrame(group_by_author_with_tweet_text)
+
+    if debug_boolean:
+        # tweet_util_v2.export_to_csv_json(
+        #     group_by_authors_with_all_attributes, [],
+        #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+        #     "group-by-authors-with-all-attributes", "w", "csv")
+
+        tweet_util_v2.export_to_csv_json(
+            group_by_author_with_tweet_id, [],
+            "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+            "group-by-authors-with-tweet-id", "w", "csv")
+
+        # tweet_util_v2.export_to_csv_json(
+        #     group_by_author_with_tweet_text, [],
+        #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+        #     "group-by-authors-with-tweet-text", "w", "csv")
 
 
 ################################################################################################################
@@ -401,7 +430,7 @@ tweet_csv_dataframe = tweet_util_v2.import_dataset(
     "csv", False)
 
 # Create author-topic model dataframe.
-topic_author_model(tweet_csv_dataframe)
+topic_author_model(tweet_csv_dataframe, False)
 
 # # Test on the already tokenized dataset from stance detection.
 # tweet_dataset_preprocessor(
