@@ -455,6 +455,7 @@ def topic_author_model(tweet_dataframe, debug_boolean):
         #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
         #     "group-by-authors-with-tweet-text", "w", "csv")
 
+    return group_by_author_with_tweet_id
 
 ################################################################################################################
 
@@ -474,9 +475,9 @@ def topic_author_model(tweet_dataframe, debug_boolean):
 #     "tweet_t")
 
 
-# Test on our topic modeling dataset.
-tweet_dataset_preprocessor(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-    "twitter-dataset-7-10-19-test-subset-100-examples.csv",
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-7-10-19-lda-ready-test.csv",
-    "text_derived")
+# # Test on our topic modeling dataset.
+# tweet_dataset_preprocessor(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-7-10-19-test-subset-100-examples.csv",
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/twitter-dataset-7-10-19-lda-ready-test.csv",
+#     "text_derived")
