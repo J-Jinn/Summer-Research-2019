@@ -7,7 +7,7 @@ TODO - update to reflect current project structure.
 
 ## Project Trello Board:
 
-https://trello.com/b/tXM2NIgT/slo-stance
+https://trello.com/b/74Bqfgac/slo-topic
 
 &nbsp;
 
