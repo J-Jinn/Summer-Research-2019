@@ -740,7 +740,7 @@ start_time = time.time()
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
 #     "twitter-dataset-7-10-19-test-subset-100-examples.csv",
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv",
+#     "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv",
 #     "text_derived")
 
 # # Test on our topic modeling dataset.
@@ -748,7 +748,7 @@ start_time = time.time()
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
 #     "twitter-dataset-7-10-19-test-subset-100-examples.csv",
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-lda-ready-user-description-text-test.csv",
+#     "twitter-dataset-7-10-19-lda-ready-user-description-text-with-hashtags-excluded-created-7-17-19.csv",
 #     "user_description")
 
 ############################################################
