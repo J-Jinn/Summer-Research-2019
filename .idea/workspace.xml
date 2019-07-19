@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/topic_extraction_utility_functions.py" line="787" />
+    <bookmark url="file://$PROJECT_DIR$/topic_extraction_utility_functions.py" line="829" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-implementation.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/non-negative-matrix-factorization-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/summer-research-2019.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/summer-research-2019.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algorithm_topic_extraction_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm_topic_extraction_output.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biterm-topic-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/biterm-topic-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-implementation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-implementation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-implementation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-implementation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/topic_dataset_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/topic_dataset_processor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/topic_extraction_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/topic_extraction_utility_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-implementation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mandatory-research-documentation/SLO Twitter Data Topic Modeling Research Summary - Keith VanderLinden and Joseph Jinn.docx" beforeDir="false" afterPath="$PROJECT_DIR$/mandatory-research-documentation/SLO Twitter Data Topic Modeling Research Summary - Keith VanderLinden and Joseph Jinn.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mandatory-research-documentation/Thank you Letter to Donors - Henry-Peggy Tazelaar Summer Student Research Fellowship.docx" beforeDir="false" afterPath="$PROJECT_DIR$/mandatory-research-documentation/Thank you Letter to Donors - Henry-Peggy Tazelaar Summer Student Research Fellowship.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithm_topic_extraction_output.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
+            <state relative-caret-position="145">
+              <caret line="292" column="3" selection-start-line="232" selection-start-column="33" selection-end-line="292" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -180,11 +171,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="7" />
-    <option name="y" value="66" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2" />
+    <option name="y" value="33" />
     <option name="width" value="1936" />
-    <option name="height" value="1100" />
+    <option name="height" value="2090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -489,11 +480,14 @@
       <workItem from="1563404523958" duration="2789000" />
       <workItem from="1563456046562" duration="4450000" />
       <workItem from="1563466229280" duration="8276000" />
+      <workItem from="1563493724205" duration="646000" />
+      <workItem from="1563539871992" duration="2626000" />
+      <workItem from="1563553727656" duration="14000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="728096000" />
+    <option name="totallyTimeSpent" value="731382000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -505,11 +499,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="2" y="1023" width="1936" height="1100" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6353111" visible="true" weight="0.26599148" />
-      <window_info id="Structure" order="1" sideWeight="0.36468884" side_tool="true" visible="true" weight="0.26599148" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6293996" visible="true" weight="0.26918977" />
+      <window_info id="Structure" order="1" sideWeight="0.3706004" side_tool="true" visible="true" weight="0.26918977" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294893" />
@@ -518,11 +511,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32857144" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.52025586" side_tool="true" visible="true" weight="0.24065934" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5207889" side_tool="true" visible="true" weight="0.5005171" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3288729" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.47974414" visible="true" weight="0.24065934" />
+      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.4792111" visible="true" weight="0.24065934" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6597222" weight="0.3270055" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4957265" weight="0.32761788" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -661,9 +654,6 @@
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-grid-search.ipynb" />
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-implementation.ipynb" />
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-introduction.ipynb" />
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/find-topic-modeling-current-research.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/topic-modeling-code-examples/gensim-author-topic-model-example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -786,10 +776,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/find-topic-modeling-current-research.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/algorithm_topic_extraction_output.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="243" lean-forward="true" selection-start-line="243" selection-end-line="243" />
+        <state relative-caret-position="145">
+          <caret line="292" column="3" selection-start-line="232" selection-start-column="33" selection-end-line="292" selection-end-column="3" />
         </state>
       </provider>
     </entry>

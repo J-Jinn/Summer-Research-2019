@@ -71,6 +71,14 @@ Process finished with exit code 0
 (run 2)
 (below with recursive tree depth of 2 only)
 
+- still in-progress.
+
+(run 3)
+(below with recursive tree depth of 3 only)
+
+- it failed to finish to completion.
+
+Process finished with exit code 137 (interrupted by signal 9: SIGKILL)
 """
 
 """
@@ -137,42 +145,92 @@ Process finished with exit code 0
 """
 
 """
-Biterm Output: (subset of all output)
+Biterm Output:
 
-(not the topics - just example of Tweets with assigned topics )
- world record objection 276 submission prepare submit invasive gas field    (topic: 13)
-accenture join bhp set 50/50 gender target    (topic: 12)
-colin barnett wrong iron ore bhp boss    (topic: 6)
-approval adani queensland coalmine face legal challenge    hint (topic: 11)
-declare buy 5 large parcel land 15 minute drive plan route        (topic: 18)
-having whale time fortescue bay pic ig    (topic: 6)
-question greens want govern australia greens voter support lnp continual attack australian defend attack labor lnp (topic: 17)
-courage tear adani 's license people australia new legal advice show adani wo n’t able damn thing    (topic: 11)
-'s critical adani need controversial government loan    (topic: 0)
-money matters 10 thing need know open bell spy spx qqq dia jpm aapl    (topic: 0)
-right alp reconsider support adani    24 hour convince reject    email labor cabinet tell > >    (topic: 11)
-annastacia palaszczuk billion dollar handout billionaire adani sign petition    (topic: 15)
-dr nahan payroll tax hike tax job large employer coles woolies rio tinto etc (topic: 12)
-matt canavan delusional think seq (topic: 0)
-great silence single weatherill minister available talk listener bhp job hit (topic: 0)
-australia 's climate bomb senselessness adani carmichael coal    (topic: 4)
-listen local farmer tourism operator want protect land water coral    (topic: 17)
+(run 1)
+ Topic coherence ..
+Topic 0 | Coherence=-176.49 | Top words= adani coal bhp qld santos job australian labor rio gas
+Topic 1 | Coherence=-146.07 | Top words= adani coal need climate australia job queensland new labor build
+Topic 2 | Coherence=-124.21 | Top words= adani labor qld coal stop want fund support project need
+Topic 3 | Coherence=-135.82 | Top words= adani coal loan point abbot government new slo_cashn turnbull project
+Topic 4 | Coherence=-145.06 | Top words= adani australian job want oppose project loan new people govt
+Topic 5 | Coherence=-126.36 | Top words= adani reef coal great barrier australia want need australian project
+Topic 6 | Coherence=-129.98 | Top words= adani coal stop project australia carmichael labor need fund want
+Topic 7 | Coherence=-150.89 | Top words= adani coal carmichael court title native federal queensland fund new
+Topic 8 | Coherence=-160.12 | Top words= adani santos water coal stop people land whitehaven want farmer
+Topic 9 | Coherence=-165.47 | Top words= santos bhp rio new day tinto nsw water gas project
+Topic 10 | Coherence=-124.98 | Top words= santos gas coal nsw project pilliga seam narrabri csg farmer
+Topic 11 | Coherence=-145.88 | Top words= coal water qld reef climate project money stop loan public
+Topic 12 | Coherence=-142.86 | Top words= adani coal loan fund want rail australia qld line veto
+Topic 13 | Coherence=-139.23 | Top words= bhp rio tinto tax australia australian ore iron billiton fortescue
+Topic 14 | Coherence=-122.33 | Top words= water adani santos basin great artesian nsw risk support australia
+Topic 15 | Coherence=-147.24 | Top words= bhp adani tax pay coal company billiton australia year cut
+Topic 16 | Coherence=-150.63 | Top words= adani coal job 000 reef create 10 australian queensland kill
+Topic 17 | Coherence=-128.56 | Top words= adani joyce barnaby india money coal taxpayer think rail spend
+Topic 18 | Coherence=-176.93 | Top words= adani australia santos tax energy pay year woodside people action
+Topic 19 | Coherence=-119.81 | Top words= gas field land barnaby narrabri propose nsw inland near joyce
 
 
-Time taken to process dataset: 39906.75524163246 seconds, 665.112587360541 minutes, 11.08520978934235 hours.
+ Texts & Topics ..
+australia > bhp billiton things watch ninemsn    (topic: 13)
+nsw govt fast track santos csg project day confirmation contaminate aquifer    (topic: 9)
+map qld drought       adani get approval unlimited water 26 million litre day    (topic: 14)
+santos sign subaru australia year agreement    (topic: 18)
+queensland premier mayor work convince adani ahead       (topic: 14)
+pm turnbull request publicly fund subsidy bin    (topic: 12)
+1 month image coal concentration 10 find adani spill coal lade water wetland (topic: 3)
+carbon capture storage exist call leave fuck grind (topic: 2)
+terminal job huge contamination    build new coal increase cyclone frequency    (topic: 1)
+
+
+Time taken to process dataset: 40567.238966464996 seconds, 676.1206494410833 minutes, 11.268677490684722 hours.
 
 
 Process finished with exit code 0
 
-###########################################################################################
-
-(run 1)
-Placeholder.
 
 ###########################################################################################
 
 (run 2)
-Placeholder.
+ Topic coherence ..
+Topic 0 | Coherence=-153.96 | Top words= adani coal reef australia tax bhp great energy pay barrier
+Topic 1 | Coherence=-175.85 | Top words= santos adani great australia whitehaven basin climate action day want
+Topic 2 | Coherence=-141.50 | Top words= santos adani coal gas barnaby joyce project rail fund government
+Topic 3 | Coherence=-149.54 | Top words= adani coal fund rail project basin galilee money bank public
+Topic 4 | Coherence=-144.03 | Top words= adani coal carmichael fund need bank want india stop power
+Topic 5 | Coherence=-150.87 | Top words= adani coal loan time new canavan minister support project matt
+Topic 6 | Coherence=-137.41 | Top words= adani coal carmichael job queensland project climate australia qld need
+Topic 7 | Coherence=-175.41 | Top words= bhp job adani santos 000 year 10 coal iron billiton
+Topic 8 | Coherence=-131.63 | Top words= bhp rio tinto billiton tax ore pay iron australia fortescue
+Topic 9 | Coherence=-125.09 | Top words= adani loan labor coal stop want election project shorten support
+Topic 10 | Coherence=-155.47 | Top words= adani coal job labor lnp queensland qld want whitehaven fund
+Topic 11 | Coherence=-191.38 | Top words= coal rio tinto adani australia energy year india santos woodside
+Topic 12 | Coherence=-152.15 | Top words= adani coal job qld water reef support great 000 unlimited
+Topic 13 | Coherence=-115.98 | Top words= santos gas nsw water project pilliga narrabri seam csg farmer
+Topic 14 | Coherence=-148.41 | Top words= adani coal turnbull government native title govt qld big carmichael
+Topic 15 | Coherence=-154.30 | Top words= adani climate coal labor change loan billion australian new dollar
+Topic 16 | Coherence=-159.14 | Top words= adani people labor stop federal wo santos group government govt
+Topic 17 | Coherence=-139.28 | Top words= adani coal point abbot loan carmichael australian reef great government
+Topic 18 | Coherence=-149.31 | Top words= coal adani santos people water stop land gas farmer nsw
+Topic 19 | Coherence=-220.89 | Top words= time queensland work plan key continue poll block profit morning
+
+
+ Texts & Topics ..
+usa dark brazilian santos bean 5 pound bag coffee bean direct    (topic: 1)
+years corners probably piece dodgy backroom goings politician adani    (topic: 10)
+essential view tonight 4 corners slo_timepm digging adani     (topic: 1)
+question crime branch mundra gujarat dance word adani corners digging adani    (topic: 12)
+bhp confident strength chinese economy     (topic: 8)
+       (topic: 0)
+jonathan moylan receive good behaviour bond whitehaven hoax       (topic: 1)
+major shift language labor adani formal opposition certain (topic: 9)
+fight adani step way    (topic: 9)
+
+
+Time taken to process dataset: 39396.074105501175 seconds, 656.6012350916862 minutes, 10.94335391819477 hours.
+
+
+Process finished with exit code 0
 
 """
 
