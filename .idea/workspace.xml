@@ -6,12 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithm_topic_extraction_output.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm_topic_extraction_output.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_model.png" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_model.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-introduction.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-introduction.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mandatory-research-documentation/Thank you Letter to Donors - Henry-Peggy Tazelaar Summer Student Research Fellowship.docx" beforeDir="false" afterPath="$PROJECT_DIR$/mandatory-research-documentation/Thank you Letter to Donors - Henry-Peggy Tazelaar Summer Student Research Fellowship.docx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +37,13 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb">
+          <provider selected="true" editor-type-id="jupyter-editor" />
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -158,11 +164,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="37" />
-    <option name="y" value="72" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="13" />
+    <option name="y" value="41" />
     <option name="width" value="1932" />
-    <option name="height" value="2059" />
+    <option name="height" value="2083" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
@@ -485,12 +491,15 @@
       <workItem from="1563553727656" duration="1264000" />
       <workItem from="1563718756857" duration="650000" />
       <workItem from="1563799809153" duration="1371000" />
-      <workItem from="1563812510898" duration="1916000" />
+      <workItem from="1563812510898" duration="1927000" />
+      <workItem from="1563886791479" duration="666000" />
+      <workItem from="1563894934815" duration="660000" />
+      <workItem from="1563903280288" duration="1238000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="736569000" />
+    <option name="totallyTimeSpent" value="739144000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -502,10 +511,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="37" y="72" width="1932" height="2059" extended-state="1" />
+    <frame x="13" y="41" width="1932" height="2083" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.625132" visible="true" weight="0.2815171" />
-      <window_info id="Structure" order="1" sideWeight="0.374868" side_tool="true" visible="true" weight="0.2815171" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.62083334" visible="true" weight="0.3445513" />
+      <window_info id="Structure" order="1" sideWeight="0.37916666" side_tool="true" visible="true" weight="0.3445513" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3294893" />
@@ -514,11 +524,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32857144" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5229701" side_tool="true" visible="true" weight="0.5083074" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5245727" side_tool="true" visible="true" weight="0.50769234" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3288729" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info active="true" anchor="bottom" id="Jupyter" order="11" sideWeight="0.47702992" visible="true" weight="0.5083074" />
+      <window_info anchor="bottom" id="Jupyter" order="11" sideWeight="0.47542736" visible="true" weight="0.50769234" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6597222" weight="0.3270055" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4957265" weight="0.32761788" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -726,9 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb">
-      <provider selected="true" editor-type-id="jupyter-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
@@ -789,6 +796,9 @@
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-implementation.ipynb">
+      <provider selected="true" editor-type-id="jupyter-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
   </component>
