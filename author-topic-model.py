@@ -11,31 +11,6 @@ Notes:
 
 It's finally working! w00t!
 
-Initial results on subset of dataset:
-
-'Label: ' + 1
-'Words: ' + adani slo_url slo_mention abbot rt point coal environmental group develop
-'Label: ' + 2
-'Words: ' + adani slo_url slo_mention abbot rt point coal indian environmental group
-'Label: ' + 3
-'Words: ' + adani slo_url point abbot slo_mention rt coal environmental qldpol develop
-'Label: ' + 4
-'Words: ' + adani slo_url slo_mention rt point abbot coal environmental group qldpol
-'Label: ' + 5
-'Words: ' + slo_url adani slo_mention rt abbot coal point galilee environmental indian
-'Label: ' + 6
-'Words: ' + adani slo_url slo_mention rt coal abbot point group qldpol environmental
-'Label: ' + 7
-'Words: ' + adani slo_url slo_mention rt abbot point coal indian group develop
-'Label: ' + 8
-'Words: ' + adani slo_url slo_mention rt abbot point indian coal group environmental
-'Label: ' + 9
-'Words: ' + adani slo_url slo_mention rt point abbot coal group indian environmental
-'Label: ' + 10
-'Words: ' + adani slo_url slo_mention rt abbot point coal indian group breach
-
-Time taken to process dataset: 0.02193593978881836 seconds, 0.000365598996480306 minutes, 6.0933166080051e-06 hours.
-
 ###########################################################
 Resources Used:
 
@@ -98,21 +73,21 @@ log.disable(level=log.DEBUG)
 #     "twitter-dataset-7-10-19-with-irrelevant-tweets-excluded.csv",
 #     "csv", False)
 
-# Import untokenized CSV dataset.
-tweet_dataset_untokenized = tweet_util_v2.import_dataset(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-    "twitter-dataset-7-10-19-with-irrelevant-tweets-excluded.csv",
-    "csv", False)
+# # Import untokenized CSV dataset.
+# tweet_dataset_untokenized = tweet_util_v2.import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-7-10-19-with-irrelevant-tweets-excluded.csv",
+#     "csv", False)
 
 # # Import untokenized CSV dataset. (test/debug)
 # tweet_dataset_untokenized = tweet_util_v2.import_dataset("twitter-dataset-7-10-19-test-subset-100-examples.csv",
 #                                                          "csv", False)
 
-# # Import untokenized CSV dataset. (test/debug)
-# tweet_dataset_untokenized = tweet_util_v2.import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-test-subset-100-examples.csv",
-#     "csv", False)
+# Import untokenized CSV dataset. (test/debug)
+tweet_dataset_untokenized = tweet_util_v2.import_dataset(
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    "twitter-dataset-7-10-19-test-subset-100-examples.csv",
+    "csv", False)
 
 # Create author-document mappings as a dictionary of key: author, values: tweet ID's
 author2doc = topic_util.topic_author_model_group_by_dataset_row_index_value(tweet_dataset_untokenized, True)
@@ -122,21 +97,21 @@ author2doc = topic_util.topic_author_model_group_by_dataset_row_index_value(twee
 #     "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv",
 #     "csv", False)
 
-# Import tokenized CSV dataset.
-tweet_dataset_tokenized = tweet_util_v2.import_dataset(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-    "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv",
-    "csv", False)
+# # Import tokenized CSV dataset.
+# tweet_dataset_tokenized = tweet_util_v2.import_dataset(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv",
+#     "csv", False)
 
 # # Import tokenized CSV dataset. (test/debug)
 # tweet_dataset_tokenized = tweet_util_v2.import_dataset("twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv",
 #                                                        "csv", False)
 
-# # Import tokenized CSV dataset. (test/debug)
-# tweet_dataset_tokenized = tweet_util_v2.import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv",
-#     "csv", False)
+# Import tokenized CSV dataset. (test/debug)
+tweet_dataset_tokenized = tweet_util_v2.import_dataset(
+    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+    "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-test.csv",
+    "csv", False)
 
 # # Reindex and shuffle the data randomly.
 # tweet_dataset_tokenized = tweet_dataset_tokenized.reindex(
@@ -268,7 +243,6 @@ def author_topic_model_topic_extraction():
             wordz += word + ' '
         # print(f"'Words: ' + {wordz}")
         print('Words: ' + wordz)
-
 
 ############################################################################################
 
