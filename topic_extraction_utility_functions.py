@@ -123,7 +123,7 @@ def preprocess_tweet_text(tweet_text):
     tweet_text = html.unescape(tweet_text)
 
     # Remove "RT" tags.
-    preprocessed_tweet_text = re.sub(r'^(RT @\w+: )', "", tweet_text)
+    preprocessed_tweet_text = re.sub(r'^(rt @\w+: )', "", tweet_text)
 
     # Remove concatenated URL's.
     preprocessed_tweet_text = re.sub(r'(.)http', r'\1 http', preprocessed_tweet_text)
@@ -210,20 +210,22 @@ def postprocess_tweet_text(tweet_text):
     # Remove all punctuation. (using spaCy check instead)
     # postprocessed_tweet_text = tweet_text.translate(str.maketrans('', '', string.punctuation))
 
-    # Remove all "slo_" placeholders. TODO - make functional
-    # preprocessed_tweet_text = re.sub(r'(.*slo_.*)', r" ", tweet_text)
+    # Remove all remaining "slo_" placeholders nested within other characers. TODO - make functional
+    # postprocessed_tweet_text = re.sub(r'[^\S].*?slo_.*?[^\S]', " ", tweet_text)
 
-    # Remove irrelevant words from Tweets.
-    delete_list = ["word_n", "woodside", "auspol", "adani",
-                   "stopadani",
-                   "ausbiz", "santos", "whitehaven", "tinto", "fortescue", "bhp", "adelaide", "billiton", "csg",
-                   "nswpol",
+    # Remove irrelevant words from Tweets. (from Derek Fisher's code
+    delete_list = ["word_n", "auspol", "ausbiz", "tinto", "adelaide", "csg", "nswpol",
                    "nsw", "lng", "don", "rio", "pilliga", "australia", "asx", "just", "today", "great", "says", "like",
                    "big", "better", "rite", "would", "SCREEN_NAME", "mining", "former", "qldpod", "qldpol", "qld", "wr",
                    "melbourne", "andrew", "fuck", "spadani", "greg", "th", "australians", "http", "https", "rt",
-                   "goadani",
-                   "co", "amp", "riotinto", "carmichael", "abbot", "bill shorten",
-                   "slo_url", "slo_mention", "slo_hash", "slo_year", "slo_time", "slo_cash", "slo_stock"]
+                   "co", "amp", "carmichael", "abbot", "bill shorten",
+                   "slo_url", "slo_mention", "slo_hash", "slo_year", "slo_time", "slo_cash", "slo_stock",
+                   "adani", "bhp", "cuesta", "fotescue", "riotinto", "newmontmining", "santos", "oilsearch",
+                   "woodside", "ilukaresources", "whitehavencoal",
+                   "stopadani", "goadani", "bhpbilliton", "billiton", "cuestacoal", "cuests coal", "cqc",
+                   "fortescuenews", "fortescue metals", "rio tinto", "newmont", "newmont mining", "santosltd",
+                   "oilsearchltd", "oil search", "woodsideenergy", "woodside petroleum", "woodside energy",
+                   "iluka", "iluka resources", "whitehaven", "whitehaven coal"]
 
     # Remove stop words from Tweets using nltk.
     # delete_list = list(stopwords.words('english'))
@@ -251,6 +253,9 @@ def postprocess_tweet_text(tweet_text):
     # Check to see if a word is irrelevant or not.
     words_relevant = []
     for w in individual_words:
+        # print(f":{w.text}:")
+        # # If not a irrelevant word and not punctuation and a stop word and doesn't contain "slo_" placeholder.
+        # if w.text not in delete_list and not w.is_punct and not w.is_stop and "slo_" not in w.text:
         # If not a irrelevant word and not punctuation and a stop word.
         if w.text not in delete_list and not w.is_punct and not w.is_stop:
             # word_lemmatized = lemmatizer.lemmatize(w)
@@ -262,6 +267,7 @@ def postprocess_tweet_text(tweet_text):
 
     # Convert list back into original Tweet text minus irrelevant words.
     tweet_string = ' '.join(words_relevant)
+
     # Convert back to a series object.
     tweet_series = pd.Series(tweet_string)
 
@@ -302,8 +308,8 @@ def tweet_dataset_preprocessor(input_file_path, output_file_path, column_name):
 
     #######################################################
 
-    # # Down-case all text. (using spacy instead now - deprecated)
-    # twitter_dataframe[f"{column_name}"] = twitter_dataframe[column_name].str.lower()
+    # Down-case all text.
+    twitter_dataframe[f"{column_name}"] = twitter_dataframe[column_name].str.lower()
 
     # # Pre-process each tweet individually (calls a helper function).
     # twitter_dataframe[f"{column_name}_preprocessed"] = twitter_dataframe[f"{column_name}"].apply(preprocess_tweet_text)
@@ -414,7 +420,8 @@ def non_negative_matrix_factorization_grid_search(dataframe, search_parameters):
     ])
 
     # Perform the grid search.
-    non_negative_matrix_factorization_clf = GridSearchCV(non_negative_matrix_factorization_clf, search_parameters, cv=[(slice(None), slice(None))],
+    non_negative_matrix_factorization_clf = GridSearchCV(non_negative_matrix_factorization_clf, search_parameters,
+                                                         cv=[(slice(None), slice(None))],
                                                          iid=False, n_jobs=None, scoring="accuracy")
     non_negative_matrix_factorization_clf.fit(dataframe)
 
@@ -782,7 +789,7 @@ start_time = time.time()
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
 #     "twitter-dataset-7-10-19-test-subset-100-examples.csv",
 #     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded-created-7-18-19-test.csv",
+#     "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded-created-7-30-19-test.csv",
 #     "text_derived")
 
 # # Test on our topic modeling dataset.
@@ -798,9 +805,17 @@ start_time = time.time()
 # # Tokenize using our Twitter dataset.
 # tweet_dataset_preprocessor(
 #     "/home/jj47/Summer-Research-2019-master/"
-#     "twitter-dataset-7-19-19-with-irrelevant-tweets-excluded",
+#     "twitter-dataset-7-10-19-with-irrelevant-tweets-excluded",
 #     "/home/jj47/Summer-Research-2019-master/"
-#     "twitter-dataset-7-19-19-topic-extraction-ready-tweet-text-with-hashtags-excluded-created-7-19-19.csv",
+#     "twitter-dataset-7-19-19-topic-extraction-ready-tweet-text-with-hashtags-excluded-created-7-29-19.csv",
+#     "text_derived")
+
+# # Tokenize using our Twitter dataset.
+# tweet_dataset_preprocessor(
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-7-10-19-with-irrelevant-tweets-excluded.csv",
+#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#     "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded-created-7-29-19.csv",
 #     "text_derived")
 
 # # Tokenize using our Twitter dataset.

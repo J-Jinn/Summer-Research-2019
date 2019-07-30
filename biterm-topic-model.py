@@ -14,35 +14,6 @@ TODO - remove stop words before training.
 ###########################################################
 Resources Used:
 
-
-###########################################################
-Sample Results:
-
- Topic coherence ..
-Topic 0 | Coherence=-110.16 | Top words= coal project reef need people energy coming say jobs barrier
-Topic 1 | Coherence=-102.36 | Top words= right does business coal thing fight time climate govt lets
-Topic 2 | Coherence=-110.99 | Top words= coal project gas seam money news wont investment wants bad
-Topic 3 | Coherence=-107.85 | Top words= adanis basin loan jobs islands cou cayman galilee direct profit
-Topic 4 | Coherence=-102.73 | Top words= coal aust time finance public pls stop tell breaking trade
-Topic 5 | Coherence=-126.78 | Top words= coal jobs climate public power cut project lets poor cou
-Topic 6 | Coherence=-114.50 | Top words= coal iron foescue gas ore narrabri project repo oil going
-Topic 7 | Coherence=-95.52 | Top words= billion council wont ppl want dollars gov galilee issue australian
-Topic 8 | Coherence=-100.79 | Top words= know company pay did people qlders rates ceo failing voting
-Topic 9 | Coherence=-85.15 | Top words= barnaby right joyce water rail action sho term suppo gas
-Topic 10 | Coherence=-124.35 | Top words= coal water loan adani news government goes dont suppo qlds
-Topic 11 | Coherence=-80.77 | Top words= power india tax prices record hit indian solar australian coal
-Topic 12 | Coherence=-86.96 | Top words= pay council townsville queensland airstrip loan national coal rail working
-Topic 13 | Coherence=-106.44 | Top words= tax need doesnt subsidy loan slocashn australian return dont cash
-Topic 14 | Coherence=-78.61 | Top words= labor election shoen want project coal stop win suppo halt
-Topic 15 | Coherence=-123.08 | Top words= coal jobs new galilee india goes basin sydney need thousands
-Topic 16 | Coherence=-110.03 | Top words= reef want barrier coal new dont save turnbull funding kill
-Topic 17 | Coherence=-116.96 | Top words= coal pay stop line suppoing adanis money labor greens alp
-Topic 18 | Coherence=-79.94 | Top words= queensland coal decide loan ll scrubbed independent director exclusive page
-Topic 19 | Coherence=-55.14 | Top words= farmers advice coonamble week gas people lied tyres access away
-Time taken to process dataset: 45.658793687820435 seconds, 0.7609798947970072 minutes, 0.012682998246616787 hours.
-
-Process finished with exit code 0
-
 """
 
 ################################################################################################################

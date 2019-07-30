@@ -68,20 +68,21 @@ log.disable(level=log.DEBUG)
 # tweet_dataset_processed = \
 #     pd.read_csv("twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv", sep=",")
 
-# Import the dataset (absolute path).
-tweet_dataset_processed = \
-    pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-                "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
-                "-created-7-17-19-tokenized.csv", sep=",")
+# # Import the dataset (absolute path).
+# tweet_dataset_processed = \
+#     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#                 "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
+#                 "-created-7-17-19-tokenized.csv", sep=",")
 
-# # Import the dataset (test/debug).
+# # Import the dataset (relative path - test/debug).
 # tweet_dataset_processed = \
 #     pd.read_csv("twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv", sep=",")
 
-# # Import the dataset (test/debug).
-# tweet_dataset_processed = \
-#     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#                 "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-test.csv", sep=",")
+# Import the dataset (test/debug).
+tweet_dataset_processed = \
+    pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+                "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
+                "-created-7-30-19-test.csv", sep=",")
 
 # Reindex and shuffle the data randomly.
 tweet_dataset_processed = tweet_dataset_processed.reindex(
@@ -171,8 +172,8 @@ def latent_dirichlet_allocation_topic_extraction():
     from pyLDAvis import sklearn
     # pyLDAvis.enable_notebook()
     visualization = sklearn.prepare(lda_model=lda, vectorizer=tf_vectorizer, dtm=tf)
-    visualization
-    pyLDAvis.save_html(visualization, 'visualization.html')
+    pyLDAvis.save_html(visualization, 'lda_visualization-test.html')
+
 
 ################################################################################################################
 

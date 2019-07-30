@@ -64,19 +64,15 @@ log.disable(level=log.DEBUG)
 #     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
 #                 "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv", sep=",")
 
-# # Import the dataset (test/debug).
+# # Import the dataset (relative path - test/debug).
 # tweet_dataset_processed = \
 #     pd.read_csv("twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv", sep=",")
 
 # # Import the dataset (test/debug).
-# tweet_dataset_processed = \
-#     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#                 "twitter-dataset-7-10-19-lda-ready-tweet-text-test.csv", sep=",")
-
-# Test on a small debug dataset.
 tweet_dataset_processed = \
     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-                "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-test.csv", sep=",")
+                "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
+                "-created-7-30-19-test.csv", sep=",")
 
 # Reindex and shuffle the data randomly.
 tweet_dataset_processed = tweet_dataset_processed.reindex(
