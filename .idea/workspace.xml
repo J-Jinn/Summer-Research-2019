@@ -2,35 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/summer-research-2019.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/summer-research-2019.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/author-topic-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/author-topic-model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biterm-topic-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/biterm-topic-model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hierarchical-dirichlet-process-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/hierarchical-dirichlet-process-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_equation.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_equation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_pseudocode.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/author_topic_pseudocode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_equation.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_equation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_pseudocode.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/biterm_pseudocode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_1.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_2.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_3.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/chinese_restaurant_franchise_3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/dirichlet_process_finite_mixture_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/dirichlet_process_finite_mixture_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/dirichlet_process_infinite_mixture_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/dirichlet_process_infinite_mixture_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hdp_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hdp_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hdp_pseudocode.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hdp_pseudocode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hierarchical_dirichlet_process_mixture_model_1.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hierarchical_dirichlet_process_mixture_model_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hierarchical_dirichlet_process_mixture_model_2.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hierarchical_dirichlet_process_mixture_model_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_equation.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_equation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_equation_2.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_equation_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_explanation.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_explanation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_model.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_model.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_pseudocode.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_pseudocode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_pseudocode_2.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/hlda_pseudocode_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_equation.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_equation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_pseudocode.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/images/nmf_pseudocode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/non-negative-matrix-factorization-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/non-negative-matrix-factorization-model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo_twitter_data_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_twitter_data_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/slo_twitter_data_analysis_utility_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/topic_dataset_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/topic_dataset_processor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/topic_extraction_utility_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/topic_extraction_utility_functions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -157,7 +141,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.non-negative-matrix-factorization-model">
+  <component name="RunManager" selected="Python.topic_dataset_processor">
     <configuration name="author-topic-model" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="summer-research-2019" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -172,28 +156,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/author-topic-model.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="hierarchical-latent-dirichlet-allocation-model" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="summer-research-2019" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -246,6 +208,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="topic_dataset_processor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="summer-research-2019" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/topic_dataset_processor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="topic_extraction_utility_functions" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="summer-research-2019" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -270,11 +254,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.topic_dataset_processor" />
         <item itemvalue="Python.non-negative-matrix-factorization-model" />
         <item itemvalue="Python.latent_dirichlet_allocation-model" />
         <item itemvalue="Python.topic_extraction_utility_functions" />
         <item itemvalue="Python.author-topic-model" />
-        <item itemvalue="Python.hierarchical-latent-dirichlet-allocation-model" />
       </list>
     </recent_temporary>
   </component>
@@ -421,7 +405,11 @@
       <workItem from="1564513105566" duration="33000" />
       <workItem from="1564513148667" duration="160000" />
       <workItem from="1564513372706" duration="1688000" />
-      <workItem from="1564516954481" duration="7832000" />
+      <workItem from="1564516954481" duration="11519000" />
+      <workItem from="1564596292013" duration="3597000" />
+      <workItem from="1564605739382" duration="15000" />
+      <workItem from="1564605765422" duration="1882000" />
+      <workItem from="1564679162086" duration="8948000" />
     </task>
     <servers />
   </component>
@@ -479,8 +467,8 @@
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis_v2.coverage" NAME="slo_twitter_data_analysis_v2 Coverage Results" MODIFIED="1561594487827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$dataset_processor_adapted_v2.coverage" NAME="dataset_processor_adapted_v2 Coverage Results" MODIFIED="1561649772771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$hierarchical_dirichlet_process.coverage" NAME="hierarchical-dirichlet-process Coverage Results" MODIFIED="1562616800001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/summer_research_2019$topic_dataset_processor.coverage" NAME="topic_dataset_processor Coverage Results" MODIFIED="1562959581543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$topic_extraction_utility_functions.coverage" NAME="topic_extraction_utility_functions Coverage Results" MODIFIED="1564522133056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/summer_research_2019$topic_dataset_processor.coverage" NAME="topic_dataset_processor Coverage Results" MODIFIED="1564681054958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_lda_topic_extraction_v0_5beta.coverage" NAME="slo-lda-topic-extraction-v0.5beta Coverage Results" MODIFIED="1559669907994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$slo_twitter_data_analysis_utility_functions.coverage" NAME="slo_twitter_data_analysis_utility_functions Coverage Results" MODIFIED="1563214533854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/summer_research_2019$random_lda_example.coverage" NAME="random-lda-example Coverage Results" MODIFIED="1559784666836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
