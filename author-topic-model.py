@@ -80,17 +80,17 @@ tweet_dataset_untokenized = tweet_util_v2.import_dataset(
 # Create author-document mappings as a dictionary of key: author, values: tweet ID's
 author2doc = topic_util.topic_author_model_group_by_dataset_row_index_value(tweet_dataset_untokenized, True)
 
-# # Import tokenized CSV dataset.
-# tweet_dataset_tokenized = tweet_util_v2.import_dataset(
-#     "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-#     "twitter-dataset-7-10-19-lda-ready-tweet-text-with-hashtags-excluded-created-7-17-19.csv",
-#     "csv", False)
+# Import the dataset (absolute path).
+tweet_dataset_tokenized = \
+    pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+                "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
+                "-created-7-29-19-tokenized.csv", sep=",")
 
-# Import tokenized CSV dataset. (test/debug)
-tweet_dataset_tokenized = tweet_util_v2.import_dataset(
-    "D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
-    "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-test.csv",
-    "csv", False)
+# # Import the dataset (test/debug).
+# tweet_dataset_tokenized = \
+#     pd.read_csv("D:/Dropbox/summer-research-2019/jupyter-notebooks/attribute-datasets/"
+#                 "twitter-dataset-7-10-19-topic-extraction-ready-tweet-text-with-hashtags-excluded"
+#                 "-created-7-30-19-test.csv", sep=",")
 
 # # Reindex and shuffle the data randomly.
 # tweet_dataset_tokenized = tweet_dataset_tokenized.reindex(

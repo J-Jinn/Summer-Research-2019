@@ -173,7 +173,11 @@ Process finished with exit code 0
 (run 2)
 (below with recursive tree depth of 2 only)
 
-- still running.
+Process finished with exit code 137 (interrupted by signal 9: SIGKILL)
+
+- failed to produce any output whatsoever.
+
+###########################################################################################
 
 (run 3)
 (below with recursive tree depth of 3 only)
