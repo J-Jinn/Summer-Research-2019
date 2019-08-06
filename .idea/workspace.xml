@@ -3,21 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="37de9daf-3500-4282-89cf-64e12f9a337b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithm_topic_extraction_output_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm_topic_extraction_output_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/author-topic-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/author-topic-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/biterm-topic-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/biterm-topic-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hierarchical-dirichlet-process-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/hierarchical-dirichlet-process-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/hierarchical-latent-dirichlet-allocation-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-implementation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-implementation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/latent_dirichlet_allocation-model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mandatory-research-documentation/Science Fair - Keith VanderLinden - Jinn - PC.indd" beforeDir="false" afterPath="$PROJECT_DIR$/mandatory-research-documentation/Science Fair - Keith VanderLinden - Jinn - PC.indd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mandatory-research-documentation/research-poster-images/Science Fair - Keith VanderLinden - Jinn - PC.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/mandatory-research-documentation/research-poster-images/Science Fair - Keith VanderLinden - Jinn - PC.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/non-negative-matrix-factorization-model.py" beforeDir="false" afterPath="$PROJECT_DIR$/non-negative-matrix-factorization-model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-author-topic-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-biterm-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hdp-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-hlda-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-lda-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/notebooks/slo-nmf-introduction.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/jupyter-notebooks/slo-topic-modeling-algorithms-jupyter-notebooks/topic-modeling-algorithms-table-of-contents.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +104,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cs344-ai" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../slo-classifiers-repo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -414,6 +406,7 @@
       <workItem from="1564679162086" duration="10163000" />
       <workItem from="1564760612611" duration="4080000" />
       <workItem from="1564766289189" duration="6486000" />
+      <workItem from="1565035312669" duration="4243000" />
     </task>
     <servers />
   </component>
